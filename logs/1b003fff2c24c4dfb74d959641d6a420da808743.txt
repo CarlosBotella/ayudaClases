@@ -1,0 +1,85 @@
+===== npm install
+npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 493 packages in 17s
+===== fin npm install: código 0
+===== typescript
+===== fin typescript: código 0
+===== tests
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
+
+[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m
+
+[2m Test Files [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[32m144 passed[39m[22m[90m (144)[39m
+[2m   Start at [22m 18:02:56
+[2m   Duration [22m 902ms[2m (transform 291ms, setup 0ms, collect 505ms, tests 143ms, environment 1ms, prepare 749ms)[22m
+
+===== fin tests: código 0
+===== extra
+pato [(2563, 2, 'patos', False, False), (28479, 2, 'patos', False, False), (28477, 2, 'patos', False, False)]
+mesa [(3129, 2, 'mesas', False, False), (6562, 2, 'mesas', False, False)]
+comer [(2349, 3, '', False, False), (6456, 3, '', False, False), (28641, 3, '', False, False)]
+grande [(4658, 4, 'grandes', False, False), (6886, 4, 'grandes', False, False), (28201, 4, 'grandes', False, False)]
+pequeño [(4716, 4, 'pequeños', False, False)]
+rojo [(2808, 4, 'rojos', False, False)]
+hola [(6009, 5, '', False, False), (6522, 5, '', False, False), (34567, 5, '', False, False)]
+madrid [(14840, 1, '', False, False)]
+mamá [(2458, 2, 'mamás', False, False)]
+sopa [(2573, 2, 'sopas', False, False)]
+oso [(2488, 2, 'osos', False, False), (2869, 2, 'osos', False, False), (2868, 2, 'osos', False, False)]
+sol [(2798, 1, '', False, False), (7252, 1, '', False, False)]
+y [(3047, 6, '', False, False), (3171, 6, '', False, False), (11399, 6, '', False, False)]
+la [(7029, 1, '', False, False), (8476, 6, 'Forma singular', False, False), (8476, 6, 'Forma singular', False, False)]
+dos [(2628, 4, '', False, False), (4890, 4, '', False, False), (7027, 4, '', False, False), (35679, 4, '', False, False)]
+tres [(2629, 4, '', False, False), (4891, 4, '', False, False), (7283, 4, '', False, False), (35681, 4, '', False, False)]
+el [(8476, 6, 'Forma singular', False, False)]
+tipos: Counter({2: 12613, 3: 4333, 4: 2018, 6: 938, 1: 890, 5: 340, None: 21})
+claves de keyword: ['hasLocution', 'keyword', 'meaning', 'plural', 'type']
+===== fin extra: código 0
+===== build
+
+> viaje-lector@0.0.1 build
+> tsc -b && vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 45 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mregisterSW.js                                         [39m[1m[2m  0.16 kB[22m[1m[22m
+[2mdist/[22m[32mmanifest.webmanifest                                  [39m[1m[2m  0.53 kB[22m[1m[22m
+[2mdist/[22m[32mindex.html                                            [39m[1m[2m  1.12 kB[22m[1m[22m[2m │ gzip:  0.50 kB[22m
+[2mdist/[22m[2massets/[22m[32mandika-vietnamese-400-normal-Bw99zChb.woff     [39m[1m[2m  6.63 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-vietnamese-700-normal-CZOGxJjV.woff     [39m[1m[2m  6.78 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-vietnamese-400-normal-afg23LQ3.woff2    [39m[1m[2m  8.28 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-vietnamese-700-normal-CS3rZngu.woff2    [39m[1m[2m  8.29 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-700-normal-Bzg0mZT8.woff       [39m[1m[2m  9.70 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-400-normal-CIdpN1kB.woff       [39m[1m[2m  9.73 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-700-normal-D404ywHU.woff2      [39m[1m[2m 12.48 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-400-normal-DYbdP60f.woff2      [39m[1m[2m 12.58 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-ext-700-normal-BdIUMeTx.woff   [39m[1m[2m 14.14 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-ext-400-normal-BJwze9_g.woff   [39m[1m[2m 14.38 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BK42By1L.woff          [39m[1m[2m 16.20 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-CAUSQC6x.woff          [39m[1m[2m 16.36 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BTFTIZb-.woff2         [39m[1m[2m 19.21 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-ext-700-normal-DvCsrHON.woff2  [39m[1m[2m 19.34 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-Dk95f5lc.woff2         [39m[1m[2m 19.47 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-cyrillic-ext-400-normal-VNDy5CZS.woff2  [39m[1m[2m 19.71 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-ext-400-normal-NXfvB_tZ.woff      [39m[1m[2m 74.75 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-ext-700-normal-DBt0PRsd.woff      [39m[1m[2m 75.28 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-ext-400-normal-D580Nkki.woff2     [39m[1m[2m 81.42 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-ext-700-normal-Ch3SGZaH.woff2     [39m[1m[2m 81.43 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-BSKZ13HN.css                             [39m[1m[2m 15.52 kB[22m[1m[22m[2m │ gzip:  3.98 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-DWmVanWD.js                              [39m[1m[2m265.45 kB[22m[1m[22m[2m │ gzip: 84.86 kB[22m
+[32m✓ built in 1.40s[39m
+
+[36mPWA v1.3.0[39m
+mode      [35mgenerateSW[39m
+precache  [32m25 entries[39m [2m(631.46 KiB)[22m
+files generated
+  [2mdist/sw.js[22m
+  [2mdist/workbox-835c8c05.js[22m
+===== fin build: código 0
+ESTADO FINAL: 0
