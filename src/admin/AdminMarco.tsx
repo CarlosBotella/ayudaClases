@@ -3,7 +3,8 @@
  * Es una zona de adultos: tipografía normal, pantallas con texto.
  */
 import { useState, type FormEvent, type ReactNode } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import { irALaApp } from '../lib/zonas.ts';
 import { useSesionTutor } from '../sesion/SesionTutor.tsx';
 import { EMAIL_TUTOR } from '../datos/esquemas.ts';
 import Cargando from '../componentes/Cargando.tsx';
@@ -104,7 +105,6 @@ function Verificar() {
 
 export default function AdminMarco() {
   const { estado, salir } = useSesionTutor();
-  const navegar = useNavigate();
 
   switch (estado.tipo) {
     case 'sin-configurar':
@@ -152,7 +152,7 @@ export default function AdminMarco() {
           Métricas
         </span>
         <span className="flex-1" />
-        <button type="button" className={estilos.botonSuave} onClick={() => navegar('/')}>
+        <button type="button" className={estilos.botonSuave} onClick={irALaApp}>
           Volver a la app
         </button>
         <button type="button" className="min-h-12 px-3 text-tinta/60 underline" onClick={() => void salir()}>

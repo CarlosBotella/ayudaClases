@@ -11,6 +11,7 @@ import { useDispositivo } from '../sesion/SesionNina.tsx';
 import Cargando from '../componentes/Cargando.tsx';
 import { ICONO_MECANICA, IconoCandado, IconoEstrella, IconoFlechaAtras } from '../componentes/Iconos.tsx';
 import PuertaParental from '../componentes/PuertaParental.tsx';
+import { JUEGOS_PROFE } from './JugarProfe.tsx';
 
 export default function Mundo() {
   const { mundo: texto } = useParams();
@@ -92,6 +93,34 @@ export default function Mundo() {
           </motion.button>
         );
       })}
+
+      {/* Solo en tutoría: juegos para jugar con el profe */}
+      {sesion.dispositivo.contexto === 'tutoria' && (
+        <div className="absolute bottom-4 right-4 flex items-center gap-3 rounded-3xl bg-white/85 px-4 py-3 shadow-lg">
+          <span className="mr-1 font-sans text-lg font-bold text-mar-oscuro">Con el profe</span>
+          {JUEGOS_PROFE.map(({ juego, titulo }) => {
+            const Icono = ICONO_MECANICA[juego];
+            const estrellas = progreso.mejores.get(`m${mundo}-profe-${juego}`)?.estrellas ?? 0;
+            return (
+              <motion.button
+                key={juego}
+                type="button"
+                whileTap={{ scale: 0.92 }}
+                onClick={() => navegar(`/profe/${mundo}/${juego}`)}
+                aria-label={titulo}
+                className="relative flex size-20 items-center justify-center rounded-full bg-sol text-white shadow"
+              >
+                <Icono className="size-11" />
+                {estrellas > 0 && (
+                  <span className="absolute -bottom-1 -right-1 flex items-center rounded-full bg-white px-1.5 text-sm font-bold text-sol shadow">
+                    {estrellas}★
+                  </span>
+                )}
+              </motion.button>
+            );
+          })}
+        </div>
+      )}
 
       <PuertaParental
         className="absolute bottom-4 left-4"

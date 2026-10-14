@@ -4,14 +4,22 @@
  */
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import type { Nivel } from '../datos/esquemas.ts';
+import type { Mecanica } from '../datos/esquemas.ts';
 import { hablar } from '../lib/voz.ts';
 import { ICONO_MECANICA, IconoAltavoz, IconoPlay } from '../componentes/Iconos.tsx';
-import { instruccionDe } from './instrucciones.ts';
+import type { Instruccion } from './instrucciones.ts';
 
-export default function PantallaInstrucciones({ nivel, onEmpezar }: { nivel: Nivel; onEmpezar: () => void }) {
-  const { nina, adulto } = instruccionDe(nivel);
-  const Icono = ICONO_MECANICA[nivel.mecanica];
+export default function PantallaInstrucciones({
+  mecanica,
+  instruccion,
+  onEmpezar,
+}: {
+  mecanica: Mecanica;
+  instruccion: Instruccion;
+  onEmpezar: () => void;
+}) {
+  const { nina, adulto } = instruccion;
+  const Icono = ICONO_MECANICA[mecanica];
 
   useEffect(() => {
     const t = window.setTimeout(() => hablar(nina), 400);

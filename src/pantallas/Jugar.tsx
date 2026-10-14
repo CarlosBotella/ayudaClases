@@ -12,9 +12,8 @@ import { useContenido, useProgreso } from '../datos/hooks.ts';
 import { DURACION_SESION_MS, useDispositivo, useSesionNina } from '../sesion/SesionNina.tsx';
 import { calcularEstrellas } from '../lib/estrellas.ts';
 import { sonidoFanfarria } from '../lib/sonidos.ts';
-import { IconoEstrella, IconoFlechaAtras, IconoOtraVez, IconoPlay } from '../componentes/Iconos.tsx';
-import Pictograma from '../componentes/Pictograma.tsx';
-import Destellos from '../componentes/Destellos.tsx';
+import { IconoFlechaAtras } from '../componentes/Iconos.tsx';
+import FinNivel, { type Final } from '../componentes/FinNivel.tsx';
 import Cargando from '../componentes/Cargando.tsx';
 import { crearRegistrador, nuevoId } from '../juegos/registro.ts';
 import type { ResultadoJuego } from '../juegos/tipos.ts';
@@ -27,10 +26,6 @@ import PantallaInstrucciones from '../juegos/PantallaInstrucciones.tsx';
 import { instruccionDe } from '../juegos/instrucciones.ts';
 import { hablar } from '../lib/voz.ts';
 
-interface Final {
-  estrellas: number;
-  pegatina?: { palabra: string; img: number };
-}
 
 export default function Jugar() {
   const { mundo: mundoTexto, nivelId } = useParams();
@@ -153,7 +148,8 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
       <div className="relative min-h-0 flex-1" key={ronda}>
         {!empezado ? (
           <PantallaInstrucciones
-            nivel={nivel}
+            mecanica={nivel.mecanica}
+            instruccion={instruccionDe(nivel)}
             onEmpezar={() => {
               inicio.current = performance.now();
               setEmpezado(true);
@@ -173,63 +169,6 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
           <JuegoCarrera nivel={nivel} mejor={mejor} {...comunes} />
         )}
       </div>
-    </div>
-  );
-}
-
-function FinNivel({ final, onOtraVez, onSeguir }: { final: Final; onOtraVez: () => void; onSeguir: () => void }) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-10">
-      <div className="relative flex items-end gap-6">
-        <Destellos disparo={1} radio={260} />
-        {[1, 2, 3].map((n) => (
-          <motion.div
-            key={n}
-            initial={{ scale: 0, rotate: -90 }}
-            animate={{ scale: n === 2 ? 1.25 : 1, rotate: 0 }}
-            transition={{ delay: 0.25 + n * 0.3, type: 'spring', stiffness: 220, damping: 12 }}
-            className={n <= final.estrellas ? 'text-sol drop-shadow-lg' : 'text-tinta/15'}
-          >
-            <IconoEstrella className="size-32" llena={n <= final.estrellas} />
-          </motion.div>
-        ))}
-      </div>
-
-      {final.pegatina && (
-        <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.4 }}
-          className="flex items-center gap-4 rounded-3xl bg-white px-6 py-3 shadow-md"
-        >
-          <Pictograma id={final.pegatina.img} tamano={90} />
-          <span className="texto-lectura text-[48px] font-bold text-sol">{final.pegatina.palabra}</span>
-        </motion.div>
-      )}
-
-      <motion.div
-        className="flex gap-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-      >
-        <button
-          type="button"
-          onClick={onOtraVez}
-          aria-label="Jugar otra vez"
-          className="flex size-28 items-center justify-center rounded-full bg-white text-mar shadow-lg active:scale-95"
-        >
-          <IconoOtraVez className="size-14" />
-        </button>
-        <button
-          type="button"
-          onClick={onSeguir}
-          aria-label="Seguir"
-          className="flex size-28 items-center justify-center rounded-full bg-sol text-white shadow-[0_8px_0_0_#d9952a] active:translate-y-2"
-        >
-          <IconoPlay className="ml-2 size-14" />
-        </button>
-      </motion.div>
     </div>
   );
 }

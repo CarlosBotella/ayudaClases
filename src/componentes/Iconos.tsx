@@ -120,10 +120,42 @@ export const IconoFantasma = (p: P) => (
   </svg>
 );
 
+export const IconoPillado = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round">
+    <circle cx="10.5" cy="10.5" r="6.5" fill="currentColor" fillOpacity={0.15} />
+    <path d="m15.5 15.5 5 5" />
+    <path d="M10.5 7v4" strokeWidth={2.8} />
+    <circle cx="10.5" cy="14" r="0.6" fill="currentColor" />
+  </svg>
+);
+
+export const IconoLapiz = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinejoin="round">
+    <path d="M4 20l1.2-4.6L16 4.6a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L8.6 18.8 4 20Z" fill="currentColor" fillOpacity={0.15} />
+    <path d="m14 6.6 3.4 3.4" />
+  </svg>
+);
+
+export const IconoCartas = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2} strokeLinejoin="round">
+    <rect x="3" y="6" width="10" height="14" rx="2" transform="rotate(-10 8 13)" fill="currentColor" fillOpacity={0.15} />
+    <rect x="11" y="4" width="10" height="14" rx="2" transform="rotate(8 16 11)" fill="currentColor" fillOpacity={0.3} />
+  </svg>
+);
+
+export const IconoPulgar = (p: P) => (
+  <svg {...base(p)} fill="currentColor">
+    <path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm2 0 3.6-6.3a1.6 1.6 0 0 1 3 .9L15 9h4.6a2 2 0 0 1 2 2.4l-1.4 7A2 2 0 0 1 18.2 20H9V10Z" />
+  </svg>
+);
+
 export const ICONO_MECANICA = {
   intrusa: IconoIntrusa,
   burbujas: IconoBurbujas,
   tren: IconoTren,
   detective: IconoLupa,
   carrera: IconoCohete,
+  pillado: IconoPillado,
+  dictado: IconoLapiz,
+  parejas: IconoCartas,
 } as const;

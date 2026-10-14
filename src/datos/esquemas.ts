@@ -43,7 +43,19 @@ export const PalabraContenidoZ = z.object({
 export const ContextoZ = z.enum(['tutoria', 'casa']);
 export type Contexto = z.infer<typeof ContextoZ>;
 
-export const MecanicaZ = z.enum(['intrusa', 'burbujas', 'tren', 'detective', 'carrera']);
+export const MecanicaZ = z.enum([
+  'intrusa',
+  'burbujas',
+  'tren',
+  'detective',
+  'carrera',
+  // Juegos con el profe (solo en tablets de tutoría)
+  'pillado',
+  'dictado',
+  'parejas',
+]);
+/** Juegos que se juegan con el profe, en tutoría. */
+export type JuegoProfe = 'pillado' | 'dictado' | 'parejas';
 export type Mecanica = z.infer<typeof MecanicaZ>;
 
 // ─── Niveles (uno por mecánica) ─────────────────────────────────────────────

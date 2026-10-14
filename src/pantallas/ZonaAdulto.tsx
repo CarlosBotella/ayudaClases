@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispositivo, useSesionNina } from '../sesion/SesionNina.tsx';
+import { irAlPanel } from '../lib/zonas.ts';
 
 export default function ZonaAdulto() {
   const navegar = useNavigate();
@@ -28,7 +29,7 @@ export default function ZonaAdulto() {
         </p>
       )}
 
-      <button type="button" className={`${boton} bg-mar text-white`} onClick={() => navegar('/admin')}>
+      <button type="button" className={`${boton} bg-mar text-white`} onClick={irAlPanel}>
         Panel del tutor
       </button>
       <button type="button" className={`${boton} bg-white text-mar`} onClick={() => navegar('/creditos')}>

@@ -25,6 +25,11 @@ body,
   height: 100%;
 }
 
+/* Sin "rebote" ni gesto de deslizar para volver atrás (Chrome/Android). */
+html {
+  overscroll-behavior: none;
+}
+
 body {
   margin: 0;
   background: var(--color-crema);

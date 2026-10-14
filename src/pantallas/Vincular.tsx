@@ -4,7 +4,6 @@
  * la tablet es de casa o de tutoría.
  */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSesionNina } from '../sesion/SesionNina.tsx';
 
 export default function Vincular() {
@@ -33,9 +32,9 @@ export default function Vincular() {
         </p>
         <p className="mt-6 text-base text-tinta/60">
           ¿Eres el tutor?{' '}
-          <Link to="/admin" className="font-bold text-mar underline">
+          <a href="#/admin" className="font-bold text-mar underline">
             Entra en el panel
-          </Link>
+          </a>
         </p>
       </div>
 

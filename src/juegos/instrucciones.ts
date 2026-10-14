@@ -3,7 +3,7 @@
  *  - `nina`: una frase que se lee EN VOZ ALTA (ella aún lee despacio).
  *  - `adulto`: nota opcional para el adulto que acompaña.
  */
-import type { Nivel } from '../datos/esquemas.ts';
+import type { JuegoProfe, Nivel } from '../datos/esquemas.ts';
 
 export interface Instruccion {
   nina: string;
@@ -49,6 +49,33 @@ export function instruccionDe(nivel: Nivel): Instruccion {
           'Pulsa ▶ para empezar. Ella lee cada palabra en voz alta y tú tocas ✓ si la ha leído bien o ✗ si no. ' +
           'El cohete avanza con cada palabra; el fantasma es su mejor marca anterior. ' +
           'Al final se calculan sus palabras correctas por minuto.',
+      };
+  }
+}
+
+/** Juegos con el profe (tutoría): aquí la nota para el adulto es la clave. */
+export function instruccionProfe(juego: JuegoProfe): Instruccion {
+  switch (juego) {
+    case 'pillado':
+      return {
+        nina: 'El profe lee la palabra. ¿La ha leído bien, o le has pillado?',
+        adulto:
+          'Lee en voz alta lo que te indica el recuadro «Profe, lee». A veces es la palabra bien y a veces con un error ' +
+          'típico. Ella toca el pulgar si está bien o la lupa si te ha pillado.',
+      };
+    case 'dictado':
+      return {
+        nina: 'Escucha la palabra y escríbela con las letras.',
+        adulto:
+          'Dicta despacio la palabra del recuadro «Profe, dicta» (o toca el altavoz). Ella toca las letras en orden. ' +
+          'Hay letras trampa en espejo o que suenan parecido.',
+      };
+    case 'parejas':
+      return {
+        nina: 'Busca cada palabra con su dibujo. ¡Jugáis por turnos!',
+        adulto:
+          'Por turnos, cada uno levanta dos cartas. Si sale pareja, quien la encuentra lee la palabra en voz alta y ' +
+          'repite turno. Cuando ella lee, tú marcas si la ha leído bien.',
       };
   }
 }

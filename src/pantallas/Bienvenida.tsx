@@ -85,9 +85,9 @@ export default function Bienvenida({ aviso }: { aviso?: string }) {
           <Link to="/creditos" className="underline underline-offset-4">
             Créditos
           </Link>
-          <Link to="/admin" className="underline underline-offset-4">
+          <a href="#/admin" className="underline underline-offset-4">
             Panel del tutor
-          </Link>
+          </a>
         </span>
         <span>
           {voz === null ? 'Buscando voz…' : voz ? `Voz: ${voz}` : 'Sin voz en español'} ·{' '}

@@ -85,6 +85,13 @@ export default function Mapa() {
         );
       })}
 
+      {/* Dónde se está jugando: casa o tutoría */}
+      {sesion && (
+        <span className="absolute left-5 top-5 rounded-full bg-white/85 px-4 py-2 font-sans text-lg font-bold text-mar-oscuro shadow">
+          {sesion.dispositivo.contexto === 'casa' ? '🏠 En casa' : '📚 En tutoría'}
+        </span>
+      )}
+
       {/* Álbum de pegatinas */}
       <button
         type="button"
