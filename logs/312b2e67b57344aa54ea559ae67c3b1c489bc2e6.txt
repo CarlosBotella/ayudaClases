@@ -1,0 +1,248 @@
+===== npm install
+npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 532 packages in 9s
+===== fin npm install: código 0
+===== typescript
+===== fin typescript: código 0
+===== tests
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
+
+[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m
+
+[2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m      Tests [22m [1m[32m238 passed[39m[22m[90m (238)[39m
+[2m   Start at [22m 20:36:21
+[2m   Duration [22m 2.48s[2m (transform 641ms, setup 0ms, collect 1.34s, tests 293ms, environment 11ms, prepare 1.83s)[22m
+
+===== fin tests: código 0
+===== reglas
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated json-ptr@3.1.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[36m[1mi  emulators:[22m[39m Starting emulators: firestore
+[36m[1mi  emulators:[22m[39m Detected demo project ID "demo-viaje-lector", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+[33m[1m⚠ [22m[39m It appears you are running in a CI environment. You can avoid downloading the Firestore Emulator repeatedly by caching the /home/runner/.cache/firebase/emulators directory.
+[36m[1mi  firestore:[22m[39m downloading cloud-firestore-emulator-v1.22.0.jar...
+
+[36m[1mi  firestore:[22m[39m Firestore Emulator logging to [1mfirestore-debug.log[22m
+[32m[1m✔  firestore:[22m[39m Firestore Emulator was started in standard edition.
+[32m[1m✔  firestore:[22m[39m Firestore Emulator UI websocket is running on 9150.
+[36m[1mi [22m[39m Running script: [1mnpx vitest run -c vitest.reglas.config.ts --reporter=verbose[22m
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ una tablet lo lee[33m 666[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ sin sesión no se lee[32m 155[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ una tablet no lo escribe
+[22m[39m[2026-10-14T20:36:51.195Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2db1 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L47, Property email is undefined on object. for 'update' @ L47, Property email is undefined on object. for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ una tablet no lo escribe[32m 160[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ el tutor sin email verificado no escribe
+[22m[39m[2026-10-14T20:36:51.375Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2db5 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L47, false for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ el tutor lo escribe[32m 89[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ el tutor sin email verificado no escribe[32m 90[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ otra cuenta con email no escribe
+[22m[39m[2026-10-14T20:36:51.460Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2db7 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L47, false for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ otra cuenta con email no escribe[32m 85[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m✅ el tutor lee y crea alumnas[32m 135[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet vinculada no lee la ficha de la alumna[32m 80[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mstudents[2m > [22m[2m❌ la tablet no crea alumnas
+[22m[39m[2026-10-14T20:36:51.750Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dbe error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L52, Property email is undefined on object. for 'update' @ L52, Property email is undefined on object. for 'create' @ L52
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet no crea alumnas[32m 75[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ con sesión se lee un código concreto[32m 70[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no puede listar los códigos[32m 83[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mpairingCodes[2m > [22m[2m❌ una tablet no crea códigos
+[22m[39m[2026-10-14T20:36:51.984Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dc4 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L100, false for 'update' @ L104, Property email is undefined on object. for 'create' @ L100
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no crea códigos[32m 80[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ el tutor crea y borra códigos[32m 90[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet nueva se vincula con un código vigente[32m 84[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código caducado
+[22m[39m[2026-10-14T20:36:52.239Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dcb error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L126:32 for 'create' @ L126, evaluation error at L126:32 for 'update' @ L126, false for 'create' @ L126
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código caducado[32m 81[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código inexistente
+[22m[39m[2026-10-14T20:36:52.310Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dcd error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L126:32 for 'create' @ L126, evaluation error at L126:32 for 'update' @ L126, false for 'create' @ L126
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando la alumna del código
+[22m[39m[2026-10-14T20:36:52.382Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dcf error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L126:32 for 'create' @ L126, evaluation error at L126:32 for 'update' @ L126, false for 'create' @ L126
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código inexistente[32m 71[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando la alumna del código[32m 72[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando el contexto del código
+[22m[39m[2026-10-14T20:36:52.461Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dd1 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L126:32 for 'create' @ L126, evaluation error at L126:32 for 'update' @ L126, false for 'create' @ L126
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando el contexto del código[32m 79[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ escribiendo el documento de OTRA tablet
+[22m[39m[2026-10-14T20:36:52.550Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dd3 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L126, false for 'update' @ L126
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ escribiendo el documento de OTRA tablet[32m 88[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet lee su propio vínculo[32m 82[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ una tablet no lee el de otra[32m 69[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ el tutor lista las tablets y desvincula[32m 106[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet de la alumna guarda un nivel[32m 64[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ con PCPM y pegatina opcionales[32m 70[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con un contexto distinto al de la tablet
+[22m[39m[2026-10-14T20:36:53.008Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2de0 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L69, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con un contexto distinto al de la tablet[32m 67[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con más de 3 estrellas
+[22m[39m[2026-10-14T20:36:53.074Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2de2 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L58, false for 'update' @ L69
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con campos de más
+[22m[39m[2026-10-14T20:36:53.144Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2de4 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L58, false for 'update' @ L69
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con más de 3 estrellas[32m 66[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con campos de más[32m 70[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ para otra alumna
+[22m[39m[2026-10-14T20:36:53.208Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2de6 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L69, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ para otra alumna[32m 64[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ desde una tablet sin vincular
+[22m[39m[2026-10-14T20:36:53.281Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2de8 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L69, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ desde una tablet sin vincular[32m 73[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet lee los resultados de su alumna[32m 66[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
+[22m[39m[2026-10-14T20:36:53.467Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dee error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L69
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
+[22m[39m[2026-10-14T20:36:53.485Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2def error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L69
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ la tablet no lee los de otra alumna[32m 58[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie edita un resultado (ni el tutor)[32m 80[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
+[22m[39m[2026-10-14T20:36:53.537Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2df1 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L69
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
+[22m[39m[2026-10-14T20:36:53.555Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2df2 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L69
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie borra un resultado (ni el tutor)[32m 69[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ para otra alumna
+[22m[39m[2026-10-14T20:36:53.679Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2df6 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L75:26 for 'create' @ L75, false for 'update' @ L84, false for 'create' @ L75
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ la tablet de la alumna añade un intento[32m 57[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ para otra alumna[32m 66[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con campos de más
+[22m[39m[2026-10-14T20:36:53.780Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2df8 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L75, false for 'update' @ L84
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con campos de más[32m 101[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con "correcto" que no sea booleano
+[22m[39m[2026-10-14T20:36:53.850Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2dfa error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L75, false for 'update' @ L84
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con "correcto" que no sea booleano[32m 69[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ la tablet no lee los intentos[32m 55[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T20:36:54.036Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2e00 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L84
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T20:36:54.055Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2e01 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L84
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T20:36:54.074Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2e02 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L84
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ el tutor lee los intentos[32m 70[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ nadie edita ni borra intentos (ni el tutor)[32m 100[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mplanes (reto fijado y deberes)[2m > [22m✅ la tablet de la alumna lee su plan[32m 55[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mplanes (reto fijado y deberes)[2m > [22m❌ la tablet no lee el plan de otra alumna[32m 64[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mplanes (reto fijado y deberes)[2m > [22m❌ una tablet sin vincular no lo lee[32m 73[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mplanes (reto fijado y deberes)[2m > [22m[2m❌ la tablet no puede cambiarse los deberes
+[22m[39m[2026-10-14T20:36:54.326Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x151f2e0a error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L92, Property email is undefined on object. for 'update' @ L92, Property email is undefined on object. for 'update' @ L92
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mplanes (reto fijado y deberes)[2m > [22m❌ la tablet no puede cambiarse los deberes[32m 60[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mplanes (reto fijado y deberes)[2m > [22m✅ el tutor escribe el plan[32m 57[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m45 passed[39m[22m[90m (45)[39m
+[2m   Start at [22m 20:36:48
+[2m   Duration [22m 6.26s[2m (transform 60ms, setup 0ms, collect 194ms, tests 5.86s, environment 0ms, prepare 59ms)[22m
+
+[32m[1m✔ [22m[39m Script exited successfully (code 0)
+[36m[1mi  emulators:[22m[39m Shutting down emulators.
+[36m[1mi  firestore:[22m[39m Stopping Firestore Emulator
+[36m[1mi  hub:[22m[39m Stopping emulator hub
+[36m[1mi  logging:[22m[39m Stopping Logging Emulator
+===== fin reglas: código 0
+===== extra
+===== fin extra: código 0
+===== build
+
+> viaje-lector@0.0.1 build
+> tsc -b && vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[33mnode_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+[33mnode_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+[32m✓[39m 1215 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mregisterSW.js                                  [39m[1m[2m  0.16 kB[22m[1m[22m
+[2mdist/[22m[32mmanifest.webmanifest                           [39m[1m[2m  0.53 kB[22m[1m[22m
+[2mdist/[22m[32mindex.html                                     [39m[1m[2m  1.30 kB[22m[1m[22m[2m │ gzip:   0.55 kB[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BK42By1L.woff   [39m[1m[2m 16.20 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-CAUSQC6x.woff   [39m[1m[2m 16.36 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BTFTIZb-.woff2  [39m[1m[2m 19.21 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-Dk95f5lc.woff2  [39m[1m[2m 19.47 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-B9OsVpA6.css                      [39m[1m[2m 40.26 kB[22m[1m[22m[2m │ gzip:   7.27 kB[22m
+[2mdist/[22m[2massets/[22m[36manimacion-Bo_un_dm.js                   [39m[1m[2m178.77 kB[22m[1m[22m[2m │ gzip:  58.74 kB[22m
+[2mdist/[22m[2massets/[22m[36mRutasAdmin-CipHl87F.js                  [39m[1m[2m444.53 kB[22m[1m[22m[2m │ gzip: 130.37 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-CWiQMc4F.js                       [39m[1m[2m461.70 kB[22m[1m[22m[2m │ gzip: 142.95 kB[22m
+[2mdist/[22m[2massets/[22m[36mfirebase-CkU_OjpI.js                    [39m[1m[33m629.12 kB[39m[22m[2m │ gzip: 186.54 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 5.92s[39m
+
+[36mPWA v1.3.0[39m
+mode      [35mgenerateSW[39m
+precache  [32m20 entries[39m [2m(1832.70 KiB)[22m
+files generated
+  [2mdist/sw.js[22m
+  [2mdist/workbox-835c8c05.js[22m
+===== fin build: código 0
+ESTADO FINAL: 0
