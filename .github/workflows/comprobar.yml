@@ -1,0 +1,44 @@
+name: Comprobar (rama dev)
+
+# Banco de pruebas: en cada push a "dev" ejecuta TypeScript, tests, build y
+# sondeos, y guarda el informe en la rama "ci-logs" (logs/<commit>.txt).
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Comprobar todo
+        id: comprobar
+        continue-on-error: true
+        run: scripts/ci-comprobar.sh /tmp/informe.txt
+      - name: Guardar informe en la rama ci-logs
+        if: always()
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd /tmp
+          URL="https://x-access-token:${TOKEN}@github.com/${{ github.repository }}"
+          if git clone -q --depth 1 --branch ci-logs "$URL" logs 2>/dev/null; then cd logs; else
+            git init -q logs && cd logs && git checkout -q -b ci-logs && git remote add origin "$URL"; fi
+          mkdir -p logs && cp /tmp/informe.txt "logs/${{ github.sha }}.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add logs && git commit -q -m "informe ${{ github.sha }}" && git push -q origin ci-logs
+      - name: Resultado
+        if: steps.comprobar.outcome == 'failure'
+        run: exit 1
