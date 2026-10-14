@@ -1,0 +1,274 @@
+===== npm install
+npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 493 packages in 10s
+===== fin npm install: código 0
+===== typescript
+===== fin typescript: código 0
+===== tests
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
+
+[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m[33m[39m[32m·[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m174 passed[39m[22m[90m (174)[39m
+[2m   Start at [22m 18:26:31
+[2m   Duration [22m 1.58s[2m (transform 454ms, setup 0ms, collect 939ms, tests 185ms, environment 2ms, prepare 1.17s)[22m
+
+===== fin tests: código 0
+===== reglas
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated json-ptr@3.1.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[36m[1mi  emulators:[22m[39m Starting emulators: firestore
+[36m[1mi  emulators:[22m[39m Detected demo project ID "demo-viaje-lector", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+[33m[1m⚠ [22m[39m It appears you are running in a CI environment. You can avoid downloading the Firestore Emulator repeatedly by caching the /home/runner/.cache/firebase/emulators directory.
+[36m[1mi  firestore:[22m[39m downloading cloud-firestore-emulator-v1.22.0.jar...
+
+[36m[1mi  firestore:[22m[39m Firestore Emulator logging to [1mfirestore-debug.log[22m
+[32m[1m✔  firestore:[22m[39m Firestore Emulator was started in standard edition.
+[32m[1m✔  firestore:[22m[39m Firestore Emulator UI websocket is running on 9150.
+[36m[1mi [22m[39m Running script: [1mnpx vitest run -c vitest.reglas.config.ts --reporter=verbose[22m
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ una tablet lo lee[33m 702[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ sin sesión no se lee[32m 156[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ una tablet no lo escribe
+[22m[39m[2026-10-14T18:27:28.586Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9600 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L47, Property email is undefined on object. for 'update' @ L47, Property email is undefined on object. for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ una tablet no lo escribe[32m 186[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ el tutor lo escribe[32m 93[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ el tutor sin email verificado no escribe
+[22m[39m[2026-10-14T18:27:28.770Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9604 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L47, false for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ el tutor sin email verificado no escribe[32m 89[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ otra cuenta con email no escribe
+[22m[39m[2026-10-14T18:27:28.856Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9606 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L47, false for 'update' @ L47
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ otra cuenta con email no escribe[32m 87[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m✅ el tutor lee y crea alumnas[32m 122[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet vinculada no lee la ficha de la alumna[32m 81[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mstudents[2m > [22m[2m❌ la tablet no crea alumnas
+[22m[39m[2026-10-14T18:27:29.140Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c960d error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L52, Property email is undefined on object. for 'update' @ L52, Property email is undefined on object. for 'create' @ L52
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet no crea alumnas[32m 80[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ con sesión se lee un código concreto[32m 71[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no puede listar los códigos[32m 90[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mpairingCodes[2m > [22m[2m❌ una tablet no crea códigos
+[22m[39m[2026-10-14T18:27:29.379Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9613 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+Property email is undefined on object. for 'create' @ L92, false for 'update' @ L96, Property email is undefined on object. for 'create' @ L92
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no crea códigos[32m 79[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ el tutor crea y borra códigos[32m 90[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet nueva se vincula con un código vigente[32m 89[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código caducado
+[22m[39m[2026-10-14T18:27:29.625Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c961a error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código caducado[32m 66[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código inexistente
+[22m[39m[2026-10-14T18:27:29.693Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c961c error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando la alumna del código
+[22m[39m[2026-10-14T18:27:29.763Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c961e error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código inexistente[32m 68[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando la alumna del código[32m 70[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando el contexto del código
+[22m[39m[2026-10-14T18:27:29.837Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9620 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando el contexto del código[32m 74[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ escribiendo el documento de OTRA tablet
+[22m[39m[2026-10-14T18:27:29.899Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9622 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L118, false for 'update' @ L118
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ escribiendo el documento de OTRA tablet[32m 62[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet lee su propio vínculo[32m 98[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ una tablet no lee el de otra[32m 66[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ el tutor lista las tablets y desvincula[32m 130[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet de la alumna guarda un nivel[32m 71[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con un contexto distinto al de la tablet
+[22m[39m[2026-10-14T18:27:30.401Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c962f error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ con PCPM y pegatina opcionales[32m 70[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con un contexto distinto al de la tablet[32m 69[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con más de 3 estrellas
+[22m[39m[2026-10-14T18:27:30.477Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9631 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L58, false for 'update' @ L68
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con campos de más
+[22m[39m[2026-10-14T18:27:30.538Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9633 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L58, false for 'update' @ L68
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con más de 3 estrellas[32m 77[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con campos de más[32m 61[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ para otra alumna
+[22m[39m[2026-10-14T18:27:30.622Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9635 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ para otra alumna[32m 83[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ desde una tablet sin vincular
+[22m[39m[2026-10-14T18:27:30.703Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9637 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ desde una tablet sin vincular[32m 81[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet lee los resultados de su alumna[32m 69[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ la tablet no lee los de otra alumna[32m 66[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
+[22m[39m[2026-10-14T18:27:30.909Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c963d error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L68
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
+[22m[39m[2026-10-14T18:27:30.933Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c963e error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L68
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie edita un resultado (ni el tutor)[32m 95[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
+[22m[39m[2026-10-14T18:27:30.987Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9640 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L68
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
+[22m[39m[2026-10-14T18:27:31.011Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9641 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L68
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie borra un resultado (ni el tutor)[32m 77[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ la tablet de la alumna añade un intento[32m 63[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ para otra alumna
+[22m[39m[2026-10-14T18:27:31.141Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9645 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L74:26 for 'create' @ L74, false for 'update' @ L83, false for 'create' @ L74
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con campos de más
+[22m[39m[2026-10-14T18:27:31.196Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9647 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L74, false for 'update' @ L83
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ para otra alumna[32m 68[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con campos de más[32m 55[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con "correcto" que no sea booleano
+[22m[39m[2026-10-14T18:27:31.251Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9649 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L74, false for 'update' @ L83
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con "correcto" que no sea booleano[32m 55[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ la tablet no lee los intentos[32m 54[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T18:27:31.413Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c964f error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L83
+
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T18:27:31.435Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9650 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'update' @ L83
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ el tutor lee los intentos[32m 54[2mms[22m[39m
+[90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
+[22m[39m[2026-10-14T18:27:31.456Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3c9c9651 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'delete' @ L83
+
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ nadie edita ni borra intentos (ni el tutor)[32m 97[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m40 passed[39m[22m[90m (40)[39m
+[2m   Start at [22m 18:27:26
+[2m   Duration [22m 5.41s[2m (transform 59ms, setup 0ms, collect 197ms, tests 5.00s, environment 0ms, prepare 58ms)[22m
+
+[32m[1m✔ [22m[39m Script exited successfully (code 0)
+[36m[1mi  emulators:[22m[39m Shutting down emulators.
+[36m[1mi  firestore:[22m[39m Stopping Firestore Emulator
+[36m[1mi  hub:[22m[39m Stopping emulator hub
+[36m[1mi  logging:[22m[39m Stopping Logging Emulator
+===== fin reglas: código 0
+===== extra
+mesa      #3129 pos0 cats=['furniture', 'core vocabulary-object'] tags=['object', 'furniture', 'core vocabulary']
+sopa      #2573 pos0 cats=['gastronomy', 'core vocabulary-feeding'] tags=['feeding', 'food', 'gastronomy', 'core vocabulary']
+oso       #2488 pos0 cats=['omnivorous', 'mammal', 'viviparous', 'terrestrial animal', 'wild animal', 'core vocabulary-living being'] tags=['animal', 'omnivorous', 'vertebrate', 'mammal', 'viviparous', 'terrestrial animal', 'wild', 'core vocabulary']
+pato      #2563 pos0 cats=['omnivorous', 'oviparous', 'river animal', 'flying animal'] tags=['animal', 'omnivorous', 'oviparous', 'aquatic animal', 'freshwater animal', 'river', 'flying animal']
+mamá      #2458 pos0 cats=['family', 'core vocabulary-living being'] tags=['person', 'family', 'core vocabulary']
+casa      #2317 pos0 cats=['residential building'] tags=['place', 'building', 'home', 'object']
+mano      #2928 pos0 cats=['human anatomy', 'senses'] tags=['human body', 'anatomy', 'human anatomy', 'physiology', 'human physiology', 'senses']
+libro     #2450 pos0 cats=['educational material', 'library science', 'literature'] tags=['education', 'educational material', 'library science', 'literature']
+pelota    #3241 pos0 cats=['toy', 'beach', 'core vocabulary-leisure'] tags=['leisure', 'sport', 'toy', 'outdoor activity', 'beach']
+nada      #29839 pos0 cats=['indefinite pronoun', 'core vocabulary-communication'] tags=['communication', 'language', 'pronoun', 'indefinite pronoun', 'core vocabulary']
+vida      #8717 pos0 cats=['person according to their age'] tags=['person']
+más       #3220 pos0 cats=['orthographic sign', 'mathematics', 'core vocabulary-communication'] tags=['communication', 'language', 'alphabet', 'orthographic sign', 'mathematics', 'traffic', 'core vocabulary']
+vez       #27385 pos0 cats=['unit of time'] tags=['time', 'unit of time']
+verdad    #8715 pos0 cats=['miscellaneous', 'qualifying adjective'] tags=['communication', 'language', 'adjective', 'qualifying adjective']
+uso       #17036 pos0 cats=['miscellaneous'] tags=[]
+tiempo    #22631 pos0 cats=['unit of time'] tags=['time', 'unit of time']
+paseo     #35111 pos0 cats=['urban area'] tags=['place', 'urban area']
+museo     #3132 pos0 cats=['cultural building'] tags=['place', 'building', 'culture']
+poesía    #22763 pos0 cats=['literacy genre'] tags=['literature', 'literacy genre']
+momento   #22633 pos0 cats=['unit of time'] tags=['time', 'unit of time']
+drogas    #30971 pos1 cats=['drug addiction'] tags=['health', 'lifestyle', 'unhealthy habit', 'addiction', 'drugs']
+muerte    #16359 pos0 cats=['death', 'verb'] tags=['event', 'social event', 'death', 'communication', 'language', 'verb']
+misa      #24189 pos0 cats=['religious act', 'religious event', 'christianity'] tags=['religion', 'event', 'religious event', 'christianity']
+pipí      #3429 pos3 cats=['verb', 'basic needs', 'routine'] tags=['communication', 'language', 'verb', 'person', 'basic needs', 'routine']
+bala      #8497 pos1 cats=['weapon', 'hunting'] tags=['object', 'weapon', 'work', 'primary sector', 'hunting']
+guerra    #12256 pos0 cats=['war'] tags=['event', 'war']
+mundo     #30015 pos0 cats=['physical geography'] tags=['geography', 'physical geography']
+hombres   #32362 pos0 cats=['group'] tags=['person', 'group']
+amor      #11178 pos0 cats=['feeling'] tags=['psychology', 'feeling', 'emotion']
+día       #7022 pos0 cats=['day time'] tags=['time', 'calendar']
+seguro    #16027 pos0 cats=['trade document'] tags=['document', 'trade']
+cariño    #8020 pos0 cats=['feeling', 'human value'] tags=['psychology', 'feeling', 'emotion', 'human value']
+noche     #7181 pos0 cats=['day time', 'core vocabulary-time'] tags=['time', 'calendar', 'core vocabulary']
+CATEGORIAS 567
+[('verb', 2692), ('signaling system', 492), ('qualifying adjective', 464), ('professional', 426), ('core vocabulary-communication', 357), ('routine', 300), ('land transport', 286), ('country', 262), ('disruptive behavior', 260), ('commercial building', 217), ('oviparous', 209), ('christianity', 207), ('flag', 202), ('work tool', 196), ('clothes', 190), ('usual verbs', 190), ('physical exercise', 186), ('hygiene product', 180), ('sport material', 179), ('covid-19', 177), ('human anatomy', 174), ('feeling', 170), ('terrestrial animal', 166), ('gastronomy', 166), ('building facility', 162), ('wild animal', 162), ('cookery', 157), ('sanitary professional', 156), ('educational material', 155), ('symptom', 155), ('sport modality', 154), ('human response', 154), ('carnivorous', 152), ('number', 146), ('construction', 145), ('day hours', 145), ('family', 144), ('health personnel', 144), ('expression', 144), ('electrical appliance', 143), ('numeral adjective', 142), ('beverage', 141), ('medical procedure', 141), ('core vocabulary-living being', 138), ('core vocabulary-knowledge', 138), ('utensil', 137), ('corporal hygiene', 135), ('educational task', 134), ('core vocabulary-object', 133), ('accessories', 132), ('mass media', 126), ('special education', 121), ('furniture', 117), ('nursing equipment', 116), ('medical test', 114), ('toy', 113), ('baking', 113), ('building room', 112), ('mammal', 106), ('viviparous', 105), ('basic concepts', 104), ('residential building', 102), ('security and defense', 100), ('herbivorous', 97), ('christmas', 96), ('omnivorous', 95), ('road safety', 94), ('letter', 93), ('recreational facility', 93), ('agriculture', 92), ('ultra-processed food', 92), ('traditional game', 90), ('core vocabulary-feeding', 89), ('traditional dish', 89), ('hospital room', 89), ('group', 88), ('architectural element', 88), ('educational space', 88), ('aerial transport', 86), ('athlete', 86), ('childcare', 84), ('fruit', 84), ('vehicle component', 81), ('marine animal', 79), ('hospitality industry', 78), ('ophthalmology', 78), ('trade', 76), ('basic needs', 74), ('swimming', 74), ('vegetable', 74), ('disease', 74), ('core vocabulary-time', 73), ('miscellaneous', 73), ('orthopedic product', 73), ('universal decimal classification', 72), ('footwear', 71), ('musical art', 71), ('categorization', 71), ('gardening', 70), ('cleaning product', 70), ('medical equipment', 70), ('hardware', 67), ('fish-animal', 67), ('obstetrics', 67), ('monument', 66), ('work organization', 66), ('hairdresser', 65), ('domestic animal', 64), ('processed food', 64), ('food', 64), ('container', 63), ('education professionals', 63), ('fishing', 63), ('atmospheric phenomena', 63), ('entertainment facility', 62), ('beach', 61), ('patient', 61), ('street furniture', 60), ('core vocabulary-work', 58), ('tale character', 58), ('meat', 57), ('river animal', 57), ('spain province', 57), ('bird', 56), ('pet', 56), ('mathematics', 56), ('core vocabulary-place', 55), ('water transport', 55), ('body sensation', 55), ('child', 54), ('carpentry', 54), ('seller', 54), ('computing', 54), ('playground', 53), ('flying animal', 53), ('cattle farming', 53), ('law and justice', 53), ('odontology', 53), ('students', 53), ('physical features', 52), ('death', 52), ('crime', 52), ('historical character', 52), ('swimming pool', 51), ('percussion instrument', 51), ('outdoor activity', 51), ('clothing industry', 51), ('sports facility', 51), ('medical treatment', 51), ('medicament', 50), ('football', 49), ('feeding', 49), ('religious act', 49), ('adverb of time', 49), ('room', 49), ('subject', 49), ('senses', 48), ('skating', 48), ('tourism', 48), ('political representation', 48), ('animal anatomy', 48), ('infrastructure', 47), ('spain region', 47), ('medical device', 47), ('body position', 46), ('decorative item', 45), ('educational staff', 45), ('birthday', 45), ('mountain', 44), ('cultural building', 44), ('catering establishment', 44), ('adult', 44), ('halloween', 43), ('tree', 43), ('appliance', 43), ('religious event', 42), ('person according to their age', 42), ('library science', 41), ('sensory stimulation material', 41), ('mass media device', 40), ('core vocabulary-leisure', 40), ('core vocabulary-education', 40), ('event', 40), ('object', 39), ('landform', 39), ('educational building', 39), ('human value', 39), ('crockery', 38), ('literature', 38), ('costume', 38), ('flower', 38), ('educational_building', 38), ('multimedia buttons', 38), ('trousseau', 37), ('sport', 37), ('herbaceous plant', 37), ('transport services', 37), ('trade document', 37), ('show', 37), ('communication aid', 37), ('prevention measure', 37), ('insect', 36), ('prehistory', 36), ('personal pronoun', 35), ('movie character', 35), ('orofacial praxis', 35), ('recycling', 34), ('facility', 34), ('professional artist', 33), ('plant anatomy', 33), ('polite set expression', 33), ('cold meat', 32), ('traffic signal', 32), ('religious character', 32), ('unit of time', 32), ('physics', 32), ('judaism', 32), ('color', 31), ('war', 31), ('osseous system', 31), ('olympic games', 31), ('dairy product', 30), ('pronoun', 30), ('astronomy', 30), ('worksite', 30), ('popular event', 30), ('medical center', 30), ('medical centre', 30), ('basketball', 30), ('geometry', 30), ('ordinal adjective', 30), ('marital status', 30), ('sexual crime', 30), ('fish', 29), ('cosmetic', 29), ('weapon', 29), ('athletics', 29), ('craftsmanship', 29), ('fiestas del pilar', 28), ('cutlery', 28), ('personal services', 28), ('wind instrument', 28), ('summer', 28), ('animal housing', 28), ('educational organization', 28), ('animal behaviour', 28), ('core vocabulary-movement', 27), ('sweets', 27), ('workplace', 27), ('public administration', 27), ('religious building', 27), ('psychology', 27), ('document', 27), ('painting', 26), ('sea and oceans', 26), ('cycling', 26), ('popular festival', 26), ('character', 26), ('horse riding', 26), ('cinema', 26), ('month', 26), ('fashion', 25), ('service building', 25), ('teaching activity', 25), ('orthographic sign', 25), ('animal physiology', 25), ('dessert', 24), ('core vocabulary-miscellaneous', 24), ('public building', 24), ('religious place', 24), ('reproductive system', 24), ('natural disaster', 24), ('chemistry', 24), ('day', 24), ('equine-assisted therapy', 24), ('information document', 24), ('protective equipment', 24), ('jewelry', 23), ('place', 23), ('music device', 23), ('physiotherapy', 23), ('board game', 23), ('dried fruit', 23), ('diving', 23), ('sport event', 23), ('healthy habit', 23), ('social movement', 23), ('adapted sport', 23), ('condiment', 22), ('work machine', 22), ('rural area', 22), ('photography', 22), ('financial services', 22), ('education', 22), ('taste', 22), ('supporting document', 22), ('physical geography', 22), ('international organziation', 22), ('bullying', 22), ('urban area', 21), ('reptile', 21), ('hunting', 21), ('musical notation', 21), ('preposition', 21), ('telecommunication', 20), ('digestive system', 20), ('dinosaur', 20), ('economy', 20), ('election', 20), ('industrial building', 20), ('visual art', 20), ('religious object', 20), ('string instrument', 19), ('mollusc', 19), ('circus', 19), ('intimate hygiene', 19), ('day time', 19), ('sport rules', 19), ('dietetics', 19), ('archaeology', 19), ('light fixture', 18), ('animal', 18), ('ovoviviparous', 18), ('theater', 18), ('gender violence', 18), ('book character', 18), ('official document', 18), ('biology', 18), ('physiotherapy equipment', 18), ('dinosaur anatomy', 18), ('crustacean', 17), ('mode of transport', 17), ('medicine', 17), ('easter week', 17), ('building', 17), ('measurement unit', 17), ('communication system', 17), ('onomatopoeia', 17), ('physiology', 17), ('derived material', 16), ('educational equipment', 16), ('shape', 16), ('movement', 16), ('adverb of place', 16), ('adverb', 16), ('scenic art', 16), ('tv show', 16), ('wedding', 16), ('karate', 16), ('elderly', 15), ('dance', 15), ('nervous system', 15), ('money', 15), ('river', 15), ('excretory system', 15), ('musical artist', 15), ('industry', 15), ('leader', 15), ('mythological character', 15), ('plant physiology', 15), ('interrogative pronoun', 15), ('rome', 15), ('human reproduction', 15), ('sportswear', 14), ('workwear', 14), ('egg product', 14), ('chronological instrument', 14), ('law', 14), ('muscular system', 14), ('plant-based food', 14), ('sexuality', 14), ('psychomotor equipment', 14), ('unhealthy habit', 14), ('energy', 14), ('islamism', 14), ('sexual practice', 14), ('court document', 14), ('regional costume', 14), ('chronological device', 13), ('adjective', 13), ('circulatory system', 13), ('human body', 13), ('smoking', 13), ('visual system', 13), ('waste disposal', 13), ('conjunction', 13), ('work accident', 13), ('teenager', 13), ('saragossa', 13), ('middle ages', 13), ('indigenouos people', 13), ('history', 13), ('mineral origin material', 13), ('cereal', 13), ('aromatic plant', 13), ('religious person', 13), ('contraceptive method', 13), ('gynecology', 13), ('architecture', 12), ('legume', 12)]
+===== fin extra: código 0
+===== build
+
+> viaje-lector@0.0.1 build
+> tsc -b && vite build
+
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+transforming...
+[33mnode_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+[33mnode_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
+[32m✓[39m 607 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mregisterSW.js                                  [39m[1m[2m  0.16 kB[22m[1m[22m
+[2mdist/[22m[32mmanifest.webmanifest                           [39m[1m[2m  0.53 kB[22m[1m[22m
+[2mdist/[22m[32mindex.html                                     [39m[1m[2m  1.30 kB[22m[1m[22m[2m │ gzip:   0.55 kB[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BK42By1L.woff   [39m[1m[2m 16.20 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-CAUSQC6x.woff   [39m[1m[2m 16.36 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BTFTIZb-.woff2  [39m[1m[2m 19.21 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-Dk95f5lc.woff2  [39m[1m[2m 19.47 kB[22m[1m[22m
+[2mdist/[22m[2massets/[22m[35mindex-Mkon4se0.css                      [39m[1m[2m 34.31 kB[22m[1m[22m[2m │ gzip:   6.47 kB[22m
+[2mdist/[22m[2massets/[22m[36mRutasAdmin-COYsvEWr.js                  [39m[1m[2m 29.64 kB[22m[1m[22m[2m │ gzip:  10.42 kB[22m
+[2mdist/[22m[2massets/[22m[36manimacion-T400J0Gs.js                   [39m[1m[2m178.37 kB[22m[1m[22m[2m │ gzip:  58.59 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-bQbhoJUA.js                       [39m[1m[2m406.06 kB[22m[1m[22m[2m │ gzip: 126.14 kB[22m
+[2mdist/[22m[2massets/[22m[36mfirebase-DGSFbV3c.js                    [39m[1m[33m626.84 kB[39m[22m[2m │ gzip: 185.84 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 4.48s[39m
+
+[36mPWA v1.3.0[39m
+mode      [35mgenerateSW[39m
+precache  [32m20 entries[39m [2m(1364.78 KiB)[22m
+files generated
+  [2mdist/sw.js[22m
+  [2mdist/workbox-835c8c05.js[22m
+===== fin build: código 0
+ESTADO FINAL: 0
