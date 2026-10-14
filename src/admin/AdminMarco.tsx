@@ -148,6 +148,9 @@ export default function AdminMarco() {
         <NavLink to="/admin/contenido" className={pestana}>
           Contenido
         </NavLink>
+        <NavLink to="/admin/deberes" className={pestana}>
+          Deberes
+        </NavLink>
         <NavLink to="/admin/metricas" className={pestana}>
           Métricas
         </NavLink>

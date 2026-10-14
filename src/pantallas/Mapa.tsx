@@ -7,10 +7,11 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MUNDOS } from '../lib/clasificador.ts';
 import { estrellasDeMundo } from '../lib/progreso.ts';
-import { useProgreso, useTodosLosMundos } from '../datos/hooks.ts';
+import { usePlan, useProgreso, useTodosLosMundos } from '../datos/hooks.ts';
+import { hechasElDia } from '../lib/deberes.ts';
 import { useDispositivo } from '../sesion/SesionNina.tsx';
 import { prepararVoz } from '../lib/voz.ts';
-import { IconoAlbum, IconoCandado, IconoEstrella } from '../componentes/Iconos.tsx';
+import { IconoAlbum, IconoCandado, IconoEstrella, IconoMochila } from '../componentes/Iconos.tsx';
 import PuertaParental from '../componentes/PuertaParental.tsx';
 
 /** Posición (en %) y color de cada isla. */
@@ -27,6 +28,10 @@ export default function Mapa() {
   const sesion = useDispositivo();
   const { mundos } = useTodosLosMundos();
   const progreso = useProgreso(sesion?.dispositivo.studentId);
+  const plan = usePlan(sesion?.dispositivo.studentId);
+  // La mochila solo aparece en la tablet de casa y si el tutor ha puesto deberes.
+  const deberes = sesion?.dispositivo.contexto === 'casa' && plan?.deberes?.activos ? plan.deberes : null;
+  const hechasHoy = deberes ? hechasElDia(deberes, progreso.partidas, new Date()).size : 0;
 
   useEffect(() => {
     void prepararVoz();
@@ -90,6 +95,23 @@ export default function Mapa() {
         <span className="absolute left-5 top-5 rounded-full bg-white/85 px-4 py-2 font-sans text-lg font-bold text-mar-oscuro shadow">
           {sesion.dispositivo.contexto === 'casa' ? '🏠 En casa' : '📚 En tutoría'}
         </span>
+      )}
+
+      {/* Mochila de deberes */}
+      {deberes && (
+        <motion.button
+          type="button"
+          onClick={() => navegar('/mochila')}
+          aria-label={`Deberes: ${hechasHoy} de ${deberes.actividades.length} hechos hoy`}
+          animate={hechasHoy < deberes.actividades.length ? { y: [0, -6, 0] } : {}}
+          transition={{ duration: 1.4, repeat: Infinity }}
+          className="absolute left-1/2 top-4 flex -translate-x-1/2 items-center gap-3 rounded-full bg-white px-5 py-2 shadow-lg"
+        >
+          <IconoMochila className="size-12 text-sol" />
+          <span className="font-sans text-2xl font-bold text-mar">
+            {hechasHoy}/{deberes.actividades.length}
+          </span>
+        </motion.button>
       )}
 
       {/* Álbum de pegatinas */}

@@ -5,6 +5,7 @@ import AdminAlumnas from './AdminAlumnas.tsx';
 import AdminContenido from './AdminContenido.tsx';
 import AdminGenerar from './AdminGenerar.tsx';
 import AdminMetricas from './AdminMetricas.tsx';
+import AdminDeberes from './AdminDeberes.tsx';
 
 /** Rutas del panel del tutor (se cargan aparte, bajo demanda). */
 export default function RutasAdmin() {
@@ -16,6 +17,7 @@ export default function RutasAdmin() {
           <Route path="contenido" element={<AdminContenido />} />
           <Route path="generar/:mundo" element={<AdminGenerar />} />
           <Route path="metricas" element={<AdminMetricas />} />
+          <Route path="deberes" element={<AdminDeberes />} />
         </Route>
       </Routes>
     </SesionTutorProvider>

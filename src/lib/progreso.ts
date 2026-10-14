@@ -2,7 +2,15 @@
  * Resumen del progreso de la niña a partir de sus resultados por nivel
  * (students/{sid}/levelAttempts): mejores estrellas, pegatinas y su "fantasma".
  */
-import type { IntentoNivel } from '../datos/esquemas.ts';
+import type { Contexto, IntentoNivel } from '../datos/esquemas.ts';
+import type { PartidaReto } from './adaptativo.ts';
+
+/** Una partida con lo necesario para el reto adaptativo y los deberes. */
+export interface PartidaRegistrada extends PartidaReto {
+  nivelId: string;
+  mundo: number;
+  contexto: Contexto;
+}
 
 export interface MejorNivel {
   estrellas: number;
@@ -16,9 +24,11 @@ export interface ResumenProgreso {
   totalEstrellas: number;
   /** Pegatinas de palabra secreta, sin repetir, en orden de conquista. */
   pegatinas: Array<{ palabra: string; img: number }>;
+  /** Partidas con su puntuación (para el reto adaptativo). Las rellena quien tenga las fechas. */
+  partidas: PartidaRegistrada[];
 }
 
-export const PROGRESO_VACIO: ResumenProgreso = { mejores: new Map(), totalEstrellas: 0, pegatinas: [] };
+export const PROGRESO_VACIO: ResumenProgreso = { mejores: new Map(), totalEstrellas: 0, pegatinas: [], partidas: [] };
 
 /** `intentos` deben venir ordenados del más antiguo al más reciente. */
 export function resumirProgreso(intentos: readonly IntentoNivel[]): ResumenProgreso {
@@ -41,7 +51,7 @@ export function resumirProgreso(intentos: readonly IntentoNivel[]): ResumenProgr
 
   let totalEstrellas = 0;
   for (const m of mejores.values()) totalEstrellas += m.estrellas;
-  return { mejores, totalEstrellas, pegatinas };
+  return { mejores, totalEstrellas, pegatinas, partidas: [] };
 }
 
 /** Estrellas conseguidas y posibles en un mundo. */

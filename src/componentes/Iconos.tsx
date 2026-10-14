@@ -149,6 +149,30 @@ export const IconoPulgar = (p: P) => (
   </svg>
 );
 
+export const IconoTrazo = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round">
+    <path d="M4 20h16" strokeOpacity={0.4} />
+    <path d="M8 4v12" />
+    <circle cx="8" cy="4" r="1.8" fill="currentColor" />
+    <path d="m14 8 3 3-3 3" />
+  </svg>
+);
+
+export const IconoCuaderno = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2} strokeLinejoin="round">
+    <rect x="5" y="3" width="14" height="18" rx="2" fill="currentColor" fillOpacity={0.15} />
+    <path d="M8 8h8M8 12h8M8 16h5" strokeLinecap="round" />
+  </svg>
+);
+
+export const IconoMochila = (p: P) => (
+  <svg {...base(p)} fill="none" stroke="currentColor" strokeWidth={2} strokeLinejoin="round">
+    <path d="M9 5a3 3 0 0 1 6 0" />
+    <rect x="4.5" y="6" width="15" height="15" rx="4" fill="currentColor" fillOpacity={0.2} />
+    <path d="M8 13h8v4H8z" fill="currentColor" fillOpacity={0.35} />
+  </svg>
+);
+
 export const ICONO_MECANICA = {
   intrusa: IconoIntrusa,
   burbujas: IconoBurbujas,
@@ -158,4 +182,6 @@ export const ICONO_MECANICA = {
   pillado: IconoPillado,
   dictado: IconoLapiz,
   parejas: IconoCartas,
+  trazo: IconoTrazo,
+  cuaderno: IconoCuaderno,
 } as const;

@@ -17,13 +17,17 @@ import Pictograma from '../../componentes/Pictograma.tsx';
 import { ERRORES_PARA_PISTA } from '../tipos.ts';
 import { esperar, patronDePalabra } from '../utilidades.ts';
 import { generarPillado } from './generar.ts';
+import { parametrosProfe } from '../ajustar.ts';
 import RecuadroProfe from './RecuadroProfe.tsx';
 import type { PropsJuegoProfe } from './tipos.ts';
 
 type Respuesta = 'bien' | 'pillado';
 
-export default function JuegoPillado({ palabras, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
-  const rondas = useMemo(() => generarPillado(palabras, crearAleatorio(Date.now())), [palabras]);
+export default function JuegoPillado({ palabras, escalon, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
+  const rondas = useMemo(
+    () => generarPillado(palabras, crearAleatorio(Date.now()), 8, parametrosProfe(escalon).erroresPillado),
+    [palabras, escalon],
+  );
   const [indice, setIndice] = useState(0);
   const [fallos, setFallos] = useState<Record<Respuesta, number>>({ bien: 0, pillado: 0 });
   const [errores, setErrores] = useState(0);

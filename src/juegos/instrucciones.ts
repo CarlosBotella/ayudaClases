@@ -3,7 +3,7 @@
  *  - `nina`: una frase que se lee EN VOZ ALTA (ella aún lee despacio).
  *  - `adulto`: nota opcional para el adulto que acompaña.
  */
-import type { JuegoProfe, Nivel } from '../datos/esquemas.ts';
+import type { JuegoEscritura, JuegoProfe, Nivel } from '../datos/esquemas.ts';
 
 export interface Instruccion {
   nina: string;
@@ -76,6 +76,26 @@ export function instruccionProfe(juego: JuegoProfe): Instruccion {
         adulto:
           'Por turnos, cada uno levanta dos cartas. Si sale pareja, quien la encuentra lee la palabra en voz alta y ' +
           'repite turno. Cuando ella lee, tú marcas si la ha leído bien.',
+      };
+  }
+}
+
+/** Juegos de escritura (casa y tutoría). */
+export function instruccionEscritura(juego: JuegoEscritura): Instruccion {
+  switch (juego) {
+    case 'trazo':
+      return {
+        nina: 'Repasa la letra con el dedo. ¡Empieza en el punto verde!',
+        adulto:
+          'Se escribe trazo a trazo, en la dirección de la flecha. Si un trazo no sale, se pone naranja y se repite. ' +
+          'Al subir de nivel el modelo se va borrando hasta escribir sin ayuda. Con un lápiz para tablet también vale.',
+      };
+    case 'cuaderno':
+      return {
+        nina: 'Escucha la palabra y escríbela en tu cuaderno.',
+        adulto:
+          'Necesita su cuaderno de pauta y un lápiz. Cuando acabe de escribir, toca «¡Ya!»: aparece la palabra bien ' +
+          'escrita para comparar. Tú marcas si está igual y, si quieres, qué ha fallado. No se hace ninguna foto.',
       };
   }
 }

@@ -4,7 +4,8 @@ import { SesionNinaProvider } from './sesion/SesionNina.tsx';
 import Inicio from './pantallas/Inicio.tsx';
 import Mundo from './pantallas/Mundo.tsx';
 import Jugar from './pantallas/Jugar.tsx';
-import JugarProfe from './pantallas/JugarProfe.tsx';
+import JugarExtra from './pantallas/JugarExtra.tsx';
+import Mochila from './pantallas/Mochila.tsx';
 import Album from './pantallas/Album.tsx';
 import ZonaAdulto from './pantallas/ZonaAdulto.tsx';
 import Celebracion from './pantallas/Celebracion.tsx';
@@ -47,7 +48,9 @@ function ZonaNina() {
           <Route path="/" element={<Inicio />} />
           <Route path="/mundo/:mundo" element={<Mundo />} />
           <Route path="/jugar/:mundo/:nivelId" element={<Jugar />} />
-          <Route path="/profe/:mundo/:juego" element={<JugarProfe />} />
+          <Route path="/profe/:mundo/:juego" element={<JugarExtra />} />
+          <Route path="/escribir/:mundo/:juego" element={<JugarExtra />} />
+          <Route path="/mochila" element={<Mochila />} />
           <Route path="/album" element={<Album />} />
           <Route path="/adulto" element={<ZonaAdulto />} />
           <Route path="/fin" element={<Celebracion />} />

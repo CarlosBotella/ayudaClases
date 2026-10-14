@@ -4,11 +4,13 @@
  */
 import { motion } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { dbNina } from '../firebase.ts';
 import type { Contenido, Nivel } from '../datos/esquemas.ts';
-import { useContenido, useProgreso } from '../datos/hooks.ts';
+import { useContenido, usePlan, useProgreso } from '../datos/hooks.ts';
+import { calcularRetos, escalonDe } from '../lib/adaptativo.ts';
+import { ajustarNivel } from '../juegos/ajustar.ts';
 import { DURACION_SESION_MS, useDispositivo, useSesionNina } from '../sesion/SesionNina.tsx';
 import { calcularEstrellas } from '../lib/estrellas.ts';
 import { sonidoFanfarria } from '../lib/sonidos.ts';
@@ -49,7 +51,15 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
   const sesion = useDispositivo();
   const { inicioSesion } = useSesionNina();
   const progreso = useProgreso(sesion?.dispositivo.studentId);
+  const plan = usePlan(sesion?.dispositivo.studentId);
+  const desdeMochila = (useLocation().state as { desdeMochila?: boolean } | null)?.desdeMochila === true;
   const [ronda, setRonda] = useState(0);
+  // Nivel ajustado a su escalón de reto. Se fija al empezar cada ronda (no cambia a mitad de partida).
+  const [jugando, setJugando] = useState<{ nivel: Nivel; escalon: number } | null>(null);
+  const prepararRonda = () => {
+    const escalon = escalonDe(calcularRetos(progreso.partidas, plan?.retoFijo ?? {}), nivel.mecanica);
+    setJugando({ nivel: ajustarNivel(nivel, escalon, contenido), escalon });
+  };
   const [avance, setAvance] = useState(0);
   const [final, setFinal] = useState<Final | null>(null);
   // Primero la explicación; al pulsar ▶ empieza el juego (y el cronómetro).
@@ -98,6 +108,7 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
         contexto: sesion.dispositivo.contexto,
         pegatina: r.pegatina?.palabra,
         pegatinaImg: r.pegatina?.img,
+        escalon: jugando?.escalon,
         completadoEn: Timestamp.now(),
       }).catch((e: unknown) => console.warn('No se pudo guardar el nivel', e));
     }
@@ -110,11 +121,13 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
     setFinal(null);
     setAvance(0);
     inicio.current = performance.now();
+    prepararRonda();
     setRonda((r) => r + 1);
   };
 
   const seguir = () => {
-    if (Date.now() - inicioSesion >= DURACION_SESION_MS) navegar('/fin');
+    if (desdeMochila) navegar('/mochila');
+    else if (Date.now() - inicioSesion >= DURACION_SESION_MS) navegar('/fin');
     else navegar(`/mundo/${contenido.mundo}`);
   };
 
@@ -152,21 +165,22 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
             instruccion={instruccionDe(nivel)}
             onEmpezar={() => {
               inicio.current = performance.now();
+              prepararRonda();
               setEmpezado(true);
             }}
           />
         ) : final ? (
           <FinNivel final={final} onOtraVez={otraVez} onSeguir={seguir} />
-        ) : nivel.mecanica === 'intrusa' ? (
-          <JuegoIntrusa nivel={nivel} {...comunes} />
-        ) : nivel.mecanica === 'burbujas' ? (
-          <JuegoBurbujas nivel={nivel} {...comunes} />
-        ) : nivel.mecanica === 'tren' ? (
-          <JuegoTren nivel={nivel} {...comunes} />
-        ) : nivel.mecanica === 'detective' ? (
-          <JuegoDetective nivel={nivel} {...comunes} />
+        ) : !jugando ? null : jugando.nivel.mecanica === 'intrusa' ? (
+          <JuegoIntrusa nivel={jugando.nivel} {...comunes} />
+        ) : jugando.nivel.mecanica === 'burbujas' ? (
+          <JuegoBurbujas nivel={jugando.nivel} {...comunes} />
+        ) : jugando.nivel.mecanica === 'tren' ? (
+          <JuegoTren nivel={jugando.nivel} {...comunes} />
+        ) : jugando.nivel.mecanica === 'detective' ? (
+          <JuegoDetective nivel={jugando.nivel} {...comunes} />
         ) : (
-          <JuegoCarrera nivel={nivel} mejor={mejor} {...comunes} />
+          <JuegoCarrera nivel={jugando.nivel} mejor={mejor} {...comunes} />
         )}
       </div>
     </div>

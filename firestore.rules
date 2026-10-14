@@ -57,7 +57,8 @@ service cloud.firestore {
         allow read: if esTutor() || esTabletDe(sid);
         allow create: if esTabletDe(sid)
           && soloCampos(['nivelId', 'mundo', 'nivel', 'mecanica', 'estrellas', 'puntuacion',
-                         'duracionMs', 'pcpm', 'contexto', 'pegatina', 'pegatinaImg', 'completadoEn'])
+                         'duracionMs', 'pcpm', 'contexto', 'pegatina', 'pegatinaImg', 'escalon',
+                         'completadoEn'])
           && tieneCampos(['nivelId', 'mundo', 'nivel', 'mecanica', 'estrellas', 'puntuacion',
                           'duracionMs', 'contexto', 'completadoEn'])
           && request.resource.data.estrellas is int
@@ -82,6 +83,13 @@ service cloud.firestore {
           && request.resource.data.creadoEn is timestamp;
         allow update, delete: if false;
       }
+    }
+
+    // ─── Plan de la alumna (reto fijado y deberes) ─────────────────────────
+    // Lo escribe el tutor; la tablet de ESA alumna lo puede leer.
+    match /planes/{sid} {
+      allow read: if esTutor() || esTabletDe(sid);
+      allow write: if esTutor();
     }
 
     // ─── Códigos de vinculación ────────────────────────────────────────────

@@ -12,7 +12,7 @@ import { useDispositivo } from '../sesion/SesionNina.tsx';
 import Cargando from '../componentes/Cargando.tsx';
 import { ICONO_MECANICA, IconoCandado, IconoEstrella, IconoFlechaAtras } from '../componentes/Iconos.tsx';
 import PuertaParental from '../componentes/PuertaParental.tsx';
-import { JUEGOS_PROFE } from './JugarProfe.tsx';
+import { idJuegoExtra, JUEGOS_ESCRITURA, JUEGOS_PROFE } from './JugarExtra.tsx';
 
 export default function Mundo() {
   const { mundo: texto } = useParams();
@@ -102,7 +102,7 @@ export default function Mundo() {
           <span className="mr-1 font-sans text-lg font-bold text-mar-oscuro">Con el profe</span>
           {JUEGOS_PROFE.map(({ juego, titulo }) => {
             const Icono = ICONO_MECANICA[juego];
-            const estrellas = progreso.mejores.get(`m${mundo}-profe-${juego}`)?.estrellas ?? 0;
+            const estrellas = progreso.mejores.get(idJuegoExtra(mundo, juego))?.estrellas ?? 0;
             return (
               <motion.button
                 key={juego}
@@ -123,6 +123,32 @@ export default function Mundo() {
           })}
         </div>
       )}
+
+      {/* Escritura: en casa y en tutoría */}
+      <div className="absolute bottom-4 left-24 flex items-center gap-3 rounded-3xl bg-white/85 px-4 py-3 shadow-lg">
+        <span className="mr-1 font-sans text-lg font-bold text-mar-oscuro">Escribir</span>
+        {JUEGOS_ESCRITURA.map(({ juego, titulo }) => {
+          const Icono = ICONO_MECANICA[juego];
+          const estrellas = progreso.mejores.get(idJuegoExtra(mundo, juego))?.estrellas ?? 0;
+          return (
+            <motion.button
+              key={juego}
+              type="button"
+              whileTap={{ scale: 0.92 }}
+              onClick={() => navegar(`/escribir/${mundo}/${juego}`)}
+              aria-label={titulo}
+              className="relative flex size-20 items-center justify-center rounded-full bg-mar text-white shadow"
+            >
+              <Icono className="size-11" />
+              {estrellas > 0 && (
+                <span className="absolute -bottom-1 -right-1 flex items-center rounded-full bg-white px-1.5 text-sm font-bold text-sol shadow">
+                  {estrellas}★
+                </span>
+              )}
+            </motion.button>
+          );
+        })}
+      </div>
 
       <PuertaParental
         className="absolute bottom-4 left-4"

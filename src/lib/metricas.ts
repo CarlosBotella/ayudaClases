@@ -73,7 +73,10 @@ export function unidadesDe(r: Respuesta): { silabas: string[]; grafemas: string[
       if (r.patron === 'frase' || r.patron === 'palabra') return deTexto(r.unidadObjetivo);
       return { silabas: [r.unidadObjetivo], grafemas: grafemasDe(r.unidadObjetivo) };
     case 'dictado':
+    case 'trazo':
       return { silabas: [], grafemas: r.unidadObjetivo ? [r.unidadObjetivo] : [] };
+    case 'cuaderno':
+      return { silabas: [], grafemas: grafemasDe(r.unidadObjetivo || r.item) };
     case 'carrera':
     case 'pillado':
     case 'parejas':
@@ -178,6 +181,7 @@ export const NOMBRE_ERROR: Record<string, string> = {
   sustitucion: 'Sustitución',
   intrusa: 'Letra intrusa',
   lectura: 'Lectura en voz alta',
+  forma: 'Forma de la letra',
 };
 
 export function distribucionErrores(respuestas: readonly Respuesta[]): Array<{ tipo: string; nombre: string; cantidad: number }> {

@@ -28,7 +28,12 @@ export interface RondaPillado {
 /** Errores de lectura típicos, en orden de preferencia (los más formativos primero). */
 const ERRORES_LECTURA: TipoError[] = ['inversion', 'omision', 'sonoridad', 'espejo'];
 
-export function generarPillado(palabras: readonly PalabraJuego[], rnd: Aleatorio, rondas = 8): RondaPillado[] {
+export function generarPillado(
+  palabras: readonly PalabraJuego[],
+  rnd: Aleatorio,
+  rondas = 8,
+  preferencia: readonly TipoError[] = ERRORES_LECTURA,
+): RondaPillado[] {
   const elegidas = rnd.barajar(palabras.filter((p) => p.silabas.length >= 2)).slice(0, rondas);
   // Mitad bien, mitad mal, en orden aleatorio.
   const errores = rnd.barajar(elegidas.map((_, i) => i < Math.floor(elegidas.length / 2)));
@@ -37,7 +42,7 @@ export function generarPillado(palabras: readonly PalabraJuego[], rnd: Aleatorio
     if (!errores[i]) return { palabra: p.texto, leer: p.texto, esError: false, tipo: null };
     // La "q" sola no se puede leer en voz alta: fuera.
     const opciones = distractoresPalabra(p.texto).filter((d) => !d.texto.includes('q'));
-    for (const tipo of ERRORES_LECTURA) {
+    for (const tipo of [...preferencia, ...ERRORES_LECTURA]) {
       const d = rnd.elegir(opciones.filter((o) => o.tipo === tipo));
       if (d) return { palabra: p.texto, leer: d.texto, esError: true, tipo: d.tipo };
     }
@@ -73,10 +78,12 @@ export function generarDictado(
   mundo: number,
   rnd: Aleatorio,
   rondas = 5,
+  maxGrafemas = 6,
+  numTrampas = 3,
 ): RondaDictado[] {
   const letrasMundo = [...permitidosEnMundo(mundo).grafemas].filter((g) => g.length === 1 && !'aeiou'.includes(g));
   // Mejor palabras cortas y sin tilde para empezar a escribir.
-  const sinTilde = palabras.filter((p) => !/[áéíóú]/.test(p.texto) && grafemasParaDictado(p.texto).length <= 6);
+  const sinTilde = palabras.filter((p) => !/[áéíóú]/.test(p.texto) && grafemasParaDictado(p.texto).length <= maxGrafemas);
   const base = sinTilde.length >= rondas ? sinTilde : palabras;
 
   return rnd
@@ -93,7 +100,7 @@ export function generarDictado(
         anadir(SONORIDAD[g], 'sonoridad');
       }
       for (const l of rnd.barajar(letrasMundo)) anadir(l, 'sustitucion');
-      return { palabra: p.texto, grafemas, trampas: trampas.slice(0, 3) };
+      return { palabra: p.texto, grafemas, trampas: trampas.slice(0, numTrampas) };
     });
 }
 

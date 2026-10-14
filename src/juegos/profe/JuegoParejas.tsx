@@ -14,12 +14,18 @@ import Pictograma from '../../componentes/Pictograma.tsx';
 import { IconoBien, IconoMal } from '../../componentes/Iconos.tsx';
 import { esperar, patronDePalabra } from '../utilidades.ts';
 import { generarParejas, type CartaPareja } from './generar.ts';
+import { parametrosProfe } from '../ajustar.ts';
 import type { PropsJuegoProfe } from './tipos.ts';
 
 type Jugador = 'nina' | 'profe';
 
-export default function JuegoParejas({ palabras, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
-  const cartas = useMemo(() => generarParejas(palabras, crearAleatorio(Date.now())), [palabras]);
+export default function JuegoParejas({ palabras, escalon, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
+  const cartas = useMemo(
+    () => generarParejas(palabras, crearAleatorio(Date.now()), parametrosProfe(escalon).parejas),
+    [palabras, escalon],
+  );
+  // Columnas según cuántas cartas haya (de 8 a 16), para que quepan en la tablet.
+  const columnas = ({ 8: 4, 10: 5, 12: 4, 14: 5, 16: 4 } as Record<number, number>)[cartas.length] ?? 4;
   const totalParejas = cartas.length / 2;
   const [turno, setTurno] = useState<Jugador>('nina');
   const [abiertas, setAbiertas] = useState<string[]>([]);
@@ -113,7 +119,7 @@ export default function JuegoParejas({ palabras, registrar, alTerminar, alAvanza
         <Marcador jugador="profe" etiqueta="Profe" color="bg-mar" />
       </div>
 
-      <div className="grid flex-1 grid-cols-4 content-center gap-3">
+      <div className="grid flex-1 content-center gap-3" style={{ gridTemplateColumns: `repeat(${columnas}, auto)` }}>
         {cartas.map((c) => {
           const visible = abiertas.includes(c.id) || duenas[c.palabra] !== undefined;
           const duena = duenas[c.palabra];
@@ -125,7 +131,7 @@ export default function JuegoParejas({ palabras, registrar, alTerminar, alAvanza
               animate={{ rotateY: visible ? 0 : 180 }}
               transition={{ duration: 0.35 }}
               aria-label={visible ? (c.cara === 'palabra' ? c.palabra : `dibujo de ${c.palabra}`) : 'carta tapada'}
-              className={`flex h-32 w-44 items-center justify-center rounded-2xl shadow-md ${
+              className={`flex h-28 w-40 items-center justify-center rounded-2xl shadow-md ${
                 visible ? 'bg-white' : 'bg-gradient-to-br from-mar to-mar-oscuro'
               } ${duena === 'nina' ? 'ring-4 ring-sol' : duena === 'profe' ? 'ring-4 ring-mar' : ''}`}
             >
@@ -133,7 +139,7 @@ export default function JuegoParejas({ palabras, registrar, alTerminar, alAvanza
                 c.cara === 'palabra' ? (
                   <span className="texto-lectura text-[44px] font-bold text-tinta">{c.palabra}</span>
                 ) : (
-                  <Pictograma id={c.img} tamano={100} />
+                  <Pictograma id={c.img} tamano={88} />
                 )
               ) : (
                 <span className="font-sans text-5xl font-bold text-white/70">?</span>

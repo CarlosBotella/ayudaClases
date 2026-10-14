@@ -2,12 +2,13 @@
  * Lectura de datos para la tablet de la niña. Todo usa onSnapshot sobre la
  * caché persistente: funciona sin conexión con lo último descargado.
  */
-import { useEffect, useState } from 'react';
-import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { useEffect, useMemo, useState } from 'react';
+import { collection, doc, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import { dbNina } from '../firebase.ts';
 import { NUM_MUNDOS } from '../lib/clasificador.ts';
-import { PROGRESO_VACIO, resumirProgreso, type ResumenProgreso } from '../lib/progreso.ts';
-import { ContenidoZ, IntentoNivelZ, type Contenido, type IntentoNivel } from './esquemas.ts';
+import { PROGRESO_VACIO, resumirProgreso, type PartidaRegistrada, type ResumenProgreso } from '../lib/progreso.ts';
+import { calcularRetos, type EstadoReto } from '../lib/adaptativo.ts';
+import { ContenidoZ, IntentoNivelZ, PlanZ, type Contenido, type IntentoNivel, type Mecanica, type Plan } from './esquemas.ts';
 
 export type EstadoCarga<T> = { tipo: 'cargando' } | { tipo: 'vacio' } | { tipo: 'listo'; datos: T };
 
@@ -70,15 +71,50 @@ export function useProgreso(studentId: string | undefined): ResumenProgreso {
       q,
       (snap) => {
         const intentos: IntentoNivel[] = [];
+        const partidas: PartidaRegistrada[] = [];
         snap.forEach((d) => {
           const r = IntentoNivelZ.safeParse(d.data());
-          if (r.success) intentos.push(r.data);
+          if (!r.success) return;
+          intentos.push(r.data);
+          const fecha = r.data.completadoEn instanceof Timestamp ? r.data.completadoEn.toDate() : new Date();
+          partidas.push({
+            mecanica: r.data.mecanica,
+            puntuacion: r.data.puntuacion,
+            fecha,
+            nivelId: r.data.nivelId,
+            mundo: r.data.mundo,
+            contexto: r.data.contexto,
+          });
         });
-        setResumen(resumirProgreso(intentos));
+        setResumen({ ...resumirProgreso(intentos), partidas });
       },
       (e) => console.warn('No se pudo leer el progreso', e),
     );
   }, [studentId]);
 
   return resumen;
+}
+
+/** Plan de la alumna (reto fijado por el tutor y deberes). null si no hay. */
+export function usePlan(studentId: string | undefined): Plan | null {
+  const [plan, setPlan] = useState<Plan | null>(null);
+  useEffect(() => {
+    if (!studentId) return;
+    return onSnapshot(
+      doc(dbNina(), 'planes', studentId),
+      (snap) => {
+        const r = snap.exists() ? PlanZ.safeParse(snap.data()) : null;
+        setPlan(r?.success ? r.data : null);
+      },
+      () => setPlan(null),
+    );
+  }, [studentId]);
+  return plan;
+}
+
+/** Escalón de reto de cada juego para la alumna de esta tablet. */
+export function useRetos(studentId: string | undefined): Partial<Record<Mecanica, EstadoReto>> {
+  const progreso = useProgreso(studentId);
+  const plan = usePlan(studentId);
+  return useMemo(() => calcularRetos(progreso.partidas, plan?.retoFijo ?? {}), [progreso.partidas, plan]);
 }

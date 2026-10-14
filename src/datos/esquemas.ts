@@ -23,6 +23,8 @@ export const TipoErrorZ = z.enum([
   'intrusa',
   'sustitucion',
   'comprension',
+  // Escritura: el trazo no sigue la forma de la letra
+  'forma',
 ]);
 
 export const DistractorZ = z.object({ texto: z.string().min(1), tipo: TipoErrorZ });
@@ -53,9 +55,14 @@ export const MecanicaZ = z.enum([
   'pillado',
   'dictado',
   'parejas',
+  // Escritura (casa y tutoría)
+  'trazo',
+  'cuaderno',
 ]);
 /** Juegos que se juegan con el profe, en tutoría. */
 export type JuegoProfe = 'pillado' | 'dictado' | 'parejas';
+/** Juegos de escritura. */
+export type JuegoEscritura = 'trazo' | 'cuaderno';
 export type Mecanica = z.infer<typeof MecanicaZ>;
 
 // ─── Niveles (uno por mecánica) ─────────────────────────────────────────────
@@ -222,6 +229,8 @@ export const IntentoNivelZ = z.object({
   /** Pegatina ganada (palabra secreta) y su pictograma. */
   pegatina: z.string().optional(),
   pegatinaImg: z.number().int().optional(),
+  /** Escalón de reto con el que se jugó (1–5). */
+  escalon: z.number().int().min(1).max(5).optional(),
   completadoEn: z.unknown(),
 });
 export type IntentoNivel = z.infer<typeof IntentoNivelZ>;
@@ -245,3 +254,31 @@ export const IntentoItemZ = z.object({
   creadoEn: z.unknown(),
 });
 export type IntentoItem = z.infer<typeof IntentoItemZ>;
+
+// ─── Plan de la alumna: reto fijado a mano y deberes ────────────────────────
+
+/** Actividades que se pueden poner de deberes. */
+export const ActividadZ = z.enum(['intrusa', 'burbujas', 'tren', 'detective', 'carrera', 'trazo', 'cuaderno']);
+export type Actividad = z.infer<typeof ActividadZ>;
+
+export const DeberesZ = z.object({
+  /** Mundo del que salen las actividades. */
+  mundo: z.number().int().min(1).max(5),
+  actividades: z.array(ActividadZ).min(1).max(7),
+  /** Días por semana que debería hacerlos. */
+  diasPorSemana: z.number().int().min(1).max(7),
+  activos: z.boolean(),
+});
+export type Deberes = z.infer<typeof DeberesZ>;
+
+/**
+ * planes/{sid}: lo escribe el tutor; la tablet de la alumna lo lee.
+ *  - retoFijo: escalón (1–5) fijado a mano por juego; si no está, es automático.
+ *  - deberes: tareas para casa.
+ */
+export const PlanZ = z.object({
+  retoFijo: z.record(z.string(), z.number().int().min(1).max(5)).default({}),
+  deberes: DeberesZ.nullable().default(null),
+  actualizado: z.unknown(),
+});
+export type Plan = z.infer<typeof PlanZ>;

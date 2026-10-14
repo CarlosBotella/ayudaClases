@@ -17,6 +17,8 @@ export const SEGUNDOS_POR_ITEM: Readonly<Record<Mecanica, number>> = {
   pillado: 12,
   dictado: 30,
   parejas: 25,
+  trazo: 20,
+  cuaderno: 45,
 };
 
 export interface DatosEstrellas {

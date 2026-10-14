@@ -97,6 +97,8 @@ beforeEach(async () => {
     });
     await setDoc(doc(d, 'students/ana/levelAttempts/previo'), intentoNivel());
     await setDoc(doc(d, 'students/ana/attempts/previo'), intentoItem());
+    await setDoc(doc(d, 'planes/ana'), { retoFijo: {}, deberes: null });
+    await setDoc(doc(d, 'planes/otra'), { retoFijo: {}, deberes: null });
   });
 });
 
@@ -215,4 +217,14 @@ describe('attempts (solo se añaden)', () => {
     await assertFails(updateDoc(doc(tutor(), 'students/ana/attempts/previo'), { correcto: false }));
     await assertFails(deleteDoc(doc(tutor(), 'students/ana/attempts/previo')));
   });
+});
+
+describe('planes (reto fijado y deberes)', () => {
+  it('✅ la tablet de la alumna lee su plan', () => assertSucceeds(getDoc(doc(tablet(), 'planes/ana'))));
+  it('❌ la tablet no lee el plan de otra alumna', () => assertFails(getDoc(doc(tablet(), 'planes/otra'))));
+  it('❌ una tablet sin vincular no lo lee', () => assertFails(getDoc(doc(tablet('nueva'), 'planes/ana'))));
+  it('❌ la tablet no puede cambiarse los deberes', () =>
+    assertFails(setDoc(doc(tablet(), 'planes/ana'), { retoFijo: {}, deberes: null })));
+  it('✅ el tutor escribe el plan', () =>
+    assertSucceeds(setDoc(doc(tutor(), 'planes/ana'), { retoFijo: { burbujas: 2 }, deberes: null })));
 });

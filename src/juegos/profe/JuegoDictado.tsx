@@ -17,6 +17,7 @@ import Pictograma from '../../componentes/Pictograma.tsx';
 import { ERRORES_PARA_PISTA } from '../tipos.ts';
 import { barajar, esperar } from '../utilidades.ts';
 import { generarDictado, type RondaDictado } from './generar.ts';
+import { parametrosProfe } from '../ajustar.ts';
 import RecuadroProfe from './RecuadroProfe.tsx';
 import type { PropsJuegoProfe } from './tipos.ts';
 
@@ -32,8 +33,11 @@ const fichasDe = (r: RondaDictado): FichaLetra[] =>
     ...r.trampas.map((t, i) => ({ id: `t${i}`, texto: t.texto, trampa: t.tipo })),
   ]);
 
-export default function JuegoDictado({ mundo, palabras, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
-  const rondas = useMemo(() => generarDictado(palabras, mundo, crearAleatorio(Date.now())), [palabras, mundo]);
+export default function JuegoDictado({ mundo, palabras, escalon, registrar, alTerminar, alAvanzar }: PropsJuegoProfe) {
+  const rondas = useMemo(() => {
+    const p = parametrosProfe(escalon);
+    return generarDictado(palabras, mundo, crearAleatorio(Date.now()), 5, p.maxGrafemas, p.trampasDictado);
+  }, [palabras, mundo, escalon]);
   const [indice, setIndice] = useState(0);
   const ronda = rondas[indice];
   const fichas = useMemo(() => (ronda ? fichasDe(ronda) : []), [ronda]);
