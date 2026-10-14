@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { MUNDOS } from '../lib/clasificador.ts';
 import { nivelDesbloqueado } from '../lib/progreso.ts';
+import { esRepaso } from '../generador/repaso.ts';
 import { useContenido, useProgreso } from '../datos/hooks.ts';
 import { useDispositivo } from '../sesion/SesionNina.tsx';
 import Cargando from '../componentes/Cargando.tsx';
@@ -60,7 +61,8 @@ export default function Mundo() {
       </svg>
 
       {niveles.map((nivel, i) => {
-        const abierto = nivelDesbloqueado(progreso, ids, i);
+        // Los repasos que crea el tutor están siempre abiertos.
+        const abierto = esRepaso(nivel.id) || nivelDesbloqueado(progreso, ids, i);
         const estrellas = progreso.mejores.get(nivel.id)?.estrellas ?? 0;
         const Icono = ICONO_MECANICA[nivel.mecanica];
         const { x, y } = posicion(i);

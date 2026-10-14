@@ -148,9 +148,9 @@ export default function AdminMarco() {
         <NavLink to="/admin/contenido" className={pestana}>
           Contenido
         </NavLink>
-        <span className="flex min-h-12 items-center rounded-xl px-4 font-bold text-tinta/30" title="Llega en la Fase 5">
+        <NavLink to="/admin/metricas" className={pestana}>
           Métricas
-        </span>
+        </NavLink>
         <span className="flex-1" />
         <button type="button" className={estilos.botonSuave} onClick={irALaApp}>
           Volver a la app
