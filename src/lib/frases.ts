@@ -9,7 +9,7 @@ import { mundoDeFrase } from './clasificador.ts';
 import { normalizar, silabaTonica } from './silabas.ts';
 
 export type Genero = 'm' | 'f';
-export type Plantilla = 'tamano' | 'cantidad' | 'pareja';
+export type Plantilla = 'nombre' | 'tamano' | 'cantidad' | 'pareja';
 
 export interface ElementoEscena {
   /** Sustantivo en singular (clave para buscar su pictograma). */
@@ -77,6 +77,25 @@ function escenaSimple(palabra: string, escala = 1, copias = 1): Escena {
 
 function crear(palabras: string[], plantilla: Plantilla, escena: Escena, distractoras: Escena[]): Frase {
   return { texto: palabras.join(' '), palabras, plantilla, mundo: mundoDeFrase(palabras), escena, distractoras };
+}
+
+/**
+ * Frases de 2 palabras para los primeros mundos: "la mesa" (femeninos) y
+ * "mi oso" (cualquiera). "la" y "mi" son del Mundo 1; "el" es VC (Mundo 4).
+ * Distractora: el dibujo de `cambio`.
+ */
+export function frasesNombre(sustantivo: string, cambio: string): Frase[] {
+  const s = normalizar(sustantivo);
+  const c = normalizar(cambio);
+  if (s === c) return [];
+  const distractoras = [escenaSimple(c)];
+  const frases: Frase[] = [];
+
+  if (generoYArticulo(s)?.articulo === 'la') {
+    frases.push(crear(['la', s], 'nombre', escenaSimple(s), distractoras));
+  }
+  frases.push(crear(['mi', s], 'nombre', escenaSimple(s), distractoras));
+  return frases;
 }
 
 /**

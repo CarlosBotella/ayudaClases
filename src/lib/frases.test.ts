@@ -4,6 +4,7 @@ import {
   ESCALA_PEQUENO,
   frasePareja,
   frasesCantidad,
+  frasesNombre,
   frasesTamano,
   generoYArticulo,
   plural,
@@ -40,6 +41,23 @@ describe('plural', () => {
     expect(plural('mesa')).toBe('mesas');
     expect(plural('sol')).toBe('soles');
     expect(plural('luz')).toBe('luces');
+  });
+});
+
+describe('frasesNombre', () => {
+  it('"la mesa" y "mi mesa" son del Mundo 1', () => {
+    const frases = frasesNombre('mesa', 'oso');
+    expect(frases.map((f) => f.texto)).toEqual(['la mesa', 'mi mesa']);
+    expect(frases.map((f) => f.mundo)).toEqual([1, 1]);
+    expect(frases[0]?.distractoras[0]?.elementos[0]?.palabra).toBe('oso');
+  });
+
+  it('los masculinos solo con "mi"', () => {
+    expect(frasesNombre('oso', 'mesa').map((f) => f.texto)).toEqual(['mi oso']);
+  });
+
+  it('el cambio debe ser otra palabra', () => {
+    expect(frasesNombre('oso', 'oso')).toEqual([]);
   });
 });
 

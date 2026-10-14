@@ -2,7 +2,7 @@
  * Minijuego "Letra intrusa": se inserta una consonante de más en una palabra
  * (pato → plato) y la niña debe reventar la que sobra.
  */
-import { normalizar, tokenizar } from './silabas.ts';
+import { esVocal, normalizar, tokenizar } from './silabas.ts';
 
 /**
  * Escalón de dificultad de una intrusa, de más fácil a más difícil:
@@ -51,19 +51,20 @@ function clasificar(letra: string, palabra: string, esReal: boolean): Dificultad
 }
 
 /**
- * Todas las formas de meter UNA consonante en la palabra.
+ * Todas las formas de meter UNA letra de más en la palabra.
+ * Normalmente consonantes; también vocales, que necesita la "palabra secreta".
  *
  * - Solo se inserta entre grafemas (nunca dentro de "ch", "qu"…).
  * - Se descarta repetir la letra vecina (ppato) y crear dígrafos (c+h, l+l, r+r).
  * - Se descarta "q", que no puede ir sin "u".
  * - Orden: primero las que forman palabra real del diccionario, luego las inventadas.
  *
- * @param consonantes letras sueltas que puede usar (las del mundo de la niña)
+ * @param letrasPermitidas letras sueltas que puede usar (las del mundo de la niña)
  * @param diccionario palabras reales conocidas (en minúscula)
  */
 export function generarIntrusas(
   palabra: string,
-  consonantes: readonly string[],
+  letrasPermitidas: readonly string[],
   diccionario: ReadonlySet<string>,
 ): CandidataIntrusa[] {
   const base = normalizar(palabra);
@@ -76,7 +77,7 @@ export function generarIntrusas(
     limites.push(acumulado);
   }
 
-  const letras = consonantes.filter((c) => c.length === 1 && c !== 'q');
+  const letras = letrasPermitidas.filter((c) => c.length === 1 && c !== 'q');
   const vistas = new Set<string>();
   const candidatas: CandidataIntrusa[] = [];
 
@@ -86,6 +87,9 @@ export function generarIntrusas(
 
     for (const letra of letras) {
       if (letra === antes || letra === despues) continue;
+      // Una vocal junto a otra formaría un diptongo y se leería distinto (pato → paeto):
+      // solo se mete entre consonantes o en un extremo junto a consonante (pato → epato).
+      if (esVocal(letra) && (esVocal(antes) || esVocal(despues))) continue;
       if (CREA_DIGRAFO.has(antes + letra) || CREA_DIGRAFO.has(letra + despues)) continue;
 
       const texto = base.slice(0, posicion) + letra + base.slice(posicion);

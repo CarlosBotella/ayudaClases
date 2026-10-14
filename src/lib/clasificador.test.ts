@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { grafemasDe, mundoDeFrase, mundoDePalabra, permitidosEnMundo } from './clasificador.ts';
+import {
+  grafemasDe,
+  mundoDeFrase,
+  mundoDePalabra,
+  permitidosEnMundo,
+  tieneDiptongo,
+} from './clasificador.ts';
 
 describe('mundoDePalabra', () => {
   const casos: Array<[string, number | null]> = [
@@ -24,6 +30,10 @@ describe('mundoDePalabra', () => {
     ['ahora', 3],
     ['guiso', 3],
     ['y', 3],
+    // Diptongos: no antes del mundo 3, aunque las letras sean del 1
+    ['pie', 3],
+    ['aire', 3],
+    ['peine', 3],
     // Mundo 4: + VC y CVC
     ['sol', 4],
     ['árbol', 4],
@@ -69,6 +79,16 @@ describe('grafemasDe', () => {
     expect(grafemasDe('coche')).toEqual(['c', 'o', 'ch', 'e']);
     expect(grafemasDe('pingüino')).toEqual(['p', 'i', 'n', 'gü', 'i', 'n', 'o']);
     expect(grafemasDe('mamá')).toEqual(['m', 'a', 'm', 'a']);
+  });
+});
+
+describe('tieneDiptongo', () => {
+  it('detecta grupos de vocales en una sílaba', () => {
+    expect(tieneDiptongo('aire')).toBe(true);
+    expect(tieneDiptongo('ciudad')).toBe(true);
+    expect(tieneDiptongo('día')).toBe(false); // hiato
+    expect(tieneDiptongo('queso')).toBe(false); // la u de "qu" no suena
+    expect(tieneDiptongo('pingüino')).toBe(false); // gü se enseña como bloque
   });
 });
 

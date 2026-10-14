@@ -49,6 +49,18 @@ describe('generarIntrusas', () => {
   });
 });
 
+describe('intrusas vocales (para la palabra secreta)', () => {
+  it('solo entre consonantes o en un extremo junto a consonante', () => {
+    const textos = generarIntrusas('pato', ['e'], new Set()).map((c) => c.texto);
+    expect(textos).toEqual(['epato']);
+  });
+
+  it('en una trabada sí cabe una vocal en medio', () => {
+    const textos = generarIntrusas('plato', ['u'], new Set()).map((c) => c.texto);
+    expect(textos).toContain('pulato');
+  });
+});
+
 describe('esRespuestaCorrecta', () => {
   it('plato/pato: tocar la l es correcto', () => {
     expect(esRespuestaCorrecta('plato', 1, 'pato')).toBe(true);

@@ -26,6 +26,16 @@ jobs:
         id: comprobar
         continue-on-error: true
         run: scripts/ci-comprobar.sh /tmp/informe.txt
+      - name: Guardar package-lock.json actualizado en dev
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -q -m "chore: actualizar package-lock.json"
+            git push -q origin HEAD:dev
+          fi
       - name: Guardar informe en la rama ci-logs
         if: always()
         env:

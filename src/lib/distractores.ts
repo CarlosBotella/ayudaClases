@@ -11,6 +11,7 @@ export type TipoError =
   | 'sonoridad' // p ↔ b, t ↔ d, c ↔ g
   | 'omision' // bla → ba
   | 'intrusa' // letra de más
+  | 'sustitucion' // otra letra cualquiera (ma → me, pa → sa)
   | 'comprension'; // elegir la escena equivocada en el detective
 
 export interface Distractor {

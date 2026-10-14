@@ -51,6 +51,12 @@ export const MUNDOS: readonly DefMundo[] = [
 
 export const NUM_MUNDOS = MUNDOS.length;
 
+/**
+ * Los diptongos (ai, ue, ia…) cuestan más a una lectora que empieza:
+ * no aparecen antes de este mundo, aunque sus letras ya se conozcan.
+ */
+export const MUNDO_DIPTONGOS = 3;
+
 /** Grafemas y patrones permitidos en el mundo n (acumulados desde el 1). */
 export function permitidosEnMundo(n: number): { grafemas: Set<string>; patrones: Set<string> } {
   const grafemas = new Set<string>();
@@ -83,6 +89,13 @@ export function grafemasDe(palabra: string): string[] {
   return grafemas;
 }
 
+/** ¿Alguna sílaba tiene dos o más vocales juntas (diptongo o triptongo)? */
+export function tieneDiptongo(palabra: string): boolean {
+  return analizarSilabas(palabra).some(
+    (s) => s.tokens.filter((t) => t.tipo === 'V').length >= 2,
+  );
+}
+
 /** Mundo en el que aparece una palabra por primera vez, o null si no encaja en ninguno. */
 export function mundoDePalabra(palabra: string): number | null {
   const silabas = analizarSilabas(palabra);
@@ -90,8 +103,10 @@ export function mundoDePalabra(palabra: string): number | null {
 
   const grafemas = new Set(grafemasDe(palabra));
   const patrones = new Set(silabas.map((s) => s.patron));
+  const minimo = tieneDiptongo(palabra) ? MUNDO_DIPTONGOS : 1;
 
   for (const m of MUNDOS) {
+    if (m.n < minimo) continue;
     const permitidos = permitidosEnMundo(m.n);
     const letrasOk = [...grafemas].every((g) => permitidos.grafemas.has(g));
     const patronesOk = [...patrones].every((p) => permitidos.patrones.has(p));

@@ -1,25 +1,15 @@
 #!/bin/bash
-# Sondeo de endpoints externos (se ejecuta en GitHub, que sí tiene Internet).
-ORIGEN="https://carlosbotella.github.io"
-sondear() {
-  echo "--- $1"
-  curl -sS -m 120 -o /tmp/cuerpo -D /tmp/cabeceras -H "Origin: $ORIGEN" -w "HTTP %{http_code} · %{size_download} bytes · %{time_total}s\n" "$1"
-  grep -i -E '^(access-control|content-type|content-encoding|cache-control)' /tmp/cabeceras
-  echo "inicio del cuerpo:"; head -c 600 /tmp/cuerpo; echo
-}
-sondear "https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/es/es_50k.txt"
-sondear "https://api.arasaac.org/v1/pictograms/all/es"
+# Sondeo de ARASAAC: qué significa el campo "type" de cada keyword.
+curl -sS -m 120 -o /tmp/todos.json "https://api.arasaac.org/v1/pictograms/all/es"
 python3 - <<'PY'
-import json
-d=json.load(open('/tmp/cuerpo'))
-print("pictogramas:", len(d))
-print("claves del primero:", sorted(d[0].keys()))
-print("ejemplo:", json.dumps({k:d[0][k] for k in d[0] if k in ('_id','keywords','sex','violence','categories','tags','schematic','aac','skin','hair')}, ensure_ascii=False)[:800])
-print("sex=True:", sum(1 for p in d if p.get('sex')), " violence=True:", sum(1 for p in d if p.get('violence')))
+import json, collections
+d=json.load(open('/tmp/todos.json'))
+idx=collections.defaultdict(list)
+for p in d:
+    for k in p.get('keywords',[]):
+        idx[k.get('keyword','').lower()].append((p['_id'],k.get('type'),k.get('plural'),p.get('sex'),p.get('violence')))
+for w in ['pato','mesa','comer','grande','pequeño','rojo','hola','madrid','mamá','sopa','oso','sol','y','la','dos','tres','el']:
+    print(w, idx.get(w,[])[:6])
+print('tipos:', collections.Counter(k.get('type') for p in d for k in p.get('keywords',[])))
+print('claves de keyword:', sorted({kk for p in d for k in p.get('keywords',[]) for kk in k}))
 PY
-echo "--- comprimido (gzip) del listado"
-curl -sS -m 120 -o /dev/null -H 'Accept-Encoding: gzip' -w "gzip: %{size_download} bytes\n" "https://api.arasaac.org/v1/pictograms/all/es"
-sondear "https://api.arasaac.org/v1/pictograms/es/search/pato"
-sondear "https://static.arasaac.org/pictograms/2271/2271_300.png"
-curl -sS -m 30 -o /dev/null -D - "https://api.arasaac.org/docs" | head -5
-exit 0
