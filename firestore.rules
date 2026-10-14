@@ -3,6 +3,13 @@ rules_version = '2';
 // Reglas de seguridad de Viaje Lector.
 // Se pegan en Firebase → Firestore Database → pestaña "Reglas" → Publicar.
 // Los tests están en reglas/reglas.test.ts (se ejecutan en GitHub con el emulador).
+//
+// ROLES
+//  - Administrador: cbotnav@gmail.com. Ve todo, da de alta tutores y genera los mundos.
+//  - Tutor: email dado de alta en tutores/{email} (activo). Solo ve a SUS alumnos
+//    (los que tienen su email en la lista "tutores" de la ficha).
+//  - Tablet: sesión anónima vinculada a un alumno con un código.
+// Todos los adultos necesitan el email verificado.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -12,17 +19,41 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function email() {
+      return request.auth.token.get('email', '');
+    }
+
+    function verificado() {
+      return conSesion() && request.auth.token.get('email_verified', false) == true && email() != '';
+    }
+
+    function esAdmin() {
+      return verificado() && email() == 'cbotnav@gmail.com';
+    }
+
+    function rutaTutor() {
+      return /databases/$(database)/documents/tutores/$(email());
+    }
+
     function esTutor() {
-      return conSesion()
-        && request.auth.token.email == 'cbotnav@gmail.com'
-        && request.auth.token.email_verified == true;
+      return esAdmin()
+        || (verificado() && exists(rutaTutor()) && get(rutaTutor()).data.get('activo', false) == true);
+    }
+
+    function tutoresDe(sid) {
+      return get(/databases/$(database)/documents/students/$(sid)).data.get('tutores', []);
+    }
+
+    // ¿Este adulto puede ver y gestionar a este alumno?
+    function puedeVerAlumno(sid) {
+      return esAdmin() || (esTutor() && email() in tutoresDe(sid));
     }
 
     function rutaDispositivo() {
       return /databases/$(database)/documents/devices/$(request.auth.uid);
     }
 
-    // ¿La tablet que hace la petición está vinculada a esta alumna?
+    // ¿La tablet que hace la petición está vinculada a este alumno?
     function esTabletDe(sid) {
       return conSesion()
         && exists(rutaDispositivo())
@@ -41,20 +72,38 @@ service cloud.firestore {
       return request.resource.data.keys().hasAll(campos);
     }
 
-    // ─── Contenido: lo lee cualquier tablet, lo escribe solo el tutor ──────
-    match /contenido/{documento} {
-      allow read: if conSesion();
-      allow write: if esTutor();
+    // ─── Tutores dados de alta (solo el administrador los gestiona) ─────────
+    match /tutores/{correo} {
+      // Cada tutor puede leer su propia ficha (para saber si está autorizado).
+      allow get: if esAdmin() || (verificado() && email() == correo);
+      allow list, write: if esAdmin();
     }
 
-    // ─── Alumnas: todo es del tutor ────────────────────────────────────────
-    match /students/{sid} {
-      allow read, write: if esTutor();
+    // ─── Contenido: lo lee cualquier tablet, lo escribe el administrador ────
+    match /contenido/{documento} {
+      allow read: if conSesion();
+      allow write: if esAdmin();
+    }
 
-      // Resultado de cada nivel. La tablet de la alumna lo crea y lo puede leer
+    // ─── Alumnos: cada tutor solo los suyos ────────────────────────────────
+    match /students/{sid} {
+      allow get: if esAdmin() || (esTutor() && email() in resource.data.get('tutores', []));
+      // Las consultas de un tutor deben filtrar por sus alumnos (array-contains su email).
+      allow list: if esAdmin() || (esTutor() && email() in resource.data.tutores);
+      // Quien crea un alumno queda en su lista de tutores.
+      allow create: if esTutor()
+        && request.resource.data.tutores is list
+        && email() in request.resource.data.tutores;
+      // Un tutor puede editar a su alumno, pero solo el administrador cambia quién lo lleva.
+      allow update: if esAdmin()
+        || (esTutor() && email() in resource.data.get('tutores', [])
+            && request.resource.data.get('tutores', []) == resource.data.get('tutores', []));
+      allow delete: if puedeVerAlumno(sid);
+
+      // Resultado de cada nivel. La tablet del alumno lo crea y lo puede leer
       // (para mostrar sus estrellas, su álbum y su fantasma).
       match /levelAttempts/{id} {
-        allow read: if esTutor() || esTabletDe(sid);
+        allow read: if puedeVerAlumno(sid) || esTabletDe(sid);
         allow create: if esTabletDe(sid)
           && soloCampos(['nivelId', 'mundo', 'nivel', 'mecanica', 'estrellas', 'puntuacion',
                          'duracionMs', 'pcpm', 'contexto', 'pegatina', 'pegatinaImg', 'escalon',
@@ -66,14 +115,14 @@ service cloud.firestore {
           && request.resource.data.estrellas <= 3
           && request.resource.data.contexto == contextoDeLaTablet()
           && request.resource.data.completadoEn is timestamp;
-        // Nadie los edita. Solo el tutor los borra (para eliminar a una alumna del todo).
+        // Nadie los edita. Solo sus tutores los borran (para eliminar al alumno del todo).
         allow update: if false;
-        allow delete: if esTutor();
+        allow delete: if puedeVerAlumno(sid);
       }
 
-      // Cada respuesta de la niña. Solo se añaden: nadie puede editarlas.
+      // Cada respuesta del alumno. Solo se añaden: nadie puede editarlas.
       match /attempts/{id} {
-        allow read: if esTutor();
+        allow read: if puedeVerAlumno(sid);
         allow create: if esTabletDe(sid)
           && soloCampos(['levelAttemptId', 'mecanica', 'item', 'unidadObjetivo', 'patron',
                          'respuesta', 'correcto', 'errorTipo', 'latenciaMs', 'ayudas',
@@ -83,28 +132,29 @@ service cloud.firestore {
           && request.resource.data.correcto is bool
           && request.resource.data.contexto == contextoDeLaTablet()
           && request.resource.data.creadoEn is timestamp;
-        // Nadie los edita. Solo el tutor los borra (para eliminar a una alumna del todo).
         allow update: if false;
-        allow delete: if esTutor();
+        allow delete: if puedeVerAlumno(sid);
       }
     }
 
-    // ─── Plan de la alumna (reto fijado y deberes) ─────────────────────────
-    // Lo escribe el tutor; la tablet de ESA alumna lo puede leer.
+    // ─── Plan del alumno (reto fijado, deberes y repasos) ──────────────────
+    // Lo escriben sus tutores; la tablet de ESE alumno lo puede leer.
     match /planes/{sid} {
-      allow read: if esTutor() || esTabletDe(sid);
-      allow write: if esTutor();
+      allow read: if puedeVerAlumno(sid) || esTabletDe(sid);
+      allow write: if puedeVerAlumno(sid);
     }
 
     // ─── Códigos de vinculación ────────────────────────────────────────────
     // Conocer el código (6 dígitos, caduca) es lo que da permiso a leerlo.
     match /pairingCodes/{codigo} {
       allow get: if conSesion();
-      allow list: if esTutor();
+      allow list: if esAdmin() || (esTutor() && email() in resource.data.tutores);
       allow create: if esTutor()
-        && soloCampos(['studentId', 'nombre', 'contexto', 'expira'])
-        && request.resource.data.contexto in ['tutoria', 'casa'];
-      allow delete: if esTutor();
+        && puedeVerAlumno(request.resource.data.studentId)
+        && soloCampos(['studentId', 'nombre', 'contexto', 'expira', 'tutores'])
+        && request.resource.data.contexto in ['tutoria', 'casa']
+        && request.resource.data.tutores == tutoresDe(request.resource.data.studentId);
+      allow delete: if esAdmin() || (esTutor() && email() in resource.data.get('tutores', []));
       allow update: if false;
     }
 
@@ -119,16 +169,21 @@ service cloud.firestore {
         && datos.studentId == codigo.studentId
         && datos.nombre == codigo.nombre
         && datos.contexto == codigo.contexto
-        && soloCampos(['studentId', 'nombre', 'contexto', 'codigo', 'vinculado'])
+        && datos.tutores == codigo.get('tutores', [])
+        && soloCampos(['studentId', 'nombre', 'contexto', 'codigo', 'vinculado', 'tutores'])
         && datos.vinculado == request.time;
     }
 
+    function tutorDeLaTablet() {
+      return esAdmin() || (esTutor() && email() in resource.data.get('tutores', []));
+    }
+
     match /devices/{uid} {
-      allow get: if conSesion() && (request.auth.uid == uid || esTutor());
-      allow list: if esTutor();
+      allow get: if conSesion() && (request.auth.uid == uid || tutorDeLaTablet());
+      allow list: if esAdmin() || (esTutor() && email() in resource.data.tutores);
       // La tablet solo puede escribir SU documento, y solo con un código válido.
       allow create, update: if conSesion() && request.auth.uid == uid && codigoValido();
-      allow delete: if esTutor() || (conSesion() && request.auth.uid == uid);
+      allow delete: if (conSesion() && request.auth.uid == uid) || tutorDeLaTablet();
     }
   }
 }
