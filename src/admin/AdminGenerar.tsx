@@ -73,7 +73,7 @@ export default function AdminGenerar() {
         const delMundo = cache.candidatas.filter((c) => c.mundo === mundo).slice(0, MAX_PALABRAS);
         const iniciales = r?.success
           ? new Set(Object.keys(r.data.palabras))
-          : new Set(delMundo.filter((c) => c.comun).slice(0, MARCADAS_POR_DEFECTO).map((c) => c.texto));
+          : new Set(delMundo.filter((c) => c.concreta).slice(0, MARCADAS_POR_DEFECTO).map((c) => c.texto));
         if (activo) {
           setMarcadas(iniciales);
           setFase({ tipo: 'revision' });
@@ -168,9 +168,8 @@ export default function AdminGenerar() {
             <div className="flex flex-wrap gap-3">
               {MUNDOS.map((m) => (
                 <span key={m.n} className={`rounded-xl px-3 py-1 ${m.n === mundo ? 'bg-mar text-white' : 'bg-crema'}`}>
-                  Mundo {m.n}: <strong>{resumen[m.n]?.comunes ?? 0}</strong>
-                  {(resumen[m.n]?.total ?? 0) > (resumen[m.n]?.comunes ?? 0) &&
-                    ` (+${(resumen[m.n]?.total ?? 0) - (resumen[m.n]?.comunes ?? 0)} nombres propios)`}
+                  Mundo {m.n}: <strong>{resumen[m.n]?.concretas ?? 0}</strong> concretas
+                  {` (de ${resumen[m.n]?.total ?? 0})`}
                 </span>
               ))}
             </div>
@@ -193,8 +192,8 @@ export default function AdminGenerar() {
           </div>
 
           <p className="text-sm text-tinta/70">
-            Desmarca lo raro (palabras que no son para niños, dibujos confusos…). Las marcadas en gris son nombres propios
-            en ARASAAC: revísalas antes de marcarlas.
+            Vienen marcadas las palabras de cosas concretas (animales, comida, objetos, cuerpo, familia…). Las de fondo gris
+            son abstractas o nombres propios en ARASAAC: márcalas solo si tienen un dibujo claro. Desmarca lo que no te guste.
           </p>
 
           <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
@@ -205,7 +204,7 @@ export default function AdminGenerar() {
                   key={c.texto}
                   className={`flex cursor-pointer flex-col items-center gap-1 rounded-2xl border-4 bg-white p-2 ${
                     activa ? 'border-mar' : 'border-transparent opacity-50'
-                  } ${c.comun ? '' : 'bg-tinta/5'}`}
+                  } ${c.concreta ? '' : 'bg-tinta/5'}`}
                 >
                   <Pictograma id={c.img} tamano={90} />
                   <span className="texto-lectura text-2xl font-bold">{c.texto}</span>

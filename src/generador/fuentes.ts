@@ -38,6 +38,8 @@ const PictogramaZ = z.object({
   _id: z.number(),
   sex: z.boolean().optional(),
   violence: z.boolean().optional(),
+  tags: z.array(z.string()).default([]),
+  categories: z.array(z.string()).default([]),
   keywords: z
     .array(z.object({ keyword: z.string().optional(), type: z.number().optional() }))
     .default([]),
@@ -47,11 +49,36 @@ export interface InfoPictograma {
   id: number;
   /** true si la palabra es nombre común en ARASAAC (si no, nombre propio). */
   comun: boolean;
+  /** true si sus categorías son de cosas que se pueden tocar o ver (animal, comida, objeto…). */
+  concreta: boolean;
+}
+
+/**
+ * Temas que no son para una niña de 7 años: esos pictogramas se descartan.
+ * Se comparan con las etiquetas y categorías (en inglés) de ARASAAC.
+ */
+const TEMAS_BLOQUEADOS =
+  /\b(drug|addiction|death|dead|war\b|weapon|religio|christian|islam|juda|buddhis|hindu|sex|alcohol|tobacco|crime|prison|disruptive|violen|hunting|funeral|bullfight)/;
+
+/** Etiquetas de cosas concretas y dibujables. */
+const TEMAS_CONCRETOS =
+  /\b(animal|food|feeding|fruit|vegetable|drink|object|furniture|toy|clothes|clothing|footwear|human body|human anatomy|family|person|vehicle|transport|building|home|plant|flower|tool|kitchen|utensil|container|musical instrument|school material|educational material|sport|beach|nature|weather|astronom|insect|bird|fish|mammal|dessert|sweet|accessor)/;
+
+/** Etiquetas de ideas abstractas: aunque tengan dibujo, no se marcan por defecto. */
+const TEMAS_ABSTRACTOS =
+  /\b(time|calendar|feeling|emotion|psychology|language|communication|pronoun|adjective|verb|document|human value|unit of|event|mathematic|orthographic|concept|quantity)/;
+
+export function clasificarTemas(etiquetas: readonly string[]): { bloqueada: boolean; concreta: boolean } {
+  const texto = etiquetas.join(' | ').toLowerCase();
+  return {
+    bloqueada: TEMAS_BLOQUEADOS.test(texto),
+    concreta: TEMAS_CONCRETOS.test(texto) && !TEMAS_ABSTRACTOS.test(texto),
+  };
 }
 
 /**
  * Índice palabra → pictograma. Solo nombres comunes y propios (lo dibujable),
- * sin pictogramas marcados como sexuales o violentos.
+ * sin pictogramas marcados como sexuales o violentos ni de temas bloqueados.
  * Si una palabra tiene varios, gana el que la tiene como PRIMERA palabra clave
  * (su significado principal) y, a igualdad, el de id más bajo.
  */
@@ -62,6 +89,8 @@ export function indexarPictogramas(datos: unknown): Map<string, InfoPictograma> 
   for (const bruto of lista) {
     const p = PictogramaZ.safeParse(bruto);
     if (!p.success || p.data.sex || p.data.violence) continue;
+    const { bloqueada, concreta } = clasificarTemas([...p.data.tags, ...p.data.categories]);
+    if (bloqueada) continue;
 
     p.data.keywords.forEach((k, indice) => {
       const tipo = k.type;
@@ -69,17 +98,18 @@ export function indexarPictogramas(datos: unknown): Map<string, InfoPictograma> 
       const palabra = normalizar(k.keyword ?? '');
       if (!palabra) return;
 
-      const prioridad = (indice === 0 ? 0 : 1_000_000) + p.data._id;
+      // Gana: primera palabra clave del pictograma, luego dibujo concreto, luego id más bajo.
+      const prioridad = (indice === 0 ? 0 : 2_000_000) + (concreta ? 0 : 1_000_000) + p.data._id;
       const actual = mejor.get(palabra);
       // Un nombre común siempre gana a un propio con la misma palabra.
       const comun = tipo === TIPO_ARASAAC.nombreComun;
       if (!actual || (comun && !actual.comun) || (comun === actual.comun && prioridad < actual.prioridad)) {
-        mejor.set(palabra, { id: p.data._id, comun, prioridad });
+        mejor.set(palabra, { id: p.data._id, comun, concreta, prioridad });
       }
     });
   }
 
-  return new Map([...mejor].map(([palabra, { id, comun }]) => [palabra, { id, comun }]));
+  return new Map([...mejor].map(([palabra, { id, comun, concreta }]) => [palabra, { id, comun, concreta }]));
 }
 
 /** Descarga las dos fuentes. `progreso` recibe mensajes para mostrar en pantalla. */
