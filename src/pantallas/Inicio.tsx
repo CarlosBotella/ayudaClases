@@ -1,88 +1,28 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { formatearFechaCorta } from '../lib/fecha.ts';
-import { hablar, prepararVoz } from '../lib/voz.ts';
-
-/** ¿Se está ejecutando como app instalada (pantalla completa) o en el navegador? */
-function useModoApp(): boolean {
-  const consulta = '(display-mode: standalone)';
-  const [esApp, setEsApp] = useState(() => window.matchMedia(consulta).matches);
-
-  useEffect(() => {
-    const mq = window.matchMedia(consulta);
-    const alCambiar = (e: MediaQueryListEvent) => setEsApp(e.matches);
-    mq.addEventListener('change', alCambiar);
-    return () => mq.removeEventListener('change', alCambiar);
-  }, []);
-
-  // iPad/iPhone antiguos exponen navigator.standalone en lugar de display-mode.
-  const iosStandalone = (navigator as Navigator & { standalone?: boolean }).standalone === true;
-  return esApp || iosStandalone;
-}
-
 /**
- * Portada provisional (Fase 0). Sirve para comprobar que la PWA se publica,
- * se instala y muestra Andika en grande. En la Fase 4 se convierte en el mapa de mundos.
+ * Portada: decide qué ver según el estado de la tablet.
+ *  - Firebase sin configurar / sin conexión la primera vez → bienvenida con aviso
+ *  - sin vincular → teclado del código
+ *  - vinculada → mapa de mundos
  */
+import { useSesionNina } from '../sesion/SesionNina.tsx';
+import Cargando from '../componentes/Cargando.tsx';
+import Bienvenida from './Bienvenida.tsx';
+import Mapa from './Mapa.tsx';
+import Vincular from './Vincular.tsx';
+
 export default function Inicio() {
-  const esApp = useModoApp();
-  const [saludo, setSaludo] = useState(false);
-  // Nombre de la voz en español del dispositivo; '' = sin voz; null = aún cargando.
-  const [voz, setVoz] = useState<string | null>(null);
+  const { estado } = useSesionNina();
 
-  useEffect(() => {
-    let activo = true;
-    void prepararVoz().then((v) => {
-      if (activo) setVoz(v ? v.name : '');
-    });
-    return () => {
-      activo = false;
-    };
-  }, []);
-
-  return (
-    <main className="relative flex h-full flex-col items-center justify-center gap-10 overflow-hidden px-6">
-      {/* Olas decorativas al fondo */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 rounded-t-[50%] bg-arena"
-      />
-
-      <h1
-        className={`texto-lectura relative text-[120px] font-bold transition-all duration-300 ${
-          saludo ? '-translate-y-4 scale-125 text-sol' : 'scale-100 text-mar'
-        }`}
-      >
-        hola
-      </h1>
-
-      <button
-        type="button"
-        onClick={() => {
-          hablar('hola');
-          setSaludo(true);
-          window.setTimeout(() => setSaludo(false), 700);
-        }}
-        aria-label="Decir hola"
-        className="relative flex size-28 items-center justify-center rounded-full bg-sol shadow-[0_8px_0_0_#d9952a] transition active:translate-y-2 active:shadow-[0_0_0_0_#d9952a]"
-      >
-        {/* Triángulo de "play" */}
-        <svg viewBox="0 0 24 24" className="ml-2 size-14 fill-white" aria-hidden="true">
-          <path d="M6 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L7.5 3.64A1 1 0 0 0 6 4.5Z" />
-        </svg>
-      </button>
-
-      {/* Información discreta para el adulto */}
-      <footer className="absolute inset-x-0 bottom-0 flex items-end justify-between px-5 pb-4 font-sans text-sm text-mar-oscuro/70">
-        <Link to="/creditos" className="underline underline-offset-4">
-          Créditos
-        </Link>
-        <span>
-          {voz === null ? 'Buscando voz…' : voz ? `Voz: ${voz}` : 'Sin voz en español'} ·{' '}
-          {esApp ? 'Abierta como app' : 'Abierta en el navegador'} · versión{' '}
-          {formatearFechaCorta(__BUILD_TIME__)}
-        </span>
-      </footer>
-    </main>
-  );
+  switch (estado.tipo) {
+    case 'sin-configurar':
+      return <Bienvenida aviso="Falta conectar la base de datos (Firebase). El tutor tiene que pegar su configuración." />;
+    case 'error':
+      return <Bienvenida aviso={estado.mensaje} />;
+    case 'cargando':
+      return <Cargando />;
+    case 'sin-vincular':
+      return <Vincular />;
+    case 'lista':
+      return <Mapa />;
+  }
 }
