@@ -90,6 +90,8 @@ export function generarIntrusas(
       // Una vocal junto a otra formaría un diptongo y se leería distinto (pato → paeto):
       // solo se mete entre consonantes o en un extremo junto a consonante (pato → epato).
       if (esVocal(letra) && (esVocal(antes) || esVocal(despues))) continue;
+      // Una "s" final tras vocal forma un plural real (puma → pumas): confunde.
+      if (letra === 's' && posicion === base.length && esVocal(antes)) continue;
       if (CREA_DIGRAFO.has(antes + letra) || CREA_DIGRAFO.has(letra + despues)) continue;
 
       const texto = base.slice(0, posicion) + letra + base.slice(posicion);

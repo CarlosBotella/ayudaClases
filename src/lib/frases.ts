@@ -43,6 +43,9 @@ const MASCULINOS_EN_A = new Set([
   'día', 'mapa', 'planeta', 'problema', 'tema', 'poema', 'idioma', 'sistema',
   'programa', 'clima', 'pijama', 'tranvía', 'cometa', 'sofá', 'papá', 'drama',
   'esquema', 'fantasma', 'telegrama', 'crucigrama', 'diploma', 'dilema',
+  // animales y otros masculinos en -a frecuentes en ARASAAC
+  'puma', 'koala', 'panda', 'gorila', 'yoga', 'karma', 'cura', 'guía', 'atleta',
+  'pirata', 'astronauta', 'dentista', 'artista', 'futbolista', 'policía',
 ]);
 
 /**

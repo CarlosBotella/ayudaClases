@@ -25,6 +25,7 @@ describe('generoYArticulo', () => {
     expect(generoYArticulo('mano')).toBeNull(); // la mano
     expect(generoYArticulo('día')).toBeNull(); // el día
     expect(generoYArticulo('mapa')).toBeNull(); // el mapa
+    expect(generoYArticulo('puma')).toBeNull(); // el puma
   });
 
   it('descarta femeninas con a tónica inicial (el agua, el hada)', () => {

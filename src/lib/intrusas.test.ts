@@ -36,6 +36,10 @@ describe('generarIntrusas', () => {
     expect(queso.every((t) => t.includes('qu'))).toBe(true);
   });
 
+  it('no forma plurales con una s final', () => {
+    expect(generarIntrusas('puma', ['s'], new Set()).map((c) => c.texto)).not.toContain('pumas');
+  });
+
   it('nunca usa la q', () => {
     expect(generarIntrusas('pato', ['q'], DICCIONARIO)).toEqual([]);
   });
