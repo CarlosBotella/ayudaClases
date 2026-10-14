@@ -191,10 +191,10 @@ describe('levelAttempts', () => {
     await assertFails(updateDoc(doc(tablet(), 'students/ana/levelAttempts/previo'), { estrellas: 0 }));
     await assertFails(updateDoc(doc(tutor(), 'students/ana/levelAttempts/previo'), { estrellas: 0 }));
   });
-  it('❌ nadie borra un resultado (ni el tutor)', async () => {
-    await assertFails(deleteDoc(doc(tablet(), 'students/ana/levelAttempts/previo')));
-    await assertFails(deleteDoc(doc(tutor(), 'students/ana/levelAttempts/previo')));
-  });
+  it('❌ la tablet no borra resultados', () =>
+    assertFails(deleteDoc(doc(tablet(), 'students/ana/levelAttempts/previo'))));
+  it('✅ el tutor sí puede borrarlos (para eliminar a la alumna)', () =>
+    assertSucceeds(deleteDoc(doc(tutor(), 'students/ana/levelAttempts/previo'))));
 });
 
 describe('attempts (solo se añaden)', () => {
@@ -212,11 +212,13 @@ describe('attempts (solo se añaden)', () => {
     assertFails(getDocs(collection(tablet(), 'students/ana/attempts'))));
   it('✅ el tutor lee los intentos', () =>
     assertSucceeds(getDocs(collection(tutor(), 'students/ana/attempts'))));
-  it('❌ nadie edita ni borra intentos (ni el tutor)', async () => {
+  it('❌ nadie edita intentos (ni el tutor)', async () => {
     await assertFails(updateDoc(doc(tablet(), 'students/ana/attempts/previo'), { correcto: false }));
     await assertFails(updateDoc(doc(tutor(), 'students/ana/attempts/previo'), { correcto: false }));
-    await assertFails(deleteDoc(doc(tutor(), 'students/ana/attempts/previo')));
   });
+  it('❌ la tablet no borra intentos', () => assertFails(deleteDoc(doc(tablet(), 'students/ana/attempts/previo'))));
+  it('✅ el tutor sí puede borrarlos (para eliminar a la alumna)', () =>
+    assertSucceeds(deleteDoc(doc(tutor(), 'students/ana/attempts/previo'))));
 });
 
 describe('planes (reto fijado y deberes)', () => {

@@ -52,7 +52,7 @@ service cloud.firestore {
       allow read, write: if esTutor();
 
       // Resultado de cada nivel. La tablet de la alumna lo crea y lo puede leer
-      // (para mostrar sus estrellas, su álbum y su fantasma). Nadie lo edita.
+      // (para mostrar sus estrellas, su álbum y su fantasma).
       match /levelAttempts/{id} {
         allow read: if esTutor() || esTabletDe(sid);
         allow create: if esTabletDe(sid)
@@ -66,10 +66,12 @@ service cloud.firestore {
           && request.resource.data.estrellas <= 3
           && request.resource.data.contexto == contextoDeLaTablet()
           && request.resource.data.completadoEn is timestamp;
-        allow update, delete: if false;
+        // Nadie los edita. Solo el tutor los borra (para eliminar a una alumna del todo).
+        allow update: if false;
+        allow delete: if esTutor();
       }
 
-      // Cada respuesta de la niña. Solo se añaden: nadie puede editar ni borrar.
+      // Cada respuesta de la niña. Solo se añaden: nadie puede editarlas.
       match /attempts/{id} {
         allow read: if esTutor();
         allow create: if esTabletDe(sid)
@@ -81,7 +83,9 @@ service cloud.firestore {
           && request.resource.data.correcto is bool
           && request.resource.data.contexto == contextoDeLaTablet()
           && request.resource.data.creadoEn is timestamp;
-        allow update, delete: if false;
+        // Nadie los edita. Solo el tutor los borra (para eliminar a una alumna del todo).
+        allow update: if false;
+        allow delete: if esTutor();
       }
     }
 

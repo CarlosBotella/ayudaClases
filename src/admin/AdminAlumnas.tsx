@@ -20,6 +20,7 @@ import {
 import { dbTutor } from '../firebase.ts';
 import { AlumnaZ, DispositivoZ, type Contexto, type Dispositivo } from '../datos/esquemas.ts';
 import { estilos } from './AdminMarco.tsx';
+import { eliminarAlumna } from './eliminarAlumna.ts';
 
 const MINUTOS_CODIGO = 30;
 
@@ -31,6 +32,66 @@ interface AlumnaFila {
 function generarCodigo(): string {
   const n = crypto.getRandomValues(new Uint32Array(1))[0] ?? Math.floor(Math.random() * 1e6);
   return String(n % 1_000_000).padStart(6, '0');
+}
+
+/** Confirmación de borrado: hay que escribir el nombre de la alumna. */
+function ConfirmarEliminar({ alumna, onCerrar }: { alumna: AlumnaFila; onCerrar: () => void }) {
+  const [texto, setTexto] = useState('');
+  const [progreso, setProgreso] = useState<string | null>(null);
+  const [borrando, setBorrando] = useState(false);
+  const [terminado, setTerminado] = useState(false);
+  const coincide = texto.trim().toLowerCase() === alumna.nombre.trim().toLowerCase();
+
+  const borrar = async () => {
+    setBorrando(true);
+    try {
+      const r = await eliminarAlumna(alumna.id, setProgreso);
+      setProgreso(
+        `Eliminada. Se han borrado ${r.respuestas} respuestas, ${r.resultados} resultados y ${r.tablets} tablets vinculadas.`,
+      );
+      setTerminado(true);
+    } catch {
+      setProgreso('No se pudo terminar (¿conexión? ¿reglas nuevas publicadas?). Puedes repetirlo: continuará donde se quedó.');
+    } finally {
+      setBorrando(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-tinta/50 p-6">
+      <div className="w-full max-w-lg rounded-3xl bg-white p-8 shadow-xl">
+        <h2 className="text-2xl font-bold text-[#c0662b]">Eliminar a {alumna.nombre}</h2>
+        {!terminado && (
+          <>
+            <p className="mt-3">
+              Se borrarán <strong>para siempre</strong> todas sus partidas, estrellas, pegatinas, métricas, deberes y
+              tablets vinculadas. No se puede deshacer.
+            </p>
+            <label className="mt-4 flex flex-col gap-1">
+              <span className="text-sm font-bold text-tinta/70">Para confirmar, escribe su nombre: {alumna.nombre}</span>
+              <input className={estilos.campo} value={texto} onChange={(e) => setTexto(e.target.value)} disabled={borrando} />
+            </label>
+          </>
+        )}
+        {progreso && <p className="mt-4 font-bold">{progreso}</p>}
+        <div className="mt-6 flex gap-3">
+          {!terminado && (
+            <button
+              type="button"
+              className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[#c0662b] px-5 font-bold text-white disabled:opacity-40"
+              disabled={!coincide || borrando}
+              onClick={() => void borrar()}
+            >
+              {borrando ? 'Eliminando…' : 'Eliminar para siempre'}
+            </button>
+          )}
+          <button type="button" className={estilos.botonSuave} onClick={onCerrar} disabled={borrando}>
+            {terminado ? 'Cerrar' : 'Cancelar'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function CodigoGrande({ codigo, expira, contexto, nombre, onCerrar }: {
@@ -74,6 +135,7 @@ export default function AdminAlumnas() {
   const [nombre, setNombre] = useState('');
   const [codigo, setCodigo] = useState<{ codigo: string; expira: number; contexto: Contexto; nombre: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aEliminar, setAEliminar] = useState<AlumnaFila | null>(null);
 
   useEffect(() => {
     const db = dbTutor();
@@ -184,11 +246,17 @@ export default function AdminAlumnas() {
                 ))}
               </ul>
             )}
+            <div className="mt-4 flex justify-end border-t border-arena pt-3">
+              <button type="button" className="min-h-11 px-3 text-sm font-bold text-[#c0662b] underline" onClick={() => setAEliminar(a)}>
+                Eliminar alumna
+              </button>
+            </div>
           </section>
         );
       })}
 
       {codigo && <CodigoGrande {...codigo} onCerrar={() => setCodigo(null)} />}
+      {aEliminar && <ConfirmarEliminar alumna={aEliminar} onCerrar={() => setAEliminar(null)} />}
     </div>
   );
 }
