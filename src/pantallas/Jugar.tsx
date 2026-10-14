@@ -9,6 +9,7 @@ import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { dbNina } from '../firebase.ts';
 import type { Contenido, Nivel } from '../datos/esquemas.ts';
 import { useContenido, usePlan, useProgreso } from '../datos/hooks.ts';
+import { nivelesDelAlumno } from '../generador/repaso.ts';
 import { calcularRetos, escalonDe } from '../lib/adaptativo.ts';
 import { ajustarNivel } from '../juegos/ajustar.ts';
 import { DURACION_SESION_MS, useDispositivo, useSesionNina } from '../sesion/SesionNina.tsx';
@@ -34,13 +35,15 @@ export default function Jugar() {
   const mundo = Number(mundoTexto);
   const estado = useContenido(mundo);
   const sesion = useDispositivo();
+  const planAlumno = usePlan(sesion?.dispositivo.studentId);
 
   if (!sesion) return <Navigate to="/" replace />;
   if (estado.tipo === 'cargando') return <Cargando />;
   if (estado.tipo === 'vacio') return <Navigate to="/" replace />;
 
-  const indice = estado.datos.niveles.findIndex((n) => n.id === nivelId);
-  const nivel = estado.datos.niveles[indice];
+  const niveles = nivelesDelAlumno(estado.datos, planAlumno?.repasos ?? {});
+  const indice = niveles.findIndex((n) => n.id === nivelId);
+  const nivel = niveles[indice];
   if (!nivel) return <Navigate to={`/mundo/${mundo}`} replace />;
 
   return <Partida key={nivel.id} contenido={estado.datos} nivel={nivel} indice={indice} />;

@@ -1,8 +1,9 @@
 /**
- * Gestión: alumnas, códigos de vinculación (6 dígitos, caducan en 30 min)
- * y tablets vinculadas.
+ * Gestión: alumnos, códigos de vinculación (6 dígitos, caducan en 30 min),
+ * tablets vinculadas y (solo administrador) qué tutores lleva cada alumno.
+ * Cada tutor ve solo a sus alumnos y sus tablets.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   addDoc,
   collection,
@@ -10,24 +11,24 @@ import {
   doc,
   getDocs,
   onSnapshot,
-  orderBy,
   query,
   serverTimestamp,
   setDoc,
   Timestamp,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { dbTutor } from '../firebase.ts';
-import { AlumnaZ, DispositivoZ, type Contexto, type Dispositivo } from '../datos/esquemas.ts';
+import { DispositivoZ, EMAIL_ADMIN, type Contexto, type Dispositivo } from '../datos/esquemas.ts';
+import { useAdulto } from '../sesion/SesionTutor.tsx';
 import { estilos } from './AdminMarco.tsx';
+import { cargarTutores } from './AdminTutores.tsx';
 import { eliminarAlumna } from './eliminarAlumna.ts';
+import { useAlumnas, type AlumnoFila } from './useAlumnas.ts';
 
 const MINUTOS_CODIGO = 30;
 
-interface AlumnaFila {
-  id: string;
-  nombre: string;
-}
+type AlumnaFila = AlumnoFila;
 
 function generarCodigo(): string {
   const n = crypto.getRandomValues(new Uint32Array(1))[0] ?? Math.floor(Math.random() * 1e6);
@@ -36,6 +37,7 @@ function generarCodigo(): string {
 
 /** Confirmación de borrado: hay que escribir el nombre de la alumna. */
 function ConfirmarEliminar({ alumna, onCerrar }: { alumna: AlumnaFila; onCerrar: () => void }) {
+  const adulto = useAdulto();
   const [texto, setTexto] = useState('');
   const [progreso, setProgreso] = useState<string | null>(null);
   const [borrando, setBorrando] = useState(false);
@@ -45,7 +47,7 @@ function ConfirmarEliminar({ alumna, onCerrar }: { alumna: AlumnaFila; onCerrar:
   const borrar = async () => {
     setBorrando(true);
     try {
-      const r = await eliminarAlumna(alumna.id, setProgreso);
+      const r = await eliminarAlumna(alumna.id, setProgreso, adulto);
       setProgreso(
         `Eliminada. Se han borrado ${r.respuestas} respuestas, ${r.resultados} resultados y ${r.tablets} tablets vinculadas.`,
       );
@@ -129,8 +131,48 @@ function CodigoGrande({ codigo, expira, contexto, nombre, onCerrar }: {
   );
 }
 
+/** Solo administrador: quién lleva a este alumno. */
+function TutoresDelAlumno({ alumna, tutores, onCambio }: { alumna: AlumnaFila; tutores: string[]; onCambio: () => void }) {
+  const guardar = (lista: string[]) =>
+    void updateDoc(doc(dbTutor(), 'students', alumna.id), { tutores: lista }).then(onCambio);
+  const disponibles = [EMAIL_ADMIN, ...tutores].filter((t) => !alumna.tutores.includes(t));
+  return (
+    <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+      <span className="font-bold text-tinta/70">Lo llevan:</span>
+      {alumna.tutores.map((t) => (
+        <span key={t} className="flex items-center gap-1 rounded-full bg-crema px-3 py-1">
+          {t === EMAIL_ADMIN ? 'tú (administrador)' : t}
+          {alumna.tutores.length > 1 && (
+            <button type="button" aria-label={`Quitar a ${t}`} className="px-1 font-bold text-[#c0662b]" onClick={() => guardar(alumna.tutores.filter((x) => x !== t))}>
+              ×
+            </button>
+          )}
+        </span>
+      ))}
+      {disponibles.length > 0 && (
+        <select
+          className="min-h-9 rounded-lg border-2 border-arena bg-white px-2"
+          value=""
+          onChange={(e) => e.target.value && guardar([...alumna.tutores, e.target.value])}
+        >
+          <option value="">+ asignar tutor…</option>
+          {disponibles.map((t) => (
+            <option key={t} value={t}>
+              {t === EMAIL_ADMIN ? 'tú (administrador)' : t}
+            </option>
+          ))}
+        </select>
+      )}
+      <span className="text-tinta/50">· Para que una tablet ya vinculada refleje el cambio, vuelve a vincularla.</span>
+    </div>
+  );
+}
+
 export default function AdminAlumnas() {
-  const [alumnas, setAlumnas] = useState<AlumnaFila[]>([]);
+  const { email, esAdmin } = useAdulto();
+  const { alumnas, recargar } = useAlumnas();
+  const [tutoresAlta, setTutoresAlta] = useState<string[]>([]);
+  const migrado = useRef(false);
   const [tablets, setTablets] = useState<Array<{ uid: string } & Dispositivo>>([]);
   const [nombre, setNombre] = useState('');
   const [codigo, setCodigo] = useState<{ codigo: string; expira: number; contexto: Contexto; nombre: string } | null>(null);
@@ -139,15 +181,9 @@ export default function AdminAlumnas() {
 
   useEffect(() => {
     const db = dbTutor();
-    const cancelarA = onSnapshot(query(collection(db, 'students'), orderBy('creado')), (snap) => {
-      const filas: AlumnaFila[] = [];
-      snap.forEach((d) => {
-        const r = AlumnaZ.safeParse(d.data());
-        if (r.success) filas.push({ id: d.id, nombre: r.data.nombre });
-      });
-      setAlumnas(filas);
-    });
-    const cancelarT = onSnapshot(collection(db, 'devices'), (snap) => {
+    // Cada tutor solo puede (y solo debe) ver las tablets de sus alumnos.
+    const consulta = esAdmin ? collection(db, 'devices') : query(collection(db, 'devices'), where('tutores', 'array-contains', email));
+    const cancelarT = onSnapshot(consulta, (snap) => {
       const filas: Array<{ uid: string } & Dispositivo> = [];
       snap.forEach((d) => {
         const r = DispositivoZ.safeParse(d.data());
@@ -155,23 +191,35 @@ export default function AdminAlumnas() {
       });
       setTablets(filas);
     });
-    // Limpieza: borrar códigos caducados.
-    void getDocs(query(collection(db, 'pairingCodes'), where('expira', '<', Timestamp.now()))).then((snap) =>
-      snap.forEach((d) => void deleteDoc(d.ref)),
-    );
-    return () => {
-      cancelarA();
-      cancelarT();
-    };
-  }, []);
+    if (esAdmin) {
+      // Limpieza: borrar códigos caducados.
+      void getDocs(query(collection(db, 'pairingCodes'), where('expira', '<', Timestamp.now()))).then((snap) =>
+        snap.forEach((d) => void deleteDoc(d.ref)),
+      );
+      void cargarTutores()
+        .then((t) => setTutoresAlta(t.filter((x) => x.activo).map((x) => x.email)))
+        .catch(() => setTutoresAlta([]));
+    }
+    return cancelarT;
+  }, [email, esAdmin]);
+
+  // Alumnos creados antes de haber varios tutores: pasan a ser del administrador.
+  useEffect(() => {
+    if (!esAdmin || migrado.current) return;
+    const sinTutor = alumnas.filter((a) => a.tutores.length === 0);
+    if (sinTutor.length === 0) return;
+    migrado.current = true;
+    void Promise.all(sinTutor.map((a) => updateDoc(doc(dbTutor(), 'students', a.id), { tutores: [EMAIL_ADMIN] }))).then(recargar);
+  }, [alumnas, esAdmin, recargar]);
 
   const crearAlumna = async () => {
     const limpio = nombre.trim();
     if (!limpio) return;
     try {
-      await addDoc(collection(dbTutor(), 'students'), { nombre: limpio, creado: serverTimestamp() });
+      await addDoc(collection(dbTutor(), 'students'), { nombre: limpio, tutores: [email], creado: serverTimestamp() });
       setNombre('');
       setError(null);
+      recargar();
     } catch {
       setError('No se pudo crear. ¿Hay conexión? ¿Están publicadas las reglas?');
     }
@@ -186,6 +234,8 @@ export default function AdminAlumnas() {
         nombre: alumna.nombre,
         contexto,
         expira: Timestamp.fromMillis(expira),
+        // Copia exacta de los tutores del alumno (las reglas lo exigen).
+        tutores: alumna.tutores,
       });
       setCodigo({ codigo: valor, expira, contexto, nombre: alumna.nombre });
     } catch {
@@ -196,7 +246,7 @@ export default function AdminAlumnas() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
       <section className={estilos.tarjeta}>
-        <h2 className="mb-3 text-xl font-bold">Nueva alumna</h2>
+        <h2 className="mb-3 text-xl font-bold">Nuevo alumno</h2>
         <p className="mb-3 text-sm text-tinta/70">Solo el nombre de pila: no se guarda ningún otro dato personal.</p>
         <div className="flex gap-3">
           <input
@@ -246,9 +296,10 @@ export default function AdminAlumnas() {
                 ))}
               </ul>
             )}
+            {esAdmin && <TutoresDelAlumno alumna={a} tutores={tutoresAlta} onCambio={recargar} />}
             <div className="mt-4 flex justify-end border-t border-arena pt-3">
               <button type="button" className="min-h-11 px-3 text-sm font-bold text-[#c0662b] underline" onClick={() => setAEliminar(a)}>
-                Eliminar alumna
+                Eliminar alumno
               </button>
             </div>
           </section>
@@ -256,7 +307,15 @@ export default function AdminAlumnas() {
       })}
 
       {codigo && <CodigoGrande {...codigo} onCerrar={() => setCodigo(null)} />}
-      {aEliminar && <ConfirmarEliminar alumna={aEliminar} onCerrar={() => setAEliminar(null)} />}
+      {aEliminar && (
+        <ConfirmarEliminar
+          alumna={aEliminar}
+          onCerrar={() => {
+            setAEliminar(null);
+            recargar();
+          }}
+        />
+      )}
     </div>
   );
 }

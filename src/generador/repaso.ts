@@ -86,3 +86,13 @@ export function crearNivelRepaso(
 export function conRepaso(contenido: Contenido, nivel: Contenido['niveles'][number]): Contenido['niveles'] {
   return [...contenido.niveles.filter((n) => !esRepaso(n.id)), nivel];
 }
+
+/**
+ * Niveles que ve un alumno en un mundo: los comunes del mundo y, al final, su
+ * repaso personal (guardado en su plan). Se ignoran repasos antiguos que se
+ * hubieran guardado en el mundo.
+ */
+export function nivelesDelAlumno(contenido: Contenido, repasos: Readonly<Record<string, Contenido['niveles'][number]>>): Contenido['niveles'] {
+  const propio = repasos[String(contenido.mundo)];
+  return [...contenido.niveles.filter((n) => !esRepaso(n.id)), ...(propio ? [propio] : [])];
+}

@@ -38,13 +38,37 @@ export interface ResumenBorrado {
   tablets: number;
 }
 
-export async function eliminarAlumna(sid: string, progreso: (m: string) => void): Promise<ResumenBorrado> {
+/**
+ * Tablets y códigos: el administrador filtra por alumno; un tutor solo puede
+ * consultar los que lo incluyen a él (y aquí se filtra por alumno).
+ */
+async function borrarDeAlumno(
+  coleccion: 'devices' | 'pairingCodes',
+  sid: string,
+  adulto: { email: string; esAdmin: boolean },
+  nombre: string,
+  progreso: (m: string) => void,
+): Promise<number> {
+  const db = dbTutor();
+  const base = collection(db, coleccion);
+  if (adulto.esAdmin) return borrarTodo(query(base, where('studentId', '==', sid)), nombre, progreso);
+  const snap = await getDocs(query(base, where('tutores', 'array-contains', adulto.email)));
+  const suyos = snap.docs.filter((d) => d.data()['studentId'] === sid);
+  for (const d of suyos) await deleteDoc(d.ref);
+  return suyos.length;
+}
+
+export async function eliminarAlumna(
+  sid: string,
+  progreso: (m: string) => void,
+  adulto: { email: string; esAdmin: boolean },
+): Promise<ResumenBorrado> {
   const db = dbTutor();
   progreso('Preparando…');
   const respuestas = await borrarTodo(collection(db, 'students', sid, 'attempts'), 'respuestas', progreso);
   const resultados = await borrarTodo(collection(db, 'students', sid, 'levelAttempts'), 'resultados', progreso);
-  const tablets = await borrarTodo(query(collection(db, 'devices'), where('studentId', '==', sid)), 'tablets vinculadas', progreso);
-  await borrarTodo(query(collection(db, 'pairingCodes'), where('studentId', '==', sid)), 'códigos', progreso);
+  const tablets = await borrarDeAlumno('devices', sid, adulto, 'tablets vinculadas', progreso);
+  await borrarDeAlumno('pairingCodes', sid, adulto, 'códigos', progreso);
   progreso('Borrando su plan y su ficha…');
   await deleteDoc(doc(db, 'planes', sid));
   await deleteDoc(doc(db, 'students', sid));

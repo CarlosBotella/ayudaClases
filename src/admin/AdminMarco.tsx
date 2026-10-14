@@ -1,12 +1,12 @@
 /**
- * Marco del panel del tutor: login, verificación del email y menú.
+ * Marco del panel: entrar / crear cuenta, verificación del email, permiso y menú.
  * Es una zona de adultos: tipografía normal, pantallas con texto.
+ * El administrador ve además las pestañas Contenido y Tutores.
  */
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { irALaApp } from '../lib/zonas.ts';
 import { useSesionTutor } from '../sesion/SesionTutor.tsx';
-import { EMAIL_TUTOR } from '../datos/esquemas.ts';
 import Cargando from '../componentes/Cargando.tsx';
 
 export const estilos = {
@@ -25,8 +25,9 @@ function Centro({ children }: { children: ReactNode }) {
 }
 
 function Login() {
-  const { entrar, recuperarContrasena } = useSesionTutor();
-  const [email, setEmail] = useState(EMAIL_TUTOR);
+  const { entrar, crearCuenta, recuperarContrasena } = useSesionTutor();
+  const [modo, setModo] = useState<'entrar' | 'crear'>('entrar');
+  const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
@@ -34,13 +35,33 @@ function Login() {
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
     setEnviando(true);
-    setMensaje(await entrar(email, contrasena));
+    setMensaje(modo === 'entrar' ? await entrar(email, contrasena) : await crearCuenta(email, contrasena));
     setEnviando(false);
   };
 
   return (
     <Centro>
-      <h1 className="mb-6 text-2xl font-bold text-mar">Panel del tutor</h1>
+      <h1 className="mb-2 text-2xl font-bold text-mar">Panel del tutor</h1>
+      <div className="mb-5 flex gap-2">
+        {(['entrar', 'crear'] as const).map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => {
+              setModo(m);
+              setMensaje(null);
+            }}
+            className={modo === m ? estilos.boton : estilos.botonSuave}
+          >
+            {m === 'entrar' ? 'Entrar' : 'Crear cuenta'}
+          </button>
+        ))}
+      </div>
+      {modo === 'crear' && (
+        <p className="mb-4 text-sm text-tinta/70">
+          Usa el email con el que te ha dado de alta el administrador. Te llegará un correo para verificarlo.
+        </p>
+      )}
       <form onSubmit={(e) => void enviar(e)} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">
           <span className="text-sm font-bold text-tinta/70">Email</span>
@@ -51,13 +72,13 @@ function Login() {
           <input
             className={estilos.campo}
             type="password"
-            autoComplete="current-password"
+            autoComplete={modo === 'entrar' ? 'current-password' : 'new-password'}
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
           />
         </label>
         <button className={estilos.boton} disabled={enviando || !contrasena}>
-          {enviando ? 'Entrando…' : 'Entrar'}
+          {enviando ? 'Un momento…' : modo === 'entrar' ? 'Entrar' : 'Crear cuenta'}
         </button>
         {mensaje && <p className="text-center font-bold text-[#c0662b]">{mensaje}</p>}
         <button
@@ -72,8 +93,8 @@ function Login() {
   );
 }
 
-function Verificar() {
-  const { enviarVerificacion, comprobarVerificacion, salir } = useSesionTutor();
+function Verificar({ email }: { email: string }) {
+  const { enviarVerificacion, comprobar, salir } = useSesionTutor();
   const [mensaje, setMensaje] = useState<string | null>(null);
 
   return (
@@ -81,7 +102,7 @@ function Verificar() {
       <h1 className="mb-4 text-2xl font-bold text-mar">Verifica tu email</h1>
       <p className="mb-6 text-tinta/80">
         Por seguridad, el panel solo se abre con el email verificado. Pulsa el botón, abre el correo que te llegará a{' '}
-        <strong>{EMAIL_TUTOR}</strong> (mira también en spam) y pulsa su enlace. Después vuelve aquí.
+        <strong>{email}</strong> (mira también en spam) y pulsa su enlace. Después vuelve aquí.
       </p>
       <div className="flex flex-col gap-3">
         <button
@@ -91,7 +112,7 @@ function Verificar() {
         >
           Enviar correo de verificación
         </button>
-        <button type="button" className={estilos.botonSuave} onClick={() => void comprobarVerificacion()}>
+        <button type="button" className={estilos.botonSuave} onClick={() => void comprobar()}>
           Ya lo he verificado
         </button>
         <button type="button" className="text-sm text-tinta/60 underline" onClick={() => void salir()}>
@@ -104,7 +125,7 @@ function Verificar() {
 }
 
 export default function AdminMarco() {
-  const { estado, salir } = useSesionTutor();
+  const { estado, salir, comprobar } = useSesionTutor();
 
   switch (estado.tipo) {
     case 'sin-configurar':
@@ -119,16 +140,23 @@ export default function AdminMarco() {
     case 'fuera':
       return <Login />;
     case 'sin-verificar':
-      return <Verificar />;
-    case 'otra-cuenta':
+      return <Verificar email={estado.usuario.email ?? ''} />;
+    case 'sin-permiso':
       return (
         <Centro>
+          <h1 className="mb-3 text-2xl font-bold text-mar">Cuenta sin autorizar</h1>
           <p className="mb-4">
-            Has entrado como <strong>{estado.email}</strong>, que no es la cuenta del tutor.
+            Has entrado como <strong>{estado.email}</strong>, pero el administrador aún no te ha dado de alta como tutor (o
+            te ha desactivado). Pídele que añada este email en la pestaña «Tutores» y vuelve a comprobarlo.
           </p>
-          <button type="button" className={estilos.boton} onClick={() => void salir()}>
-            Salir
-          </button>
+          <div className="flex flex-col gap-3">
+            <button type="button" className={estilos.boton} onClick={() => void comprobar()}>
+              Comprobar otra vez
+            </button>
+            <button type="button" className={estilos.botonSuave} onClick={() => void salir()}>
+              Salir
+            </button>
+          </div>
         </Centro>
       );
     case 'dentro':
@@ -141,19 +169,31 @@ export default function AdminMarco() {
   return (
     <div className="flex h-full flex-col bg-crema font-sans">
       <header className="flex flex-wrap items-center gap-2 border-b border-arena bg-crema/95 px-4 py-2">
-        <span className="mr-4 text-xl font-bold text-mar-oscuro">Panel del tutor</span>
+        <span className="mr-4 flex flex-col leading-tight">
+          <span className="text-xl font-bold text-mar-oscuro">Panel del tutor</span>
+          <span className="text-xs text-tinta/60">
+            {estado.nombre} {estado.esAdmin ? '· administrador' : ''}
+          </span>
+        </span>
         <NavLink to="/admin" end className={pestana}>
-          Alumnas y tablets
+          Alumnos y tablets
         </NavLink>
-        <NavLink to="/admin/contenido" className={pestana}>
-          Contenido
-        </NavLink>
+        {estado.esAdmin && (
+          <NavLink to="/admin/contenido" className={pestana}>
+            Contenido
+          </NavLink>
+        )}
         <NavLink to="/admin/deberes" className={pestana}>
           Deberes
         </NavLink>
         <NavLink to="/admin/metricas" className={pestana}>
           Métricas
         </NavLink>
+        {estado.esAdmin && (
+          <NavLink to="/admin/tutores" className={pestana}>
+            Tutores
+          </NavLink>
+        )}
         <span className="flex-1" />
         <button type="button" className={estilos.botonSuave} onClick={irALaApp}>
           Volver a la app

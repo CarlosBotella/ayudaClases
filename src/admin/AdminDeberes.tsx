@@ -18,7 +18,7 @@ const POR_DEFECTO: Deberes = { mundo: 1, actividades: ['burbujas', 'tren', 'traz
 const etiqueta = (s: string) => new Date(`${s}T12:00:00`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 
 export default function AdminDeberes() {
-  const alumnas = useAlumnas();
+  const { alumnas } = useAlumnas();
   const [sid, setSid] = useState<string | null>(null);
   const [deberes, setDeberes] = useState<Deberes>(POR_DEFECTO);
   const [mundosGuardados, setMundosGuardados] = useState<number[]>([]);

@@ -10,8 +10,8 @@ import { z } from 'zod';
 
 export const SCHEMA_VERSION = 1;
 
-/** Email del tutor: el único que puede entrar al panel (las reglas lo comprueban también). */
-export const EMAIL_TUTOR = 'cbotnav@gmail.com';
+/** Email del ADMINISTRADOR: ve todo, da de alta tutores y genera los mundos (también en las reglas). */
+export const EMAIL_ADMIN = 'cbotnav@gmail.com';
 
 // ─── Piezas comunes ──────────────────────────────────────────────────────────
 
@@ -192,8 +192,12 @@ export const ContenidoZ = z.object({
 });
 export type Contenido = z.infer<typeof ContenidoZ>;
 
-/** students/{sid} */
-export const AlumnaZ = z.object({ nombre: z.string().min(1).max(40), creado: z.unknown() });
+/** students/{sid}. `tutores`: emails de los tutores que lo llevan. */
+export const AlumnaZ = z.object({
+  nombre: z.string().min(1).max(40),
+  tutores: z.array(z.string()).default([]),
+  creado: z.unknown(),
+});
 export type Alumna = z.infer<typeof AlumnaZ>;
 
 /** pairingCodes/{codigo} */
@@ -203,6 +207,8 @@ export const CodigoVinculacionZ = z.object({
   contexto: ContextoZ,
   /** Timestamp de Firestore. */
   expira: z.unknown(),
+  /** Copia de los tutores del alumno (para que cada tutor vea solo lo suyo). */
+  tutores: z.array(z.string()).default([]),
 });
 
 /** devices/{uid} */
@@ -212,6 +218,7 @@ export const DispositivoZ = z.object({
   contexto: ContextoZ,
   codigo: z.string(),
   vinculado: z.unknown(),
+  tutores: z.array(z.string()).default([]),
 });
 export type Dispositivo = z.infer<typeof DispositivoZ>;
 
@@ -279,6 +286,16 @@ export type Deberes = z.infer<typeof DeberesZ>;
 export const PlanZ = z.object({
   retoFijo: z.record(z.string(), z.number().int().min(1).max(5)).default({}),
   deberes: DeberesZ.nullable().default(null),
+  /** Nivel de repaso de este alumno en cada mundo (clave = número de mundo). */
+  repasos: z.record(z.string(), NivelZ).default({}),
   actualizado: z.unknown(),
 });
+
+/** tutores/{email}: tutores dados de alta por el administrador. */
+export const TutorZ = z.object({
+  nombre: z.string().default(''),
+  activo: z.boolean().default(true),
+  creado: z.unknown(),
+});
+export type Tutor = z.infer<typeof TutorZ>;
 export type Plan = z.infer<typeof PlanZ>;

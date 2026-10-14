@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Contenido } from '../datos/esquemas.ts';
 import { crearAleatorio } from '../lib/aleatorio.ts';
 import { silabear } from '../lib/silabas.ts';
-import { conRepaso, crearNivelRepaso, esRepaso } from './repaso.ts';
+import { conRepaso, crearNivelRepaso, esRepaso, nivelesDelAlumno } from './repaso.ts';
 
 const contenido = (mundo: number, palabras: string[]): Contenido => ({
   schemaVersion: 1,
@@ -44,5 +44,15 @@ describe('crearNivelRepaso', () => {
     const niveles = conRepaso(conUno, plan2.nivel);
     expect(niveles.filter((n) => esRepaso(n.id)).map((n) => n.id)).toEqual(['m1-repaso-2']);
     expect(niveles).toHaveLength(2);
+  });
+});
+
+describe('nivelesDelAlumno', () => {
+  it('añade su repaso al final e ignora repasos antiguos guardados en el mundo', () => {
+    const plan = crearNivelRepaso(['so'], mundos, crearAleatorio(4), 7)!;
+    const antiguo = { ...mundos[0]!, niveles: conRepaso(mundos[0]!, { ...plan.nivel, id: 'm1-repaso-viejo' }) };
+    const ids = nivelesDelAlumno(antiguo, { '1': plan.nivel }).map((n) => n.id);
+    expect(ids).toEqual(['m1-n1', 'm1-repaso-7']);
+    expect(nivelesDelAlumno(antiguo, {}).map((n) => n.id)).toEqual(['m1-n1']);
   });
 });

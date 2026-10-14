@@ -3,7 +3,7 @@
  * de las respuestas y resultados de la alumna elegida.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { collection, deleteField, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
+import { collection, deleteField, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore';
 import {
   Bar,
   BarChart,
@@ -18,7 +18,7 @@ import {
   YAxis,
 } from 'recharts';
 import { dbTutor } from '../firebase.ts';
-import { AlumnaZ, ContenidoZ, IntentoItemZ, IntentoNivelZ, PlanZ, type Contenido, type Mecanica } from '../datos/esquemas.ts';
+import { ContenidoZ, IntentoItemZ, IntentoNivelZ, PlanZ, type Contenido, type Mecanica } from '../datos/esquemas.ts';
 import { calcularRetos, ESCALON_INICIAL, JUEGOS_SIN_ADAPTAR } from '../lib/adaptativo.ts';
 import { NOMBRE_JUEGO } from './useAlumnas.ts';
 import { MUNDOS } from '../lib/clasificador.ts';
@@ -35,7 +35,8 @@ import {
   type ResultadoNivel,
   type TipoUnidad,
 } from '../lib/metricas.ts';
-import { conRepaso, crearNivelRepaso } from '../generador/repaso.ts';
+import { crearNivelRepaso } from '../generador/repaso.ts';
+import { useAlumnas } from './useAlumnas.ts';
 import { estilos } from './AdminMarco.tsx';
 
 // Colores validados (contraste y daltonismo) para las dos series: casa / tutoría.
@@ -145,7 +146,7 @@ function MapaCalor({ celdas }: { celdas: CeldaCalor[] }) {
 // ─── Pantalla ───────────────────────────────────────────────────────────────
 
 export default function AdminMetricas() {
-  const [alumnas, setAlumnas] = useState<Array<{ id: string; nombre: string }>>([]);
+  const { alumnas } = useAlumnas();
   const [sid, setSid] = useState<string | null>(null);
   const [datos, setDatos] = useState<Datos | null>(null);
   const [cargando, setCargando] = useState(false);
@@ -155,16 +156,8 @@ export default function AdminMetricas() {
   const [mensajeRepaso, setMensajeRepaso] = useState<string | null>(null);
 
   useEffect(() => {
-    void getDocs(query(collection(dbTutor(), 'students'), orderBy('creado'))).then((snap) => {
-      const filas: Array<{ id: string; nombre: string }> = [];
-      snap.forEach((d) => {
-        const r = AlumnaZ.safeParse(d.data());
-        if (r.success) filas.push({ id: d.id, nombre: r.data.nombre });
-      });
-      setAlumnas(filas);
-      setSid((s) => s ?? filas[0]?.id ?? null);
-    });
-  }, []);
+    if (!sid && alumnas[0]) setSid(alumnas[0].id);
+  }, [alumnas, sid]);
 
   const recargar = useCallback(() => {
     if (!sid) return;
@@ -213,16 +206,17 @@ export default function AdminMetricas() {
     if (!datos) return;
     const orden = (m?.reforzar ?? []).map((e) => e.unidad).filter((u) => elegidas.has(u));
     const plan = crearNivelRepaso(orden, datos.contenidos, crearAleatorio(Date.now()));
-    const contenido = plan && datos.contenidos.find((c) => c.mundo === plan.mundo);
-    if (!plan || !contenido) {
+    if (!plan || !sid) {
       setMensajeRepaso('No hay palabras en los mundos guardados que contengan esas unidades.');
       return;
     }
     try {
-      await updateDoc(doc(dbTutor(), 'contenido', `mundo-${plan.mundo}`), {
-        niveles: conRepaso(contenido, plan.nivel),
-        actualizado: serverTimestamp(),
-      });
+      // El repaso es de ESTE alumno: se guarda en su plan, no en el mundo (que es común).
+      await setDoc(
+        doc(dbTutor(), 'planes', sid),
+        { repasos: { [String(plan.mundo)]: plan.nivel }, actualizado: serverTimestamp() },
+        { merge: true },
+      );
       setMensajeRepaso(
         `✅ Nivel de repaso creado al final del Mundo ${plan.mundo} (${plan.unidades.join(', ')}). Sustituye al repaso anterior de ese mundo.`,
       );
@@ -264,7 +258,7 @@ export default function AdminMetricas() {
       </div>
 
       {!m || !datos ? (
-        <p className={estilos.tarjeta}>{alumnas.length === 0 ? 'Crea primero una alumna.' : 'Cargando…'}</p>
+        <p className={estilos.tarjeta}>{alumnas.length === 0 ? 'Crea primero un alumno.' : 'Cargando…'}</p>
       ) : datos.respuestas.length === 0 ? (
         <p className={estilos.tarjeta}>Todavía no hay partidas registradas. Las métricas aparecerán cuando juegue.</p>
       ) : (

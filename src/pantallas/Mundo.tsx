@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { MUNDOS } from '../lib/clasificador.ts';
 import { nivelDesbloqueado } from '../lib/progreso.ts';
-import { esRepaso } from '../generador/repaso.ts';
-import { useContenido, useProgreso } from '../datos/hooks.ts';
+import { esRepaso, nivelesDelAlumno } from '../generador/repaso.ts';
+import { useContenido, usePlan, useProgreso } from '../datos/hooks.ts';
 import { useDispositivo } from '../sesion/SesionNina.tsx';
 import Cargando from '../componentes/Cargando.tsx';
 import { ICONO_MECANICA, IconoCandado, IconoEstrella, IconoFlechaAtras } from '../componentes/Iconos.tsx';
@@ -21,12 +21,13 @@ export default function Mundo() {
   const sesion = useDispositivo();
   const estado = useContenido(mundo);
   const progreso = useProgreso(sesion?.dispositivo.studentId);
+  const plan = usePlan(sesion?.dispositivo.studentId);
 
   if (!sesion) return <Navigate to="/" replace />;
   if (estado.tipo === 'cargando') return <Cargando />;
   if (estado.tipo === 'vacio') return <Navigate to="/" replace />;
 
-  const niveles = estado.datos.niveles;
+  const niveles = nivelesDelAlumno(estado.datos, plan?.repasos ?? {});
   const ids = niveles.map((n) => n.id);
   const nombre = MUNDOS.find((m) => m.n === mundo)?.nombre ?? '';
   // Dos filas en zigzag para que quepan 8 paradas en horizontal.

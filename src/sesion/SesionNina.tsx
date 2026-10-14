@@ -97,6 +97,8 @@ export function SesionNinaProvider({ children }: { children: ReactNode }) {
         contexto: datos.data.contexto,
         codigo,
         vinculado: serverTimestamp(),
+        // Copia de los tutores del alumno: así cada tutor ve solo sus tablets.
+        tutores: datos.data.tutores,
       });
       return null;
     } catch {
