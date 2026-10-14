@@ -80,6 +80,9 @@ describe('construirCandidatas', () => {
     const c = construirCandidatas(frec, pictos);
     expect(c.map((x) => `${x.texto}:${x.mundo}`)).toEqual(['mesa:1', 'pato:2', 'sol:4']);
     expect(c[0]?.concreta).toBe(true);
+    expect(construirCandidatas(parsearFrecuencias('cerveza 1'), indexarPictogramas([
+      { _id: 9, tags: ['drink'], keywords: [{ keyword: 'cerveza', type: 2 }] },
+    ]))).toEqual([]);
     expect(resumenPorMundo(c)).toEqual({
       1: { concretas: 1, comunes: 1, total: 1 },
       2: { concretas: 0, comunes: 1, total: 1 },

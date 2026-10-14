@@ -21,6 +21,24 @@ export interface Candidata {
 export const MAX_LETRAS = 7;
 const SOLO_LETRAS = /^[a-záéíóúüñ]+$/;
 
+/** Pronombres, artículos y similares que ARASAAC trata como nombres propios. */
+const PALABRAS_FUNCIONALES = new Set([
+  'la', 'lo', 'le', 'las', 'los', 'les', 'el', 'un', 'una', 'me', 'te', 'se', 'nos', 'os',
+  'yo', 'tú', 'él', 'ella', 'ellos', 'ellas', 'mi', 'mí', 'tu', 'ti', 'su', 'sí', 'usted',
+  'este', 'esta', 'ese', 'esa', 'conmigo', 'contigo', 'alguien', 'mas', 'ame',
+]);
+
+/**
+ * Palabras con pictograma "limpio" que igualmente no son para una niña de 7 años.
+ * (El filtro por temas de ARASAAC ya quita la mayoría; esta lista remata.)
+ */
+export const PALABRAS_EXCLUIDAS = new Set([
+  'cárcel', 'prisión', 'preso', 'presa', 'cerveza', 'vino', 'bar', 'pistola', 'arma', 'bala', 'sangre',
+  'culo', 'pipí', 'caca', 'pedo', 'tumba', 'muerto', 'droga', 'drogas', 'cigarro', 'ladrón',
+  'diablo', 'infierno', 'cuchillo', 'navaja', 'bomba', 'veneno', 'herida', 'cadáver', 'borracho',
+  'abogado', 'policía', 'novio', 'novia', 'beso', 'boda', 'esposa', 'marido', 'fuerte', 'formas',
+]);
+
 /** ¿Es el plural de un nombre común que ya tiene pictograma? (hombres → hombre, flores → flor, veces → vez) */
 export function esPluralDeOtra(texto: string, pictogramas: ReadonlyMap<string, InfoPictograma>): boolean {
   const comun = (w: string) => pictogramas.get(w)?.comun === true;
@@ -40,8 +58,7 @@ export function construirCandidatas(
     if (!SOLO_LETRAS.test(texto) || [...texto].length > MAX_LETRAS) continue;
     const picto = pictogramas.get(texto);
     if (!picto) continue;
-    // Pronombres y artículos que ARASAAC trata como nombres propios (la, me, yo…).
-    if (!picto.comun && [...texto].length <= 3) continue;
+    if (PALABRAS_FUNCIONALES.has(texto) || PALABRAS_EXCLUIDAS.has(texto)) continue;
     if (esPluralDeOtra(texto, pictogramas)) continue;
     const mundo = mundoDePalabra(texto);
     if (mundo === null) continue;
