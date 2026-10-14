@@ -1,0 +1,122 @@
+rules_version = '2';
+
+// Reglas de seguridad de Viaje Lector.
+// Se pegan en Firebase → Firestore Database → pestaña "Reglas" → Publicar.
+// Los tests están en reglas/reglas.test.ts (se ejecutan en GitHub con el emulador).
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Quién es quién ────────────────────────────────────────────────────
+    function conSesion() {
+      return request.auth != null;
+    }
+
+    function esTutor() {
+      return conSesion()
+        && request.auth.token.email == 'cbotnav@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    function rutaDispositivo() {
+      return /databases/$(database)/documents/devices/$(request.auth.uid);
+    }
+
+    // ¿La tablet que hace la petición está vinculada a esta alumna?
+    function esTabletDe(sid) {
+      return conSesion()
+        && exists(rutaDispositivo())
+        && get(rutaDispositivo()).data.studentId == sid;
+    }
+
+    function contextoDeLaTablet() {
+      return get(rutaDispositivo()).data.contexto;
+    }
+
+    function soloCampos(campos) {
+      return request.resource.data.keys().hasOnly(campos);
+    }
+
+    function tieneCampos(campos) {
+      return request.resource.data.keys().hasAll(campos);
+    }
+
+    // ─── Contenido: lo lee cualquier tablet, lo escribe solo el tutor ──────
+    match /contenido/{documento} {
+      allow read: if conSesion();
+      allow write: if esTutor();
+    }
+
+    // ─── Alumnas: todo es del tutor ────────────────────────────────────────
+    match /students/{sid} {
+      allow read, write: if esTutor();
+
+      // Resultado de cada nivel. La tablet de la alumna lo crea y lo puede leer
+      // (para mostrar sus estrellas, su álbum y su fantasma). Nadie lo edita.
+      match /levelAttempts/{id} {
+        allow read: if esTutor() || esTabletDe(sid);
+        allow create: if esTabletDe(sid)
+          && soloCampos(['nivelId', 'mundo', 'nivel', 'mecanica', 'estrellas', 'puntuacion',
+                         'duracionMs', 'pcpm', 'contexto', 'pegatina', 'pegatinaImg', 'completadoEn'])
+          && tieneCampos(['nivelId', 'mundo', 'nivel', 'mecanica', 'estrellas', 'puntuacion',
+                          'duracionMs', 'contexto', 'completadoEn'])
+          && request.resource.data.estrellas is int
+          && request.resource.data.estrellas >= 0
+          && request.resource.data.estrellas <= 3
+          && request.resource.data.contexto == contextoDeLaTablet()
+          && request.resource.data.completadoEn is timestamp;
+        allow update, delete: if false;
+      }
+
+      // Cada respuesta de la niña. Solo se añaden: nadie puede editar ni borrar.
+      match /attempts/{id} {
+        allow read: if esTutor();
+        allow create: if esTabletDe(sid)
+          && soloCampos(['levelAttemptId', 'mecanica', 'item', 'unidadObjetivo', 'patron',
+                         'respuesta', 'correcto', 'errorTipo', 'latenciaMs', 'ayudas',
+                         'intentoN', 'contexto', 'creadoEn'])
+          && tieneCampos(['levelAttemptId', 'mecanica', 'item', 'respuesta', 'correcto',
+                          'contexto', 'creadoEn'])
+          && request.resource.data.correcto is bool
+          && request.resource.data.contexto == contextoDeLaTablet()
+          && request.resource.data.creadoEn is timestamp;
+        allow update, delete: if false;
+      }
+    }
+
+    // ─── Códigos de vinculación ────────────────────────────────────────────
+    // Conocer el código (6 dígitos, caduca) es lo que da permiso a leerlo.
+    match /pairingCodes/{codigo} {
+      allow get: if conSesion();
+      allow list: if esTutor();
+      allow create: if esTutor()
+        && soloCampos(['studentId', 'nombre', 'contexto', 'expira'])
+        && request.resource.data.contexto in ['tutoria', 'casa'];
+      allow delete: if esTutor();
+      allow update: if false;
+    }
+
+    // ─── Tablets vinculadas ────────────────────────────────────────────────
+    function codigoValido() {
+      let datos = request.resource.data;
+      let ruta = /databases/$(database)/documents/pairingCodes/$(datos.codigo);
+      let codigo = get(ruta).data;
+      return datos.codigo is string
+        && exists(ruta)
+        && codigo.expira > request.time
+        && datos.studentId == codigo.studentId
+        && datos.nombre == codigo.nombre
+        && datos.contexto == codigo.contexto
+        && soloCampos(['studentId', 'nombre', 'contexto', 'codigo', 'vinculado'])
+        && datos.vinculado == request.time;
+    }
+
+    match /devices/{uid} {
+      allow get: if conSesion() && (request.auth.uid == uid || esTutor());
+      allow list: if esTutor();
+      // La tablet solo puede escribir SU documento, y solo con un código válido.
+      allow create, update: if conSesion() && request.auth.uid == uid && codigoValido();
+      allow delete: if esTutor() || (conSesion() && request.auth.uid == uid);
+    }
+  }
+}
