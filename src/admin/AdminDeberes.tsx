@@ -5,12 +5,13 @@
 import { useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore';
 import { dbTutor } from '../firebase.ts';
-import { ContenidoZ, IntentoNivelZ, PlanZ, type Actividad, type Deberes } from '../datos/esquemas.ts';
+import { IntentoNivelZ, PlanZ, type Actividad, type Deberes } from '../datos/esquemas.ts';
 import { MUNDOS } from '../lib/clasificador.ts';
 import { historialDeberes, NOMBRE_ACTIVIDAD, type SemanaDeberes } from '../lib/deberes.ts';
 import type { PartidaRegistrada } from '../lib/progreso.ts';
 import { estilos } from './AdminMarco.tsx';
 import { useAlumnas } from './useAlumnas.ts';
+import { contenidosDelAlumno } from './contenidoAlumno.ts';
 
 const TODAS = Object.keys(NOMBRE_ACTIVIDAD) as Actividad[];
 const POR_DEFECTO: Deberes = { mundo: 1, actividades: ['burbujas', 'tren', 'trazo'], diasPorSemana: 3, activos: true };
@@ -29,11 +30,11 @@ export default function AdminDeberes() {
     if (!sid && alumnas[0]) setSid(alumnas[0].id);
   }, [alumnas, sid]);
 
+  // Mundos que este alumno tiene disponibles (propios o comunes).
   useEffect(() => {
-    void Promise.all(MUNDOS.map((m) => getDoc(doc(dbTutor(), 'contenido', `mundo-${m.n}`)))).then((snaps) =>
-      setMundosGuardados(snaps.flatMap((s, i) => (s.exists() && ContenidoZ.safeParse(s.data()).success ? [i + 1] : []))),
-    );
-  }, []);
+    if (!sid) return;
+    void contenidosDelAlumno(sid).then((cs) => setMundosGuardados(cs.map((c) => c.mundo)));
+  }, [sid]);
 
   useEffect(() => {
     if (!sid) return;

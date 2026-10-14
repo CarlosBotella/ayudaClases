@@ -79,7 +79,8 @@ service cloud.firestore {
       allow list, write: if esAdmin();
     }
 
-    // ─── Contenido: lo lee cualquier tablet, lo escribe el administrador ────
+    // ─── Contenido COMÚN (por defecto): lo lee cualquier tablet, lo escribe el administrador.
+    // Cada alumno puede tener además sus propios mundos (students/{sid}/contenido).
     match /contenido/{documento} {
       allow read: if conSesion();
       allow write: if esAdmin();
@@ -118,6 +119,12 @@ service cloud.firestore {
         // Nadie los edita. Solo sus tutores los borran (para eliminar al alumno del todo).
         allow update: if false;
         allow delete: if puedeVerAlumno(sid);
+      }
+
+      // Mundos PROPIOS del alumno, elegidos por sus tutores. Los lee su tablet.
+      match /contenido/{documento} {
+        allow read: if puedeVerAlumno(sid) || esTabletDe(sid);
+        allow write: if puedeVerAlumno(sid);
       }
 
       // Cada respuesta del alumno. Solo se añaden: nadie puede editarlas.

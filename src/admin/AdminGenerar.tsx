@@ -5,8 +5,11 @@
  * Todo ocurre en el navegador, sin IA.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
+import { getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { refContenido } from '../datos/rutasContenido.ts';
+import { useAdulto } from '../sesion/SesionTutor.tsx';
+import { useAlumnas } from './useAlumnas.ts';
 import { dbTutor } from '../firebase.ts';
 import { ContenidoZ, SCHEMA_VERSION, type Nivel } from '../datos/esquemas.ts';
 import { MUNDOS } from '../lib/clasificador.ts';
@@ -50,6 +53,12 @@ function describir(n: Nivel): string {
 
 export default function AdminGenerar() {
   const mundo = Number(useParams().mundo);
+  // Destino: un alumno (?alumno=…) o, solo para el administrador, el contenido común.
+  const alumno = useSearchParams()[0].get('alumno');
+  const { esAdmin } = useAdulto();
+  const { alumnas } = useAlumnas();
+  const nombreDestino = alumno ? (alumnas.find((a) => a.id === alumno)?.nombre ?? '…') : 'contenido común';
+  const volver = alumno ? `/admin/contenido?alumno=${alumno}` : '/admin/contenido?alumno=comun';
   const def = MUNDOS.find((m) => m.n === mundo);
   const [fase, setFase] = useState<Fase>({ tipo: 'descargando', mensaje: 'Preparando…' });
   const [marcadas, setMarcadas] = useState<Set<string>>(new Set());
@@ -68,7 +77,9 @@ export default function AdminGenerar() {
           cache = { candidatas: construirCandidatas(frecuencias, pictogramas), diccionario: new Set(frecuencias.keys()) };
         }
         // Si el mundo ya existía, se conservan sus palabras aprobadas.
-        const previo = await getDoc(doc(dbTutor(), 'contenido', `mundo-${mundo}`));
+        // Selección inicial: la que ya tenga el alumno; si no tiene, la del contenido común.
+        let previo = await getDoc(refContenido(dbTutor(), mundo, alumno));
+        if (!previo.exists() && alumno) previo = await getDoc(refContenido(dbTutor(), mundo, null));
         const r = previo.exists() ? ContenidoZ.safeParse(previo.data()) : null;
         const delMundo = cache.candidatas.filter((c) => c.mundo === mundo).slice(0, MAX_PALABRAS);
         const iniciales = r?.success
@@ -85,7 +96,7 @@ export default function AdminGenerar() {
     return () => {
       activo = false;
     };
-  }, [mundo]);
+  }, [mundo, alumno]);
 
   const delMundo = useMemo(
     () => (cache ? cache.candidatas.filter((c) => c.mundo === mundo).slice(0, MAX_PALABRAS) : []),
@@ -130,7 +141,7 @@ export default function AdminGenerar() {
       return;
     }
     try {
-      await setDoc(doc(dbTutor(), 'contenido', `mundo-${mundo}`), documento);
+      await setDoc(refContenido(dbTutor(), mundo, alumno), documento);
       setFase({ tipo: 'guardado', resultado, palabras: palabras.length });
     } catch {
       setFase({ tipo: 'error', mensaje: 'No se pudo guardar. ¿Hay conexión? ¿Están publicadas las reglas?' });
@@ -138,15 +149,16 @@ export default function AdminGenerar() {
   };
 
   if (!def) return <p>Ese mundo no existe.</p>;
+  if (!alumno && !esAdmin) return <Navigate to="/admin/contenido" replace />;
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-5">
       <div className="flex items-center gap-4">
-        <Link to="/admin/contenido" className={estilos.botonSuave}>
+        <Link to={volver} className={estilos.botonSuave}>
           ← Contenido
         </Link>
         <h1 className="text-2xl font-bold text-mar">
-          Mundo {mundo}: {def.nombre}
+          Mundo {mundo}: {def.nombre} <span className="text-tinta/60">· para {nombreDestino}</span>
         </h1>
       </div>
 
@@ -264,9 +276,9 @@ export default function AdminGenerar() {
           <h2 className="text-xl font-bold text-mar">✅ Mundo {mundo} guardado</h2>
           <p className="mt-2">
             {fase.palabras} palabras, {fase.resultado.niveles.length} niveles y {fase.resultado.frases.length} frases. Ya
-            aparece abierto en las tablets vinculadas.
+            aparece en las tablets de {alumno ? nombreDestino : 'los alumnos que usan el contenido común'}.
           </p>
-          <Link to="/admin/contenido" className={`${estilos.boton} mt-4`}>
+          <Link to={volver} className={`${estilos.boton} mt-4`}>
             Volver a Contenido
           </Link>
         </section>

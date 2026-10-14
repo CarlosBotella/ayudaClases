@@ -21,8 +21,8 @@ export default function RutasAdmin() {
       <Routes>
         <Route element={<AdminMarco />}>
           <Route index element={<AdminAlumnas />} />
-          <Route path="contenido" element={<SoloAdmin><AdminContenido /></SoloAdmin>} />
-          <Route path="generar/:mundo" element={<SoloAdmin><AdminGenerar /></SoloAdmin>} />
+          <Route path="contenido" element={<AdminContenido />} />
+          <Route path="generar/:mundo" element={<AdminGenerar />} />
           <Route path="tutores" element={<SoloAdmin><AdminTutores /></SoloAdmin>} />
           <Route path="metricas" element={<AdminMetricas />} />
           <Route path="deberes" element={<AdminDeberes />} />

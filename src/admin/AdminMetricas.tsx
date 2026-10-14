@@ -18,10 +18,9 @@ import {
   YAxis,
 } from 'recharts';
 import { dbTutor } from '../firebase.ts';
-import { ContenidoZ, IntentoItemZ, IntentoNivelZ, PlanZ, type Contenido, type Mecanica } from '../datos/esquemas.ts';
+import { IntentoItemZ, IntentoNivelZ, PlanZ, type Contenido, type Mecanica } from '../datos/esquemas.ts';
 import { calcularRetos, ESCALON_INICIAL, JUEGOS_SIN_ADAPTAR } from '../lib/adaptativo.ts';
 import { NOMBRE_JUEGO } from './useAlumnas.ts';
-import { MUNDOS } from '../lib/clasificador.ts';
 import { crearAleatorio } from '../lib/aleatorio.ts';
 import {
   aReforzar,
@@ -36,6 +35,7 @@ import {
   type TipoUnidad,
 } from '../lib/metricas.ts';
 import { crearNivelRepaso } from '../generador/repaso.ts';
+import { contenidosDelAlumno } from './contenidoAlumno.ts';
 import { useAlumnas } from './useAlumnas.ts';
 import { estilos } from './AdminMarco.tsx';
 
@@ -70,11 +70,11 @@ const JUEGOS_ADAPTABLES = (Object.keys(NOMBRE_JUEGO) as Mecanica[]).filter((j) =
 
 async function cargar(sid: string): Promise<Datos> {
   const db = dbTutor();
-  const [snapP, snapR, snapN, ...snapC] = await Promise.all([
+  const [snapP, snapR, snapN, contenidos] = await Promise.all([
     getDoc(doc(db, 'planes', sid)),
     getDocs(query(collection(db, 'students', sid, 'attempts'), orderBy('creadoEn'))),
     getDocs(query(collection(db, 'students', sid, 'levelAttempts'), orderBy('completadoEn'))),
-    ...MUNDOS.map((m) => getDoc(doc(db, 'contenido', `mundo-${m.n}`))),
+    contenidosDelAlumno(sid),
   ]);
   const respuestas: Respuesta[] = [];
   snapR.forEach((d) => {
@@ -85,10 +85,6 @@ async function cargar(sid: string): Promise<Datos> {
   snapN.forEach((d) => {
     const r = IntentoNivelZ.safeParse(d.data());
     if (r.success) resultados.push({ ...r.data, fecha: aFecha(r.data.completadoEn) });
-  });
-  const contenidos = snapC.flatMap((s) => {
-    const r = s.exists() ? ContenidoZ.safeParse(s.data()) : null;
-    return r?.success ? [r.data] : [];
   });
   const plan = snapP.exists() ? PlanZ.safeParse(snapP.data()) : null;
   return { respuestas, resultados, contenidos, retoFijo: plan?.success ? plan.data.retoFijo : {} };

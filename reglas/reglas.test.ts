@@ -277,6 +277,23 @@ describe('planes (reto fijado, deberes y repasos)', () => {
   });
 });
 
+describe('contenido propio de cada alumno', () => {
+  const ruta = 'students/ana/contenido/mundo-1';
+  it('✅ su tutor genera los mundos del alumno', () => assertSucceeds(setDoc(doc(tutorA(), ruta), { mundo: 1 })));
+  it('❌ otro tutor no puede', () => assertFails(setDoc(doc(tutorB(), ruta), { mundo: 1 })));
+  it('✅ la tablet del alumno los lee; ❌ la de otro alumno no', async () => {
+    await env.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(db(ctx), ruta), { mundo: 1 });
+      await setDoc(doc(db(ctx), 'devices/tablet2'), {
+        studentId: 'otra', nombre: 'Otra', contexto: 'casa', codigo: '1', vinculado: Timestamp.now(), tutores: [B],
+      });
+    });
+    await assertSucceeds(getDoc(doc(tablet(), ruta)));
+    await assertFails(getDoc(doc(tablet('tablet2'), ruta)));
+  });
+  it('❌ la tablet no puede cambiarlos', () => assertFails(setDoc(doc(tablet(), ruta), { mundo: 9 })));
+});
+
 describe('eliminar un alumno', () => {
   it('✅ su tutor borra la ficha; ❌ otro tutor no', async () => {
     await assertFails(deleteDoc(doc(tutorB(), 'students/ana')));

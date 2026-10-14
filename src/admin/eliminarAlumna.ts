@@ -67,6 +67,7 @@ export async function eliminarAlumna(
   progreso('Preparando…');
   const respuestas = await borrarTodo(collection(db, 'students', sid, 'attempts'), 'respuestas', progreso);
   const resultados = await borrarTodo(collection(db, 'students', sid, 'levelAttempts'), 'resultados', progreso);
+  await borrarTodo(collection(db, 'students', sid, 'contenido'), 'sus mundos', progreso);
   const tablets = await borrarDeAlumno('devices', sid, adulto, 'tablets vinculadas', progreso);
   await borrarDeAlumno('pairingCodes', sid, adulto, 'códigos', progreso);
   progreso('Borrando su plan y su ficha…');

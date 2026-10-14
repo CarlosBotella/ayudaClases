@@ -5,6 +5,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { collection, doc, onSnapshot, orderBy, query, Timestamp } from 'firebase/firestore';
 import { dbNina } from '../firebase.ts';
+import { useDispositivo } from '../sesion/SesionNina.tsx';
+import { refContenido } from './rutasContenido.ts';
 import { NUM_MUNDOS } from '../lib/clasificador.ts';
 import { PROGRESO_VACIO, resumirProgreso, type PartidaRegistrada, type ResumenProgreso } from '../lib/progreso.ts';
 import { calcularRetos, type EstadoReto } from '../lib/adaptativo.ts';
@@ -12,47 +14,82 @@ import { ContenidoZ, IntentoNivelZ, PlanZ, type Contenido, type IntentoNivel, ty
 
 export type EstadoCarga<T> = { tipo: 'cargando' } | { tipo: 'vacio' } | { tipo: 'listo'; datos: T };
 
-/** Contenido de un mundo, validado con Zod. */
+const leerContenido = (datos: unknown, donde: string): Contenido | null => {
+  const r = ContenidoZ.safeParse(datos);
+  if (!r.success) console.warn(`${donde} no es válido`, r.error.issues);
+  return r.success ? r.data : null;
+};
+
+/**
+ * Escucha un mundo: el PROPIO del alumno de esta tablet y el COMÚN.
+ * Devuelve el propio si existe; si no, el común. `undefined` = aún cargando.
+ */
+function escucharMundo(
+  mundo: number,
+  alumno: string | undefined,
+  alCambiar: (c: Contenido | null) => void,
+): () => void {
+  let propio: Contenido | null | undefined = alumno ? undefined : null;
+  let comun: Contenido | null | undefined;
+  const avisar = () => {
+    if (propio === undefined || comun === undefined) return;
+    alCambiar(propio ?? comun);
+  };
+  const cancelarComun = onSnapshot(
+    refContenido(dbNina(), mundo, null),
+    (snap) => {
+      comun = snap.exists() ? leerContenido(snap.data(), `contenido/mundo-${mundo}`) : null;
+      avisar();
+    },
+    () => {
+      comun = null;
+      avisar();
+    },
+  );
+  const cancelarPropio = alumno
+    ? onSnapshot(
+        refContenido(dbNina(), mundo, alumno),
+        (snap) => {
+          propio = snap.exists() ? leerContenido(snap.data(), `mundo-${mundo} del alumno`) : null;
+          avisar();
+        },
+        () => {
+          propio = null;
+          avisar();
+        },
+      )
+    : () => undefined;
+  return () => {
+    cancelarComun();
+    cancelarPropio();
+  };
+}
+
+/** Contenido de un mundo para el alumno de esta tablet (propio o, si no, el común). */
 export function useContenido(mundo: number): EstadoCarga<Contenido> {
+  const alumno = useDispositivo()?.dispositivo.studentId;
   const [estado, setEstado] = useState<EstadoCarga<Contenido>>({ tipo: 'cargando' });
 
   useEffect(() => {
     setEstado({ tipo: 'cargando' });
-    return onSnapshot(
-      doc(dbNina(), 'contenido', `mundo-${mundo}`),
-      (snap) => {
-        if (!snap.exists()) return setEstado({ tipo: 'vacio' });
-        const r = ContenidoZ.safeParse(snap.data());
-        if (!r.success) {
-          console.warn(`contenido/mundo-${mundo} no es válido`, r.error.issues);
-          return setEstado({ tipo: 'vacio' });
-        }
-        setEstado({ tipo: 'listo', datos: r.data });
-      },
-      () => setEstado({ tipo: 'vacio' }),
-    );
-  }, [mundo]);
+    return escucharMundo(mundo, alumno, (c) => setEstado(c ? { tipo: 'listo', datos: c } : { tipo: 'vacio' }));
+  }, [mundo, alumno]);
 
   return estado;
 }
 
 /** Los 5 mundos a la vez (para el mapa y el álbum). null = aún no generado. */
 export function useTodosLosMundos(): { cargando: boolean; mundos: Record<number, Contenido | null> } {
+  const alumno = useDispositivo()?.dispositivo.studentId;
   const [mundos, setMundos] = useState<Record<number, Contenido | null | undefined>>({});
 
   useEffect(() => {
+    setMundos({});
     const cancelar = Array.from({ length: NUM_MUNDOS }, (_, i) => i + 1).map((n) =>
-      onSnapshot(
-        doc(dbNina(), 'contenido', `mundo-${n}`),
-        (snap) => {
-          const r = snap.exists() ? ContenidoZ.safeParse(snap.data()) : null;
-          setMundos((m) => ({ ...m, [n]: r?.success ? r.data : null }));
-        },
-        () => setMundos((m) => ({ ...m, [n]: null })),
-      ),
+      escucharMundo(n, alumno, (c) => setMundos((m) => ({ ...m, [n]: c }))),
     );
     return () => cancelar.forEach((c) => c());
-  }, []);
+  }, [alumno]);
 
   const cargando = Object.keys(mundos).length < NUM_MUNDOS;
   const limpios: Record<number, Contenido | null> = {};

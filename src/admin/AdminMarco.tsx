@@ -178,11 +178,9 @@ export default function AdminMarco() {
         <NavLink to="/admin" end className={pestana}>
           Alumnos y tablets
         </NavLink>
-        {estado.esAdmin && (
-          <NavLink to="/admin/contenido" className={pestana}>
-            Contenido
-          </NavLink>
-        )}
+        <NavLink to="/admin/contenido" className={pestana}>
+          Contenido
+        </NavLink>
         <NavLink to="/admin/deberes" className={pestana}>
           Deberes
         </NavLink>
