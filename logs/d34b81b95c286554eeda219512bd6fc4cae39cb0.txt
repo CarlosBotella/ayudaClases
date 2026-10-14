@@ -1,7 +1,7 @@
 ===== npm install
 npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
-added 493 packages in 11s
+added 493 packages in 7s
 ===== fin npm install: código 0
 ===== typescript
 ===== fin typescript: código 0
@@ -13,8 +13,8 @@ added 493 packages in 11s
 
 [2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
 [2m      Tests [22m [1m[32m174 passed[39m[22m[90m (174)[39m
-[2m   Start at [22m 18:20:47
-[2m   Duration [22m 1.63s[2m (transform 436ms, setup 0ms, collect 1.04s, tests 233ms, environment 2ms, prepare 1.15s)[22m
+[2m   Start at [22m 18:20:41
+[2m   Duration [22m 1.13s[2m (transform 361ms, setup 0ms, collect 750ms, tests 132ms, environment 2ms, prepare 793ms)[22m
 
 ===== fin tests: código 0
 ===== reglas
@@ -34,151 +34,151 @@ npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and con
 
 [1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/ayudaClases/ayudaClases[39m
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ una tablet lo lee[33m 782[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ sin sesión no se lee[32m 169[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ una tablet lo lee[33m 1343[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ sin sesión no se lee[32m 150[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ una tablet no lo escribe
-[22m[39m[2026-10-14T18:21:20.250Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069654 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:30.507Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056d3 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 Property email is undefined on object. for 'create' @ L47, Property email is undefined on object. for 'update' @ L47, Property email is undefined on object. for 'update' @ L47
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ una tablet no lo escribe[32m 179[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ el tutor lo escribe[32m 99[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ una tablet no lo escribe[33m 307[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m✅ el tutor lo escribe[32m 88[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ el tutor sin email verificado no escribe
-[22m[39m[2026-10-14T18:21:20.441Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069658 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:30.660Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056d7 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L47, false for 'update' @ L47
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mcontenido[2m > [22m[2m❌ otra cuenta con email no escribe
-[22m[39m[2026-10-14T18:21:20.530Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d06965a error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:30.728Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056d9 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L47, false for 'update' @ L47
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ el tutor sin email verificado no escribe[32m 92[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ otra cuenta con email no escribe[32m 89[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m✅ el tutor lee y crea alumnas[32m 116[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet vinculada no lee la ficha de la alumna[32m 82[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ el tutor sin email verificado no escribe[32m 64[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mcontenido[2m > [22m❌ otra cuenta con email no escribe[32m 68[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m✅ el tutor lee y crea alumnas[32m 93[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mstudents[2m > [22m[2m❌ la tablet no crea alumnas
-[22m[39m[2026-10-14T18:21:20.807Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069661 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:30.958Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056e0 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 Property email is undefined on object. for 'create' @ L52, Property email is undefined on object. for 'update' @ L52, Property email is undefined on object. for 'create' @ L52
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet no crea alumnas[32m 79[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ con sesión se lee un código concreto[32m 104[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet vinculada no lee la ficha de la alumna[32m 81[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mstudents[2m > [22m❌ la tablet no crea alumnas[32m 55[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ con sesión se lee un código concreto[32m 53[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no puede listar los códigos[32m 66[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mpairingCodes[2m > [22m[2m❌ una tablet no crea códigos
-[22m[39m[2026-10-14T18:21:21.085Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069667 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.130Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056e6 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 Property email is undefined on object. for 'create' @ L92, false for 'update' @ L96, Property email is undefined on object. for 'create' @ L92
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no puede listar los códigos[32m 89[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no crea códigos[32m 85[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ el tutor crea y borra códigos[32m 95[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m❌ una tablet no crea códigos[32m 52[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mpairingCodes[2m > [22m✅ el tutor crea y borra códigos[32m 68[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet nueva se vincula con un código vigente[32m 69[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código caducado
-[22m[39m[2026-10-14T18:21:21.349Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d06966e error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.320Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056ed error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet nueva se vincula con un código vigente[32m 91[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código caducado[32m 77[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ con un código inexistente
-[22m[39m[2026-10-14T18:21:21.420Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069670 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.375Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056ef error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código inexistente[32m 72[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código caducado[32m 53[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ con un código inexistente[32m 55[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando la alumna del código
-[22m[39m[2026-10-14T18:21:21.501Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069672 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.427Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056f1 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ cambiando el contexto del código
-[22m[39m[2026-10-14T18:21:21.577Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069674 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.496Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056f3 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L118:32 for 'create' @ L118, evaluation error at L118:32 for 'update' @ L118, false for 'create' @ L118
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando la alumna del código[32m 80[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando el contexto del código[32m 76[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando la alumna del código[32m 53[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ cambiando el contexto del código[32m 69[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mdevices (vinculación)[2m > [22m[2m❌ escribiendo el documento de OTRA tablet
-[22m[39m[2026-10-14T18:21:21.644Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069676 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.551Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f9056f5 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L118, false for 'update' @ L118
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ escribiendo el documento de OTRA tablet[32m 67[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet lee su propio vínculo[32m 60[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ una tablet no lee el de otra[32m 82[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ el tutor lista las tablets y desvincula[32m 165[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet de la alumna guarda un nivel[32m 70[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ escribiendo el documento de OTRA tablet[32m 54[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ una tablet lee su propio vínculo[32m 53[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m❌ una tablet no lee el de otra[32m 83[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mdevices (vinculación)[2m > [22m✅ el tutor lista las tablets y desvincula[32m 111[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet de la alumna guarda un nivel[32m 59[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con un contexto distinto al de la tablet
-[22m[39m[2026-10-14T18:21:22.159Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069683 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:31.978Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905702 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ con PCPM y pegatina opcionales[32m 71[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con un contexto distinto al de la tablet[32m 66[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ con PCPM y pegatina opcionales[32m 62[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con un contexto distinto al de la tablet[32m 58[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con más de 3 estrellas
-[22m[39m[2026-10-14T18:21:22.229Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069685 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.029Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905704 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L58, false for 'update' @ L68
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con más de 3 estrellas[32m 70[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ con campos de más
-[22m[39m[2026-10-14T18:21:22.293Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069687 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.077Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905706 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L58, false for 'update' @ L68
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ para otra alumna
-[22m[39m[2026-10-14T18:21:22.356Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069689 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.131Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905708 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con campos de más[32m 64[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ para otra alumna[32m 63[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con más de 3 estrellas[32m 51[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ con campos de más[32m 48[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ para otra alumna[32m 54[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ desde una tablet sin vincular
-[22m[39m[2026-10-14T18:21:22.426Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d06968b error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.182Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f90570a error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L58:26 for 'create' @ L58, false for 'update' @ L68, false for 'create' @ L58
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ desde una tablet sin vincular[32m 69[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet lee los resultados de su alumna[32m 77[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ la tablet no lee los de otra alumna[32m 62[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ desde una tablet sin vincular[32m 50[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m✅ la tablet lee los resultados de su alumna[32m 50[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
-[22m[39m[2026-10-14T18:21:22.630Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069691 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.329Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905710 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'update' @ L68
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie edita un resultado (ni el tutor)
-[22m[39m[2026-10-14T18:21:22.658Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069692 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.354Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905711 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'update' @ L68
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie edita un resultado (ni el tutor)[32m 93[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ la tablet no lee los de otra alumna[32m 47[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie edita un resultado (ni el tutor)[32m 75[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
-[22m[39m[2026-10-14T18:21:22.711Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069694 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.400Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905713 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'delete' @ L68
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mlevelAttempts[2m > [22m[2m❌ nadie borra un resultado (ni el tutor)
-[22m[39m[2026-10-14T18:21:22.729Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069695 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.423Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905714 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'delete' @ L68
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie borra un resultado (ni el tutor)[32m 71[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ la tablet de la alumna añade un intento[32m 58[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mlevelAttempts[2m > [22m❌ nadie borra un resultado (ni el tutor)[32m 69[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ la tablet de la alumna añade un intento[32m 53[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ para otra alumna
-[22m[39m[2026-10-14T18:21:22.859Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d069699 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.531Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905718 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 evaluation error at L74:26 for 'create' @ L74, false for 'update' @ L83, false for 'create' @ L74
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con campos de más
-[22m[39m[2026-10-14T18:21:22.914Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d06969b error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.573Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f90571a error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L74, false for 'update' @ L83
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ para otra alumna[32m 73[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con campos de más[32m 54[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ para otra alumna[32m 54[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con campos de más[32m 42[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ con "correcto" que no sea booleano
-[22m[39m[2026-10-14T18:21:22.970Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d06969d error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.617Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f90571c error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'create' @ L74, false for 'update' @ L83
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con "correcto" que no sea booleano[32m 57[2mms[22m[39m
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ la tablet no lee los intentos[32m 61[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ con "correcto" que no sea booleano[32m 45[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ la tablet no lee los intentos[32m 44[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ el tutor lee los intentos[32m 44[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
-[22m[39m[2026-10-14T18:21:23.141Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d0696a3 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.744Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905722 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'update' @ L83
 
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
-[22m[39m[2026-10-14T18:21:23.163Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d0696a4 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.760Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905723 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'update' @ L83
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m✅ el tutor lee los intentos[32m 58[2mms[22m[39m
 [90mstderr[2m | reglas/reglas.test.ts[2m > [22m[2mattempts (solo se añaden)[2m > [22m[2m❌ nadie edita ni borra intentos (ni el tutor)
-[22m[39m[2026-10-14T18:21:23.181Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3d0696a5 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+[22m[39m[2026-10-14T18:21:32.773Z]  @firebase/firestore: Firestore (12.19.0): GrpcConnection RPC 'Write' stream 0x3f905724 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 false for 'delete' @ L83
 
- [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ nadie edita ni borra intentos (ni el tutor)[32m 90[2mms[22m[39m
+ [32m✓[39m reglas/reglas.test.ts[2m > [22mattempts (solo se añaden)[2m > [22m❌ nadie edita ni borra intentos (ni el tutor)[32m 69[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m40 passed[39m[22m[90m (40)[39m
-[2m   Start at [22m 18:21:17
-[2m   Duration [22m 5.89s[2m (transform 62ms, setup 0ms, collect 208ms, tests 5.46s, environment 0ms, prepare 68ms)[22m
+[2m   Start at [22m 18:21:23
+[2m   Duration [22m 9.39s[2m (transform 51ms, setup 0ms, collect 156ms, tests 9.06s, environment 0ms, prepare 49ms)[22m
 
 [32m[1m✔ [22m[39m Script exited successfully (code 0)
 [36m[1mi  emulators:[22m[39m Shutting down emulators.
@@ -195,6 +195,11 @@ false for 'delete' @ L83
 
 [36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
 transforming...
+[33mnode_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
 [33mnode_modules/zod/v4/core/regexes.js (74:0): A comment
 
 "/** Anchors a pattern source. The interpolation lives here rather than at the call site because
@@ -202,11 +207,6 @@ transforming...
  * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
 
 in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
-[33mnode_modules/zod/v4/core/util.js (400:0): A comment
-
-"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
-
-in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.[39m
 [32m✓[39m 607 modules transformed.
 rendering chunks...
 computing gzip size...
@@ -218,16 +218,16 @@ computing gzip size...
 [2mdist/[22m[2massets/[22m[32mandika-latin-400-normal-BTFTIZb-.woff2  [39m[1m[2m 19.21 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[32mandika-latin-700-normal-Dk95f5lc.woff2  [39m[1m[2m 19.47 kB[22m[1m[22m
 [2mdist/[22m[2massets/[22m[35mindex-Mkon4se0.css                      [39m[1m[2m 34.31 kB[22m[1m[22m[2m │ gzip:   6.47 kB[22m
-[2mdist/[22m[2massets/[22m[36mRutasAdmin-IqeSquhQ.js                  [39m[1m[2m 29.64 kB[22m[1m[22m[2m │ gzip:  10.42 kB[22m
+[2mdist/[22m[2massets/[22m[36mRutasAdmin-Vo-S_9VR.js                  [39m[1m[2m 29.64 kB[22m[1m[22m[2m │ gzip:  10.42 kB[22m
 [2mdist/[22m[2massets/[22m[36manimacion-T400J0Gs.js                   [39m[1m[2m178.37 kB[22m[1m[22m[2m │ gzip:  58.59 kB[22m
-[2mdist/[22m[2massets/[22m[36mindex-BscvY0Gv.js                       [39m[1m[2m406.06 kB[22m[1m[22m[2m │ gzip: 126.14 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-C4Z6wdUF.js                       [39m[1m[2m406.06 kB[22m[1m[22m[2m │ gzip: 126.14 kB[22m
 [2mdist/[22m[2massets/[22m[36mfirebase-DGSFbV3c.js                    [39m[1m[33m626.84 kB[39m[22m[2m │ gzip: 185.84 kB[22m
 [33m
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
-[32m✓ built in 4.51s[39m
+[32m✓ built in 3.29s[39m
 
 [36mPWA v1.3.0[39m
 mode      [35mgenerateSW[39m
