@@ -1,2 +1,2 @@
 #!/bin/bash
-exit 0
+node --experimental-strip-types --no-warnings scripts/contar-palabras.ts
