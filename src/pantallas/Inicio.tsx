@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatearFechaCorta } from '../lib/fecha.ts';
+import { hablar, prepararVoz } from '../lib/voz.ts';
 
 /** ¿Se está ejecutando como app instalada (pantalla completa) o en el navegador? */
 function useModoApp(): boolean {
@@ -26,6 +27,18 @@ function useModoApp(): boolean {
 export default function Inicio() {
   const esApp = useModoApp();
   const [saludo, setSaludo] = useState(false);
+  // Nombre de la voz en español del dispositivo; '' = sin voz; null = aún cargando.
+  const [voz, setVoz] = useState<string | null>(null);
+
+  useEffect(() => {
+    let activo = true;
+    void prepararVoz().then((v) => {
+      if (activo) setVoz(v ? v.name : '');
+    });
+    return () => {
+      activo = false;
+    };
+  }, []);
 
   return (
     <main className="relative flex h-full flex-col items-center justify-center gap-10 overflow-hidden px-6">
@@ -36,8 +49,8 @@ export default function Inicio() {
       />
 
       <h1
-        className={`texto-lectura relative text-[120px] font-bold text-mar transition-transform duration-300 ${
-          saludo ? 'scale-110' : 'scale-100'
+        className={`texto-lectura relative text-[120px] font-bold transition-all duration-300 ${
+          saludo ? '-translate-y-4 scale-125 text-sol' : 'scale-100 text-mar'
         }`}
       >
         hola
@@ -46,10 +59,11 @@ export default function Inicio() {
       <button
         type="button"
         onClick={() => {
+          hablar('hola');
           setSaludo(true);
-          window.setTimeout(() => setSaludo(false), 400);
+          window.setTimeout(() => setSaludo(false), 700);
         }}
-        aria-label="Empezar"
+        aria-label="Decir hola"
         className="relative flex size-28 items-center justify-center rounded-full bg-sol shadow-[0_8px_0_0_#d9952a] transition active:translate-y-2 active:shadow-[0_0_0_0_#d9952a]"
       >
         {/* Triángulo de "play" */}
@@ -64,6 +78,7 @@ export default function Inicio() {
           Créditos
         </Link>
         <span>
+          {voz === null ? 'Buscando voz…' : voz ? `Voz: ${voz}` : 'Sin voz en español'} ·{' '}
           {esApp ? 'Abierta como app' : 'Abierta en el navegador'} · versión{' '}
           {formatearFechaCorta(__BUILD_TIME__)}
         </span>
