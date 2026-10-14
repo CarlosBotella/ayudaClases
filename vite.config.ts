@@ -68,6 +68,18 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Firebase y las animaciones en trozos aparte: se cachean por separado
+        // y una actualización de la app no obliga a volver a bajarlos.
+        manualChunks: {
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          animacion: ['framer-motion', '@dnd-kit/core'],
+        },
+      },
+    },
+  },
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],

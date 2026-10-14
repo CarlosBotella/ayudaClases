@@ -1,8 +1,9 @@
 /* Andika (SIL, licencia OFL): tipografía diseñada para primeros lectores.
    Se sirve desde la propia app (no desde los servidores de Google) para que
    funcione sin conexión y la tablet no haga peticiones a terceros. */
-@import '@fontsource/andika/400.css';
-@import '@fontsource/andika/700.css';
+/* Solo el subconjunto latino: incluye ñ, tildes y ü (el español no necesita más). */
+@import '@fontsource/andika/latin-400.css';
+@import '@fontsource/andika/latin-700.css';
 @import 'tailwindcss';
 
 @theme {

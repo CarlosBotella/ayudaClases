@@ -36,6 +36,15 @@ jobs:
       - name: Tests
         run: npm test
 
+      # Las reglas de Firestore se prueban contra el emulador (gratis, sin proyecto real).
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Tests de las reglas de Firestore
+        run: npx -y firebase-tools@latest emulators:exec --only firestore --project demo-viaje-lector "npx vitest run -c vitest.reglas.config.ts"
+
       - name: Compilar
         run: npm run build
 

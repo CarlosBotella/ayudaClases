@@ -1,6 +1,6 @@
+import { lazy, Suspense } from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { SesionNinaProvider } from './sesion/SesionNina.tsx';
-import { SesionTutorProvider } from './sesion/SesionTutor.tsx';
 import Inicio from './pantallas/Inicio.tsx';
 import Mundo from './pantallas/Mundo.tsx';
 import Jugar from './pantallas/Jugar.tsx';
@@ -8,10 +8,11 @@ import Album from './pantallas/Album.tsx';
 import ZonaAdulto from './pantallas/ZonaAdulto.tsx';
 import Celebracion from './pantallas/Celebracion.tsx';
 import Creditos from './pantallas/Creditos.tsx';
-import AdminMarco from './admin/AdminMarco.tsx';
-import AdminAlumnas from './admin/AdminAlumnas.tsx';
-import AdminContenido from './admin/AdminContenido.tsx';
-import AdminGenerar from './admin/AdminGenerar.tsx';
+import Cargando from './componentes/Cargando.tsx';
+
+// El panel del tutor (y el generador) se descargan solo si se entra en él:
+// la tablet de la niña no carga ese código.
+const RutasAdmin = lazy(() => import('./admin/RutasAdmin.tsx'));
 
 /**
  * HashRouter: las rutas viven tras el "#" (…/ayudaClases/#/mundo/1),
@@ -38,25 +39,18 @@ function RutasNina() {
   );
 }
 
-function RutasAdmin() {
-  return (
-    <SesionTutorProvider>
-      <Routes>
-        <Route element={<AdminMarco />}>
-          <Route index element={<AdminAlumnas />} />
-          <Route path="contenido" element={<AdminContenido />} />
-          <Route path="generar/:mundo" element={<AdminGenerar />} />
-        </Route>
-      </Routes>
-    </SesionTutorProvider>
-  );
-}
-
 export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/admin/*" element={<RutasAdmin />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={<Cargando />}>
+              <RutasAdmin />
+            </Suspense>
+          }
+        />
         <Route path="/*" element={<RutasNina />} />
       </Routes>
     </HashRouter>
