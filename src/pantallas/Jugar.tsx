@@ -23,6 +23,9 @@ import JuegoBurbujas from '../juegos/JuegoBurbujas.tsx';
 import JuegoTren from '../juegos/JuegoTren.tsx';
 import JuegoDetective from '../juegos/JuegoDetective.tsx';
 import JuegoCarrera from '../juegos/JuegoCarrera.tsx';
+import PantallaInstrucciones from '../juegos/PantallaInstrucciones.tsx';
+import { instruccionDe } from '../juegos/instrucciones.ts';
+import { hablar } from '../lib/voz.ts';
 
 interface Final {
   estrellas: number;
@@ -54,6 +57,8 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
   const [ronda, setRonda] = useState(0);
   const [avance, setAvance] = useState(0);
   const [final, setFinal] = useState<Final | null>(null);
+  // Primero la explicación; al pulsar ▶ empieza el juego (y el cronómetro).
+  const [empezado, setEmpezado] = useState(false);
   const inicio = useRef(performance.now());
 
   // Cada ronda (cada "otra vez") es un intento de nivel nuevo, con su id.
@@ -135,10 +140,26 @@ function Partida({ contenido, nivel, indice }: { contenido: Contenido; nivel: Ni
         <div className="h-5 flex-1 overflow-hidden rounded-full bg-white/80">
           <motion.div className="h-full rounded-full bg-sol" animate={{ width: `${avance * 100}%` }} />
         </div>
+        <button
+          type="button"
+          onClick={() => hablar(instruccionDe(nivel).nina)}
+          aria-label="¿Qué hay que hacer?"
+          className="flex size-16 shrink-0 items-center justify-center rounded-full bg-white font-sans text-4xl font-bold text-mar shadow"
+        >
+          ?
+        </button>
       </div>
 
       <div className="relative min-h-0 flex-1" key={ronda}>
-        {final ? (
+        {!empezado ? (
+          <PantallaInstrucciones
+            nivel={nivel}
+            onEmpezar={() => {
+              inicio.current = performance.now();
+              setEmpezado(true);
+            }}
+          />
+        ) : final ? (
           <FinNivel final={final} onOtraVez={otraVez} onSeguir={seguir} />
         ) : nivel.mecanica === 'intrusa' ? (
           <JuegoIntrusa nivel={nivel} {...comunes} />

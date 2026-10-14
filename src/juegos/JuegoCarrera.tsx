@@ -153,22 +153,22 @@ export default function JuegoCarrera({
       {/* Botones del ADULTO: discretos, abajo a la derecha */}
       {fase === 'corriendo' && (
         <div className="flex items-center justify-end gap-4" aria-label="Botones para el adulto">
-          <span className="mr-2 font-sans text-sm text-tinta/40">adulto:</span>
+          <span className="mr-2 font-sans text-base text-tinta/50">Adulto, ¿la ha leído bien?</span>
           <button
             type="button"
             onClick={() => void marcar(false)}
             aria-label="La ha leído mal"
-            className="flex size-16 items-center justify-center rounded-full bg-white/60 text-tinta/40 active:scale-95"
+            className="flex h-16 items-center gap-2 rounded-full bg-white/60 px-5 font-sans text-lg font-bold text-tinta/50 active:scale-95"
           >
-            <IconoMal className="size-8" />
+            <IconoMal className="size-7" /> mal
           </button>
           <button
             type="button"
             onClick={() => void marcar(true)}
             aria-label="La ha leído bien"
-            className="flex size-16 items-center justify-center rounded-full bg-white/60 text-mar/60 active:scale-95"
+            className="flex h-16 items-center gap-2 rounded-full bg-white/60 px-5 font-sans text-lg font-bold text-mar/70 active:scale-95"
           >
-            <IconoBien className="size-8" />
+            <IconoBien className="size-7" /> bien
           </button>
         </div>
       )}
