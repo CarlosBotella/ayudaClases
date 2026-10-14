@@ -1,0 +1,56 @@
+/* Andika (SIL, licencia OFL): tipografía diseñada para primeros lectores.
+   Se sirve desde la propia app (no desde los servidores de Google) para que
+   funcione sin conexión y la tablet no haga peticiones a terceros. */
+@import '@fontsource/andika/400.css';
+@import '@fontsource/andika/700.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-lectura: 'Andika', 'Andika New Basic', system-ui, sans-serif;
+
+  /* Paleta cálida y tranquila: nada de rojos de "error". */
+  --color-crema: #fff8ec;
+  --color-arena: #f3e6cc;
+  --color-mar: #2f8f83;
+  --color-mar-oscuro: #1f6a61;
+  --color-sol: #f6b93b;
+  --color-naranja-suave: #f8c291;
+  --color-tinta: #2d3436;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-crema);
+  color: var(--color-tinta);
+  font-family: var(--font-lectura);
+  /* Evita selecciones, menús de "copiar" y el zoom por doble toque en la tablet. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+/* Texto de lectura: minúscula de imprenta, grande y con aire entre letras. */
+.texto-lectura {
+  font-family: var(--font-lectura);
+  text-transform: lowercase;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

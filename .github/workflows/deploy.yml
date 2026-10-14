@@ -1,0 +1,76 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite lanzarlo a mano: pestaña Actions → "Publicar en GitHub Pages" → Run workflow
+  workflow_dispatch:
+
+# Nunca dos publicaciones a la vez; si llega otra, espera su turno.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Tests y compilación
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # solo para guardar package-lock.json la primera vez
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            echo "No hay package-lock.json: se genera con npm install"
+            npm install
+          fi
+
+      - name: Tests
+        run: npm test
+
+      - name: Compilar
+        run: npm run build
+
+      - name: Preparar web para Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      # El primer build crea package-lock.json; se guarda en el repo para que
+      # los siguientes usen exactamente las mismas versiones (npm ci).
+      # Los commits hechos con GITHUB_TOKEN no relanzan este workflow.
+      - name: Guardar package-lock.json (solo la primera vez)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: fijar versiones de dependencias (package-lock.json)"
+            git push
+          else
+            echo "package-lock.json sin cambios"
+          fi
+
+  deploy:
+    name: Publicar
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
