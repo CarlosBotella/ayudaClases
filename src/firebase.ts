@@ -21,12 +21,12 @@ import {
 } from 'firebase/firestore';
 
 export const firebaseConfig = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+  apiKey: 'AIzaSyD7FaJ0vbMx1G7aTeB0lerrr_18CU8Wt8o',
+  authDomain: 'viaje-lector1.firebaseapp.com',
+  projectId: 'viaje-lector1',
+  storageBucket: 'viaje-lector1.firebasestorage.app',
+  messagingSenderId: '638949723348',
+  appId: '1:638949723348:web:a074ea96ad9e84d637ff41',
 };
 
 /** false hasta que se peguen aquí los valores de la consola de Firebase. */
