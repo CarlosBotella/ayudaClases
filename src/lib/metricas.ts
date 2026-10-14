@@ -24,6 +24,10 @@ export interface ResultadoNivel {
   estrellas: number;
   duracionMs: number;
   pcpm?: number;
+  /** 0–1, acierto a la primera (para el reto adaptativo). */
+  puntuacion?: number;
+  /** Escalón de reto con el que se jugó. */
+  escalon?: number;
   contexto: Contexto;
   fecha: Date;
 }

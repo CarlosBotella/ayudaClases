@@ -3,7 +3,7 @@
  * de las respuestas y resultados de la alumna elegida.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { collection, doc, getDoc, getDocs, orderBy, query, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
+import { collection, deleteField, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import {
   Bar,
   BarChart,
@@ -18,7 +18,9 @@ import {
   YAxis,
 } from 'recharts';
 import { dbTutor } from '../firebase.ts';
-import { AlumnaZ, ContenidoZ, IntentoItemZ, IntentoNivelZ, type Contenido } from '../datos/esquemas.ts';
+import { AlumnaZ, ContenidoZ, IntentoItemZ, IntentoNivelZ, PlanZ, type Contenido, type Mecanica } from '../datos/esquemas.ts';
+import { calcularRetos, ESCALON_INICIAL, JUEGOS_SIN_ADAPTAR } from '../lib/adaptativo.ts';
+import { NOMBRE_JUEGO } from './useAlumnas.ts';
 import { MUNDOS } from '../lib/clasificador.ts';
 import { crearAleatorio } from '../lib/aleatorio.ts';
 import {
@@ -60,11 +62,15 @@ interface Datos {
   respuestas: Respuesta[];
   resultados: ResultadoNivel[];
   contenidos: Contenido[];
+  retoFijo: Record<string, number>;
 }
+
+const JUEGOS_ADAPTABLES = (Object.keys(NOMBRE_JUEGO) as Mecanica[]).filter((j) => !JUEGOS_SIN_ADAPTAR.includes(j));
 
 async function cargar(sid: string): Promise<Datos> {
   const db = dbTutor();
-  const [snapR, snapN, ...snapC] = await Promise.all([
+  const [snapP, snapR, snapN, ...snapC] = await Promise.all([
+    getDoc(doc(db, 'planes', sid)),
     getDocs(query(collection(db, 'students', sid, 'attempts'), orderBy('creadoEn'))),
     getDocs(query(collection(db, 'students', sid, 'levelAttempts'), orderBy('completadoEn'))),
     ...MUNDOS.map((m) => getDoc(doc(db, 'contenido', `mundo-${m.n}`))),
@@ -83,7 +89,8 @@ async function cargar(sid: string): Promise<Datos> {
     const r = s.exists() ? ContenidoZ.safeParse(s.data()) : null;
     return r?.success ? [r.data] : [];
   });
-  return { respuestas, resultados, contenidos };
+  const plan = snapP.exists() ? PlanZ.safeParse(snapP.data()) : null;
+  return { respuestas, resultados, contenidos, retoFijo: plan?.success ? plan.data.retoFijo : {} };
 }
 
 // ─── Piezas ─────────────────────────────────────────────────────────────────
@@ -176,7 +183,12 @@ export default function AdminMetricas() {
     const estados = estadoUnidades(datos.respuestas, tipo);
     const semanas = evolucionSemanal(datos.resultados).map((s) => ({ ...s, etiqueta: etiquetaSemana(s.semana) }));
     const pcpms = datos.resultados.filter((r) => r.pcpm !== undefined).map((r) => r.pcpm as number);
+    const retos = calcularRetos(
+      datos.resultados.map((r) => ({ mecanica: r.mecanica, puntuacion: r.puntuacion ?? 0, fecha: r.fecha })),
+      datos.retoFijo,
+    );
     return {
+      retos,
       calor: mapaDeCalor(datos.respuestas, tipo),
       dominadas: estados.filter((e) => e.dominada).map((e) => e.unidad).sort((a, b) => a.localeCompare(b, 'es')),
       reforzar: aReforzar(estados),
@@ -220,6 +232,16 @@ export default function AdminMetricas() {
     }
   };
 
+  const fijarReto = async (juego: Mecanica, valor: string) => {
+    if (!sid) return;
+    await setDoc(
+      doc(dbTutor(), 'planes', sid),
+      { retoFijo: { [juego]: valor === 'auto' ? deleteField() : Number(valor) }, actualizado: serverTimestamp() },
+      { merge: true },
+    );
+    recargar();
+  };
+
   const ejes = { stroke: '#2d343660', fontSize: 13 };
 
   return (
@@ -258,6 +280,68 @@ export default function AdminMetricas() {
             />
             <Dato titulo={tipo === 'silaba' ? 'Sílabas dominadas' : 'Grafemas dominados'} valor={String(m.dominadas.length)} />
           </div>
+
+          {/* Reto adaptativo */}
+          <section className={estilos.tarjeta}>
+            <h2 className="text-xl font-bold">Reto adaptativo (escalón 1–5 por juego)</h2>
+            <p className="mb-3 text-sm text-tinta/60">
+              Sube con dos partidas seguidas ≥ 85 % de acierto a la primera; baja con dos seguidas &lt; 60 %. Puedes
+              fijarlo a mano. La carrera no se adapta: es la medida de las palabras correctas por minuto.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[560px] text-left">
+                <thead className="text-sm text-tinta/60">
+                  <tr>
+                    <th className="py-2">Juego</th>
+                    <th className="py-2">Escalón</th>
+                    <th className="py-2">Último cambio</th>
+                    <th className="py-2">Modo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {JUEGOS_ADAPTABLES.map((juego) => {
+                    const r = m.retos[juego];
+                    const escalon = r?.escalon ?? ESCALON_INICIAL;
+                    const ultimo = r?.cambios[r.cambios.length - 1];
+                    return (
+                      <tr key={juego} className="border-t border-arena">
+                        <td className="py-2 font-bold">{NOMBRE_JUEGO[juego]}</td>
+                        <td>
+                          <span className="flex gap-1" aria-label={`escalón ${escalon} de 5`}>
+                            {[1, 2, 3, 4, 5].map((n) => (
+                              <span key={n} className={`block h-4 w-6 rounded ${n <= escalon ? 'bg-[#008a7c]' : 'bg-crema'}`} />
+                            ))}
+                            <span className="ml-2 font-bold">{escalon}</span>
+                          </span>
+                        </td>
+                        <td className="text-sm text-tinta/70">
+                          {ultimo
+                            ? `${ultimo.a > ultimo.de ? '▲ subió' : '▼ bajó'} a ${ultimo.a} el ${ultimo.fecha.toLocaleDateString('es-ES')}`
+                            : r?.fijo
+                              ? `automático sería ${r.automatico}`
+                              : '—'}
+                        </td>
+                        <td>
+                          <select
+                            className="min-h-10 rounded-lg border-2 border-arena bg-white px-2"
+                            value={r?.fijo ? String(r.escalon) : 'auto'}
+                            onChange={(e) => void fijarReto(juego, e.target.value)}
+                          >
+                            <option value="auto">Automático</option>
+                            {[1, 2, 3, 4, 5].map((n) => (
+                              <option key={n} value={n}>
+                                Fijo en {n}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
           {/* Mapa de calor */}
           <section className={estilos.tarjeta}>
